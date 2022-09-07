@@ -241,9 +241,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrusterPower: 75
   thrusterSpeed: 10
-  dash: 100
+  dashPower: 50
+  dashDrag: 3
   movementSmooth: 0
   brakeStrengthInverse: 100
+  smoothDash: 0.2
 --- !u!114 &1576910647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +287,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 14bdcc7a-3bc5-4ae8-9d09-7f8e91f5d0cd
     m_ActionName: Player/Brake[/DualShock4GamepadHID/leftTrigger,/XInputControllerWindows/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c54e00a4-4fd8-490b-aea8-4d5164b31bb3
+    m_ActionName: Player/Dash[/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
