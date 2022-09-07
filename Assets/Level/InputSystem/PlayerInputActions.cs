@@ -135,8 +135,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""282693d1-ef15-414e-ad6a-e9ba526d3caf"",
-                    ""path"": ""<Pointer>/delta"",
+                    ""id"": ""c3f8d2e6-c34f-4758-9968-50840df0c89c"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
@@ -151,17 +151,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Thrusters"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a5719727-ee6d-4d00-94dd-31c0cb3dc26b"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Thrusters"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

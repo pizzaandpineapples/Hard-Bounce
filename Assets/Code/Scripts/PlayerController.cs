@@ -58,11 +58,11 @@ public class PlayerController : MonoBehaviour
             RotateAim(currentInputVectorRotate.normalized);
         }
         // Only moves when thrusters are activated.
-        if (playerInputActions.Player.Thrusters.IsPressed())
-        {
-            PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
-        }
-        
+        //if (playerInputActions.Player.Thrusters.IsPressed())
+        //{
+        //    PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
+        //}
+        PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
 
         #endregion
 
