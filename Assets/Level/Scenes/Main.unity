@@ -159,7 +159,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 0.7529412, b: 0.68235296, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -240,10 +240,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrusterPower: 75
-  currentThrusterPower: 0
   thrusterSpeed: 10
+  dash: 100
   movementSmooth: 0
-  brakeStrength: 100
+  brakeStrengthInverse: 100
 --- !u!114 &1576910647
 MonoBehaviour:
   m_ObjectHideFlags: 0

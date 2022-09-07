@@ -7,10 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     // Spaceship properties
     [SerializeField] private float thrusterPower;
-    [SerializeField] private float currentThrusterPower;
+    private float currentThrusterPower;
     [SerializeField] private float thrusterSpeed;
-    [SerializeField] private float currentThrusterSpeed;
-    //[SerializeField] private float regularSpeed;
+    private float currentThrusterSpeed;
+    [SerializeField] private float dash;
 
     // Movement Smoothdamp
     private Vector2 currentInputVectorMovement;
@@ -54,9 +54,9 @@ public class PlayerController : MonoBehaviour
         thrusterSpeed = currentThrusterSpeed;
 
         #region Movement and Rotation
-        // Left stick or WASD to move.
+        // Left stick or WASD keys to move.
         // Right stick or mouse to rotate/aim.
-        // R2 to activate thrusters.
+        // HOLD R2 or shift keys to activate thrusters.
 
         Vector2 inputVectorMovement = playerInputActions.Player.Movement.ReadValue<Vector2>();
         /* maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Brake
-        // L2 to activate brakes
+        // HOLD L2 or B key to activate brakes
 
         /* Let's not call it brake. This can be used for smaller more precise movements. */
 
@@ -97,9 +97,13 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-        #region Dash/Dodge
+        #region Dash
+        // Tap [X] or shift keys to dash.
 
-
+        if (playerInputActions.Player.Dash.IsPressed())
+        {
+            PlayeRigidbody2D.AddForce(currentInputVectorMovement * dash * Time.deltaTime, ForceMode2D.Impulse);
+        }
 
         #endregion
     }
