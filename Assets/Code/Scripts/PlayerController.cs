@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     // Spaceship properties
     [SerializeField] private float thrusterPower;
+    [SerializeField] private float currentThrusterPower;
     [SerializeField] private float thrusterSpeed;
-    [SerializeField] private float regularSpeed;
+    [SerializeField] private float currentThrusterSpeed;
+    //[SerializeField] private float regularSpeed;
 
     // Movement Smoothdamp
     private Vector2 currentInputVectorMovement;
@@ -22,7 +24,7 @@ public class PlayerController : MonoBehaviour
     */
 
     // Brake Smoothdamp
-    [SerializeField] private float brakeStrength;
+    [SerializeField] private float brakeStrengthInverse; // Strength decreases as field value increases. 100 is preferred.
 
 
     private Rigidbody2D PlayeRigidbody2D;
@@ -40,11 +42,17 @@ public class PlayerController : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         // playerInputActions.Player.Movement.performed += MovementOnPerformed; // No longer need because we aren't calling this method anymore. It has been moved to the FixedUpdate() method.
+
+        currentThrusterPower = thrusterPower;
+        currentThrusterSpeed = thrusterSpeed;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        thrusterPower = currentThrusterPower;
+        thrusterSpeed = currentThrusterSpeed;
+
         #region Movement and Rotation
         // Left stick or WASD to move.
         // Right stick or mouse to rotate/aim.
@@ -75,15 +83,25 @@ public class PlayerController : MonoBehaviour
         #region Brake
         // L2 to activate brakes
 
+        /* Let's not call it brake. This can be used for smaller more precise movements. */
+
         if (playerInputActions.Player.Brake.IsPressed())
         {
-            //PlayeRigidbody2D.velocity = Vector2.zero;
-            PlayeRigidbody2D.velocity = Vector2.SmoothDamp(PlayeRigidbody2D.velocity, Vector2.zero, ref smoothInputVelocity, (brakeStrength / 1000));
+            thrusterPower = 0;
+            thrusterSpeed = 0;
+
+            // PlayeRigidbody2D.velocity = Vector2.zero;
+            // Damping to zero. No hard brakes.
+            PlayeRigidbody2D.velocity = Vector2.SmoothDamp(PlayeRigidbody2D.velocity, Vector2.zero, ref smoothInputVelocity, (brakeStrengthInverse / 1000));
             PlayeRigidbody2D.angularVelocity = 0;
         }
         #endregion
 
+        #region Dash/Dodge
 
+
+
+        #endregion
     }
 
     // To rotate the player.

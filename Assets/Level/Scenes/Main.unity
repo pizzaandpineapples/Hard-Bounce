@@ -240,8 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrusterPower: 75
+  currentThrusterPower: 0
   thrusterSpeed: 10
-  regularSpeed: 5
   movementSmooth: 0
   brakeStrength: 100
 --- !u!114 &1576910647
@@ -281,6 +281,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 054c8fa2-0210-44d9-b346-7ee311fc7b08
     m_ActionName: Player/Thrusters[/DualShock4GamepadHID/rightTrigger,/XInputControllerWindows/rightTrigger,/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 14bdcc7a-3bc5-4ae8-9d09-7f8e91f5d0cd
+    m_ActionName: Player/Brake[/DualShock4GamepadHID/leftTrigger,/XInputControllerWindows/leftTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
