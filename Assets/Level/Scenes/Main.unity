@@ -242,7 +242,8 @@ MonoBehaviour:
   thrusterPower: 75
   thrusterSpeed: 10
   regularSpeed: 5
-  inputSpeedMovement: 0.1
+  movementSmooth: 0
+  brakeStrength: 100
 --- !u!114 &1576910647
 MonoBehaviour:
   m_ObjectHideFlags: 0

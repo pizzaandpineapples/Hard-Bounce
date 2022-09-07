@@ -13,13 +13,18 @@ public class PlayerController : MonoBehaviour
     // Movement Smoothdamp
     private Vector2 currentInputVectorMovement;
     private Vector2 smoothInputVelocity;
-    [SerializeField] private float inputSpeedMovement;
+    [SerializeField] private float movementSmooth;
 
-    //// Rotate Smoothdamp
-    //private Vector2 currentInputVectorRotate;
-    //[SerializeField] private float inputSpeedRotate;
+    /*
+    // Rotate Smoothdamp
+    private Vector2 currentInputVectorRotate;
+    [SerializeField] private float rotateSmooth;
+    */
 
-    // 
+    // Brake Smoothdamp
+    [SerializeField] private float brakeStrength;
+
+
     private Rigidbody2D PlayeRigidbody2D;
     private PlayerInput PlayerInput;
     private PlayerInputActions playerInputActions;
@@ -40,15 +45,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        #region PlayerMovement
+        #region Movement and Rotation
+        // Left stick or WASD to move.
+        // Right stick or mouse to rotate/aim.
+        // R2 to activate thrusters.
 
         Vector2 inputVectorMovement = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        // maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
-        // currentVelocity -> ref smoothInputVelocity. We don't need the current velocity, but we need to pass it.
-        currentInputVectorMovement = Vector2.SmoothDamp(currentInputVectorMovement, inputVectorMovement, ref smoothInputVelocity, inputSpeedMovement);
+        /* maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
+         * currentVelocity -> ref smoothInputVelocity. We don't need the current velocity, but we need to pass it. */
+        currentInputVectorMovement = Vector2.SmoothDamp(currentInputVectorMovement, inputVectorMovement, ref smoothInputVelocity, movementSmooth);
 
         Vector2 inputVectorRotate = playerInputActions.Player.Look.ReadValue<Vector2>();
-        //currentInputVectorRotate = Vector2.SmoothDamp(currentInputVectorRotate, inputVectorRotate, ref smoothInputVelocity, inputSpeedRotate);
+        // currentInputVectorRotate = Vector2.SmoothDamp(currentInputVectorRotate, inputVectorRotate, ref smoothInputVelocity, rotateSmooth); 
+        /* For some reason the I can't pass the Rotate Smoothdamp into the Rotate aim method.
+         * All the inputs get combined. Left and right stick, both move and rotate the player. */
 
         // Will stay in last rotated position.
         if (inputVectorRotate != Vector2.zero)
@@ -60,10 +70,23 @@ public class PlayerController : MonoBehaviour
         {
             PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
         }
-        // PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
-
         #endregion
+
+        #region Brake
+        // L2 to activate brakes
+
+        if (playerInputActions.Player.Brake.IsPressed())
+        {
+            //PlayeRigidbody2D.velocity = Vector2.zero;
+            PlayeRigidbody2D.velocity = Vector2.SmoothDamp(PlayeRigidbody2D.velocity, Vector2.zero, ref smoothInputVelocity, (brakeStrength / 1000));
+            PlayeRigidbody2D.angularVelocity = 0;
+        }
+        #endregion
+
+
     }
+
+    // To rotate the player.
     public void RotateAim(Vector2 direction)
     {
         // Vertical and horizontal axes were flipped. Not sure why?
