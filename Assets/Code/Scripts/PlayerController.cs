@@ -17,9 +17,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashPower;
     [SerializeField] private float dashDrag;
     private float currentDrag;
+    private bool isthrusterOnDuringDash = false;
 
     #endregion
-
 
     #region Smoothdamp
 
@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        isthrusterOnDuringDash = false;
+
         #region Movement and Rotation
         // Left stick or WASD keys to move.
         // Right stick or mouse to rotate/aim.
@@ -91,6 +93,7 @@ public class PlayerController : MonoBehaviour
         //Only moves when thrusters are activated.
         if (playerInputActions.Player.Thrusters.IsPressed())
         {
+            isthrusterOnDuringDash = true;
             // PlayeRigidbody2D.drag = currentDrag; // Forces drag back to normal if you are using thrusters immediately after dashing.
             PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
         }
@@ -104,25 +107,44 @@ public class PlayerController : MonoBehaviour
 
         if (playerInputActions.Player.Brake.IsPressed())
         {
-            OnBrake();
+            OnBrake(brakeStrengthInverse);
         }
         #endregion
 
         #region Dash
         // Tap [X] or shift keys to dash.
 
+        if (playerInputActions.Player.Dash.IsPressed())
+        {
+            // Basic dash
+            if (!isthrusterOnDuringDash)
+            {
+                playerInputActions.Player.Dash.Disable();
+                StartCoroutine(DashCoroutine(0));
+            }
+            else // Thruster dash
+            {
+                playerInputActions.Player.Dash.Disable();
+                StartCoroutine(DashCoroutine(brakeStrengthInverse));
+            }
+        }
+
+        /* OLD DASH SYSTEM.
+         * Triggered both actions when using a Modifier Composite.
+         * Triggered both actions even if I used separated binding combos.
+         *
         // Basic dash
         if (playerInputActions.Player.Dash.IsPressed())
         {
             playerInputActions.Player.Dash.Disable();
-            StartCoroutine(BasicDashCoroutine());
+            StartCoroutine(BasicDashCoroutine(0));
         }
         // Thruster dash
         else if (playerInputActions.Player.Dash.IsPressed() && playerInputActions.Player.Thrusters.IsPressed())
         {
             playerInputActions.Player.Dash.Disable();
-            StartCoroutine(ThrusterDashCoroutine());
-        }
+            StartCoroutine(BasicDashCoroutine(brakeStrengthInverse));
+        } */
         #endregion
     }
 
@@ -137,34 +159,32 @@ public class PlayerController : MonoBehaviour
     }
 
     // To brake the ship.
-    public void OnBrake()
+    public void OnBrake(float smoothTime)
     {
         thrusterPower = 0;
         thrusterSpeed = 0;
 
-        // PlayeRigidbody2D.velocity = Vector2.zero;
         // Damping to zero. No hard brakes.
-        PlayeRigidbody2D.velocity = Vector2.SmoothDamp(PlayeRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (brakeStrengthInverse / 1000));
+        PlayeRigidbody2D.velocity = Vector2.SmoothDamp(PlayeRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
         PlayeRigidbody2D.angularVelocity = 0;
 
         thrusterPower = currentThrusterPower;
         thrusterSpeed = currentThrusterSpeed;
     }
 
-    // To perform basic dash.
-    IEnumerator BasicDashCoroutine()
+    // To perform a dash.
+    IEnumerator DashCoroutine(float smoothTime)
     {
         PlayeRigidbody2D.drag = dashDrag;
         PlayeRigidbody2D.AddForce(currentInputVectorMovement * (dashPower * 10) * Time.deltaTime, ForceMode2D.Impulse);
         yield return new WaitForSeconds(dashLimit);
-        
-        // TODO: After basic dash, ship is not coming to a stop.
-        // Debug.Log($"Calling Brake");
-        OnBrake();
-
+        OnBrake(smoothTime);
         PlayeRigidbody2D.drag = currentDrag;
         playerInputActions.Player.Dash.Enable();
     }
+
+    /* Old thruster dash coroutine. This is accomplished by the Dash Coroutine.
+     *
     // To perform thruster dash.
     IEnumerator ThrusterDashCoroutine()
     {
@@ -174,7 +194,7 @@ public class PlayerController : MonoBehaviour
         PlayeRigidbody2D.drag = Mathf.SmoothDamp(dashDrag, currentDrag, ref smoothVelocityDash, smoothDash);
         playerInputActions.Player.Dash.Enable();
     }
-
+    */
 
     /* This method is moved into the FixedUpdate() method.
      * This allows continuous movement with a keypress.
