@@ -32,7 +32,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""fbcbbd52-1394-4535-92dd-fabd270140a9"",
                     ""expectedControlType"": ""Stick"",
-                    ""processors"": ""InvertVector2(invertX=false,invertY=false)"",
+                    ""processors"": ""InvertVector2(invertY=false)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
