@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "fbcbbd52-1394-4535-92dd-fabd270140a9",
                     "expectedControlType": "Stick",
-                    "processors": "",
+                    "processors": "InvertVector2(invertX=false,invertY=false)",
                     "interactions": "",
                     "initialStateCheck": true
                 },

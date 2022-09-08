@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
         {
             isthrusterOnDuringDash = true;
             // PlayeRigidbody2D.drag = currentDrag; // Forces drag back to normal if you are using thrusters immediately after dashing.
+            // PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
             PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
         }
         #endregion
