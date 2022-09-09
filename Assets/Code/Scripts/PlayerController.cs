@@ -11,7 +11,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
 {
-    #region Spaceship Properties
+    #region Spaceship
     // Input Vectors
     private Vector2 inputVectorMovement;
     private Vector2 inputVectorRotate;
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D PlayeRigidbody2D;
     private PlayerInput PlayerInput;
-    private PlayerInputActions playerInputActions;
+    private PlayerControls playerControls;
 
     // Start is called before the first frame update
     void Awake()
@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
 
         // Enables the PlayerInputActions input action asset.
         // Subscribes a method to the Movement action in the Player action map.
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
+        playerControls = new PlayerControls();
+        playerControls.Player.Enable();
 
         // playerInputActions.Player.Movement.performed += MovementOnPerformed; // No longer need because we aren't calling this method anymore. It has been moved to the FixedUpdate() method.
         // playerInputActions.Player.Thrusters.canceled += ThrustersOnCanceled; // Another way of implementing Input.GetKeyUp.
@@ -82,16 +82,16 @@ public class PlayerController : MonoBehaviour
     {
         isthrusterOnDuringDash = false;
 
-        #region Movement and Rotation
+        #region Movement & Rotation of ship
         // Left stick or WASD keys to move.
         // HOLD R2 or shift keys to activate thrusters.
 
-        inputVectorMovement = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        inputVectorMovement = playerControls.Player.Movement.ReadValue<Vector2>();
         /* maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
          * currentVelocity -> ref smoothInputVelocity. We don't need the current velocity, but we need to pass it. */
         currentInputVectorMovement = Vector2.SmoothDamp(currentInputVectorMovement, inputVectorMovement, ref smoothVelocity, movementSmooth);
 
-        inputVectorRotate = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        inputVectorRotate = playerControls.Player.Movement.ReadValue<Vector2>();
         // currentInputVectorRotate = Vector2.SmoothDamp(currentInputVectorRotate, inputVectorRotate, ref smoothInputVelocity, rotateSmooth); 
         /* For some reason the I can't pass the Rotate Smoothdamp into the Rotate aim method.
          * All the inputs get combined. Left and right stick, both move and rotate the player. */
@@ -99,10 +99,10 @@ public class PlayerController : MonoBehaviour
         // Will stay in last rotated position.
         if (inputVectorRotate != Vector2.zero)
         {
-            RotateAim(inputVectorRotate.normalized);
+            RotateShip(inputVectorRotate.normalized);
         }
         // Only moves when thrusters are activated.
-        if (playerInputActions.Player.Thrusters.IsPressed())
+        if (playerControls.Player.Thrusters.IsPressed())
         {
             isThrusterReleased = false;
             isthrusterOnDuringDash = true;
@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         /* Let's not call it brake. This can be used for smaller more precise movements.
          * HOLD L2 and R2 for precision aim */
 
-        if (playerInputActions.Player.Brake.IsPressed())
+        if (playerControls.Player.Brake.IsPressed())
         {
             OnBrake(brakeStrengthInverse);
         }
@@ -138,22 +138,22 @@ public class PlayerController : MonoBehaviour
         #region Dash
         // Tap [X] or shift keys to dash.
 
-        if (playerInputActions.Player.Dash.IsPressed())
+        if (playerControls.Player.Dash.IsPressed())
         {
             // Basic dash
             if (!isthrusterOnDuringDash)
             {
-                playerInputActions.Player.Dash.Disable();
+                playerControls.Player.Dash.Disable();
                 StartCoroutine(DashCoroutine(0));
             }
             else if (isthrusterOnDuringDash) // Thruster dash
             {
-                playerInputActions.Player.Dash.Disable();
+                playerControls.Player.Dash.Disable();
                 StartCoroutine(DashCoroutine(brakeStrengthInverse));
             }
             else if (!isthrusterOnDuringDash && isThrusterReleased) // Drift dash
             {
-                
+                // TODO
             }
         }
 
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
         #region Check if thruster is released
         // R2 is released.
 
-        if (playerInputActions.Player.Thrusters.WasReleasedThisFrame())
+        if (playerControls.Player.Thrusters.WasReleasedThisFrame())
         {
             Debug.Log("Thruster is released");
             isThrusterReleased = true;
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // To rotate the player.
-    void RotateAim(Vector2 direction)
+    void RotateShip(Vector2 direction)
     {
         // Vertical and horizontal axes were flipped. Not sure why?
         // I had to reverse the x and y for this to work somewhat correctly.
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
         // All coroutines get stopped mid way, so this means, some values must be reset.
         // Resets these values so that the player doesn't become slow and dash can be used again.
         PlayeRigidbody2D.drag = currentDrag;
-        playerInputActions.Player.Dash.Enable();
+        playerControls.Player.Dash.Enable();
 
         isThrusterReleased = false;
         Debug.Log("Exits coroutine");
@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashLimit);
         OnBrake(smoothTime);
         PlayeRigidbody2D.drag = currentDrag;
-        playerInputActions.Player.Dash.Enable();
+        playerControls.Player.Dash.Enable();
     }
 
 
@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour
         PlayeRigidbody2D.AddForce(currentInputVectorMovement * (dashPower / 50000) * Time.deltaTime, ForceMode2D.Impulse);
         yield return new WaitForSeconds(dashLimit);
         PlayeRigidbody2D.drag = Mathf.SmoothDamp(dashDrag, currentDrag, ref smoothVelocityDash, smoothDash);
-        playerInputActions.Player.Dash.Enable();
+        playerControls.Player.Dash.Enable();
     }
     */
     /* This method is moved into the FixedUpdate() method.
@@ -272,7 +272,7 @@ public class PlayerController : MonoBehaviour
     private void MovementOnPerformed(InputAction.CallbackContext context)
     {
         Debug.Log(context);
-        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
         currentInputVector = Vector2.SmoothDamp(currentInputVector, inputVector, ref smoothInputVelocity, inputSpeed); // maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
 
         PlayeRigidbody2D.AddForce(currentInputVector * thrusterPower * speed * Time.deltaTime);
