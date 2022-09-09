@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
         inputVectorRotate = playerControls.Player.Movement.ReadValue<Vector2>();
         // currentInputVectorRotate = Vector2.SmoothDamp(currentInputVectorRotate, inputVectorRotate, ref smoothInputVelocity, rotateSmooth); 
-        /* For some reason the I can't pass the Rotate Smoothdamp into the Rotate aim method.
+        /* For some reason I can't pass the Rotate Smoothdamp into the Rotate aim method.
          * All the inputs get combined. Left and right stick, both move and rotate the player. */
 
         // Will stay in last rotated position.
