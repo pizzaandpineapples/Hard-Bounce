@@ -13,6 +13,7 @@ public class PlayerAimWeapons : MonoBehaviour
 
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform projectileSpawnPosition; // A separate transform variable is used so that we can manually change the food spawn location as per our need.
+    [SerializeField] private GameObject reticle;
 
     [SerializeField] private float weaponSpeed;
     private float weaponSpeedTimer;
@@ -32,6 +33,8 @@ public class PlayerAimWeapons : MonoBehaviour
 
     void Update()
     {
+        reticle.SetActive(false);
+
         #region Aim
         // Right stick to aim.
 
@@ -44,6 +47,11 @@ public class PlayerAimWeapons : MonoBehaviour
         {
             RotateAim(currentInputVectorAim.normalized);
         }
+        if (playerControls.Player.Look.inProgress)
+        {
+            reticle.SetActive(true);
+        }
+
         #endregion
 
         #region Fire Weapon
