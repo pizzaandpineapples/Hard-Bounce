@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
     private PlayerInput PlayerInput;
     private PlayerControls playerControls;
 
-    // Start is called before the first frame update
     void Awake()
     {
         PlayeRigidbody2D = GetComponent<Rigidbody2D>();
@@ -71,7 +70,10 @@ public class PlayerController : MonoBehaviour
 
         // playerInputActions.Player.Movement.performed += MovementOnPerformed; // No longer need because we aren't calling this method anymore. It has been moved to the FixedUpdate() method.
         // playerInputActions.Player.Thrusters.canceled += ThrustersOnCanceled; // Another way of implementing Input.GetKeyUp.
+    }
 
+    void Start()
+    {
         currentThrusterPower = thrusterPower;
         currentThrusterSpeed = thrusterSpeed;
         currentDrag = PlayeRigidbody2D.drag;

@@ -11,37 +11,59 @@ public class PlayerAimWeapons : MonoBehaviour
     private Vector2 smoothInputVelocity;
     [SerializeField] private float aimSmooth;
 
-    public GameObject projectilePrefab;
-    public Transform projectileSpawnPosition; // A separate transform variable is used so that we can manually change the food spawn location as per our need.
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform projectileSpawnPosition; // A separate transform variable is used so that we can manually change the food spawn location as per our need.
+
+    [SerializeField] private float weaponSpeed;
+    private float weaponSpeedTimer;
 
     private PlayerControls playerControls;
 
-    // Start is called before the first frame update
     void Awake()
     {
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
     }
 
+    void Start()
+    {
+        weaponSpeedTimer = Time.time;
+    }
+
     void Update()
     {
-        // Right stick to aim and fire.
+        #region Aim
+        // Right stick to aim.
 
         // All the inputs get combined. Left and right stick, both move and rotate the player.
         inputVectorAim = playerControls.Player.Look.ReadValue<Vector2>();
-        currentInputVectorAim = Vector2.SmoothDamp(currentInputVectorAim, inputVectorAim, ref smoothInputVelocity, aimSmooth); 
+        currentInputVectorAim = Vector2.SmoothDamp(currentInputVectorAim, inputVectorAim, ref smoothInputVelocity, aimSmooth);
 
         // Will stay in last rotated position.
         if (currentInputVectorAim != Vector2.zero)
         {
             RotateAim(currentInputVectorAim.normalized);
         }
+        #endregion
 
-        // Fire when the Right stick is moved.
-        if (playerControls.Player.Look.inProgress)
+        #region Fire Weapon
+        // Right stick to fire in direction of aim.
+
+        weaponSpeedTimer += Time.deltaTime;
+        // Debug.Log(weaponTimer);
+        if (weaponSpeedTimer >= weaponSpeed)
         {
-            Instantiate(projectilePrefab, projectileSpawnPosition.position, transform.rotation);
+            // Fire when the Right stick is moved.
+            if (playerControls.Player.Look.inProgress)
+            {
+                // Uses the transforms rotation to make the ammo rotate in the direction the player is aiming.
+                Instantiate(projectilePrefab, projectileSpawnPosition.position, transform.rotation); 
+                // Debug.Log(weaponTimer);
+                weaponSpeedTimer = 0;
+            }
         }
+        #endregion
+
     }
 
     void RotateAim(Vector2 direction)
