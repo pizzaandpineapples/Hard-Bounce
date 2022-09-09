@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (!isthrusterOnDuringDash && isThrusterReleased) // Drift dash
             {
-                // TODO
+                // TODO - Make dash work with drifting
             }
         }
 
@@ -229,6 +229,8 @@ public class PlayerController : MonoBehaviour
         // Damping to zero. No hard brakes.
         PlayeRigidbody2D.velocity = Vector2.SmoothDamp(PlayeRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
         PlayeRigidbody2D.angularVelocity = 0;
+
+        // TODO - Make brake work with drifting.
 
         thrusterPower = currentThrusterPower;
         thrusterSpeed = currentThrusterSpeed;
