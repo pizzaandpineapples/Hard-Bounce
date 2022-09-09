@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     private bool isthrusterOnDuringDash = false;
     // Drift
     [SerializeField] private float driftPower;
-
     #endregion
 
     #region Smoothdamp
@@ -69,8 +68,9 @@ public class PlayerController : MonoBehaviour
         // Subscribes a method to the Movement action in the Player action map.
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
+
         // playerInputActions.Player.Movement.performed += MovementOnPerformed; // No longer need because we aren't calling this method anymore. It has been moved to the FixedUpdate() method.
-        playerInputActions.Player.Thrusters.canceled += ThrustersOnCanceled; 
+        // playerInputActions.Player.Thrusters.canceled += ThrustersOnCanceled; // Another way of implementing Input.GetKeyUp.
 
         currentThrusterPower = thrusterPower;
         currentThrusterSpeed = thrusterSpeed;
@@ -104,18 +104,18 @@ public class PlayerController : MonoBehaviour
         // Only moves when thrusters are activated.
         if (playerInputActions.Player.Thrusters.IsPressed())
         {
-            StopCoroutine(DriftCoroutine());
-
             isThrusterReleased = false;
             isthrusterOnDuringDash = true;
 
             // PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
             PlayeRigidbody2D.AddForce(transform.up.normalized * thrusterPower * thrusterSpeed * Time.deltaTime);
         }
+        else
         #endregion
 
         #region Drift
         // R2 is released.
+        // Control movement for a while without thrusters. Then you are stuck on that path until you turn on thrusters or brake.
 
         if (isThrusterReleased)
         {
@@ -146,10 +146,14 @@ public class PlayerController : MonoBehaviour
                 playerInputActions.Player.Dash.Disable();
                 StartCoroutine(DashCoroutine(0));
             }
-            else // Thruster dash
+            else if (isthrusterOnDuringDash) // Thruster dash
             {
                 playerInputActions.Player.Dash.Disable();
                 StartCoroutine(DashCoroutine(brakeStrengthInverse));
+            }
+            else if (!isthrusterOnDuringDash && isThrusterReleased) // Drift dash
+            {
+                
             }
         }
 
@@ -172,6 +176,19 @@ public class PlayerController : MonoBehaviour
         #endregion
     }
 
+    void Update()
+    {
+        #region Check if thruster is released
+        // R2 is released.
+
+        if (playerInputActions.Player.Thrusters.WasReleasedThisFrame())
+        {
+            Debug.Log("Thruster is released");
+            isThrusterReleased = true;
+        }
+        #endregion
+    }
+
     // To rotate the player.
     void RotateAim(Vector2 direction)
     {
@@ -182,22 +199,22 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    // Checks when the thruster button is released.
-    private void ThrustersOnCanceled(InputAction.CallbackContext obj)
-    {
-        Debug.Log("Thruster was released.");
-        isThrusterReleased = true;
-    }
-
     // To maintain drift while thruster is released.
     IEnumerator DriftCoroutine()
     {
         Debug.Log("Enters coroutine");
 
         PlayeRigidbody2D.AddForce(transform.up.normalized * driftPower * Time.deltaTime);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
+
+        StopAllCoroutines();
+
+        // All coroutines get stopped mid way, so this means, some values must be reset.
+        // Resets these values so that the player doesn't become slow and dash can be used again.
+        PlayeRigidbody2D.drag = currentDrag;
+        playerInputActions.Player.Dash.Enable();
+
         isThrusterReleased = false;
-        
         Debug.Log("Exits coroutine");
     }
 
@@ -226,6 +243,18 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.Dash.Enable();
     }
 
+
+
+
+
+    /* Input.GetKeyUp implementation of releasing thrusters.
+     * Checks when the thruster button is released.
+    private void ThrustersOnCanceled(InputAction.CallbackContext obj)
+    {
+        Debug.Log("Thruster was released.");
+        isThrusterReleased = true;
+    }
+    */
     /* Old thruster dash coroutine. This is accomplished by the Dash Coroutine.
      *
     // To perform thruster dash.
@@ -238,7 +267,6 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.Dash.Enable();
     }
     */
-
     /* This method is moved into the FixedUpdate() method.
      * This allows continuous movement with a keypress.
     private void MovementOnPerformed(InputAction.CallbackContext context)
