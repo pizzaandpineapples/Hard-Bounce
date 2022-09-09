@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAim : MonoBehaviour
+public class PlayerAimWeapons : MonoBehaviour
 {
     private Vector2 inputVectorAim;
     private Vector2 currentInputVectorAim;
 
     private Vector2 smoothInputVelocity;
     [SerializeField] private float aimSmooth;
+
+    public GameObject projectilePrefab;
+    public Transform projectileSpawnPosition; // A separate transform variable is used so that we can manually change the food spawn location as per our need.
 
     private PlayerControls playerControls;
 
@@ -18,19 +21,26 @@ public class PlayerAim : MonoBehaviour
     {
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
-        }
+    }
 
-    void FixedUpdate()
+    void Update()
     {
-        inputVectorAim = playerControls.Player.Look.ReadValue<Vector2>();
-        // All the inputs get combined. Left and right stick, both move and rotate the player.
+        // Right stick to aim and fire.
 
+        // All the inputs get combined. Left and right stick, both move and rotate the player.
+        inputVectorAim = playerControls.Player.Look.ReadValue<Vector2>();
         currentInputVectorAim = Vector2.SmoothDamp(currentInputVectorAim, inputVectorAim, ref smoothInputVelocity, aimSmooth); 
 
         // Will stay in last rotated position.
         if (currentInputVectorAim != Vector2.zero)
         {
             RotateAim(currentInputVectorAim.normalized);
+        }
+
+        // Fire when the Right stick is moved.
+        if (playerControls.Player.Look.inProgress)
+        {
+            Instantiate(projectilePrefab, projectileSpawnPosition.position, transform.rotation);
         }
     }
 
