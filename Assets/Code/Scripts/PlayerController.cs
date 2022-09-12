@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool isthrusterOnDuringDash = false;
     // Drift
     [SerializeField] private float driftPower;
+    [SerializeField] private float driftTime;
     #endregion
 
     #region Smoothdamp
@@ -152,7 +153,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (!isthrusterOnDuringDash && isThrusterReleased) // Drift dash
             {
-                // TODO - Make dash work with drifting
+                // DashReset(); // Drift dashing this way feels unnatural.
             }
         }
 
@@ -204,21 +205,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Enters coroutine");
 
         PlayerRigidbody2D.AddForce(transform.up.normalized * driftPower * Time.deltaTime);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(driftTime);
 
-        StopAllCoroutines();
-
-        // All coroutines get stopped mid way, so this means, some values must be reset.
-        // Resets these values so that the player doesn't become slow and dash can be used again.
-        PlayerRigidbody2D.drag = currentDrag;
-        playerControls.Player.Dash.Enable();
-
-        isThrusterReleased = false;
-        Debug.Log("Exits coroutine");
+        DashReset();
     }
 
     // To brake the ship.
-    public void OnBrake(float smoothTime)
+    void OnBrake(float smoothTime)
     {
         thrusterPower = 0;
         thrusterSpeed = 0;
@@ -227,10 +220,10 @@ public class PlayerController : MonoBehaviour
         PlayerRigidbody2D.velocity = Vector2.SmoothDamp(PlayerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
         PlayerRigidbody2D.angularVelocity = 0;
 
-        // TODO - Make brake work with drifting.
-
         thrusterPower = currentThrusterPower;
         thrusterSpeed = currentThrusterSpeed;
+
+        DashReset();
     }
 
     // To perform a dash.
@@ -244,6 +237,23 @@ public class PlayerController : MonoBehaviour
         playerControls.Player.Dash.Enable();
     }
 
+    // To reset some variables related to Dash.
+    void DashReset()
+    {
+        // Need to stop all coroutines, for drifting to not glitch out.
+        // Definitely not the right approach. Works for now.
+        // This method is called whenever interfacing with the drift mechanic.
+
+        // All coroutines stop mid way, so this means, some values must be reset.
+        // Resets these values (Values related to dash) so that the player doesn't become slow and dash can be used again.
+
+        StopAllCoroutines();
+
+        PlayerRigidbody2D.drag = currentDrag;
+        playerControls.Player.Dash.Enable();
+
+        isThrusterReleased = false;
+    }
 
 
 
