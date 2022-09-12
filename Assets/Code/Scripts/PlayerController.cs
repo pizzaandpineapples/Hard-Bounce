@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
@@ -54,13 +51,13 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    private Rigidbody2D PlayeRigidbody2D;
+    private Rigidbody2D PlayerRigidbody2D;
     private PlayerInput PlayerInput;
     private PlayerControls playerControls;
 
     void Awake()
     {
-        PlayeRigidbody2D = GetComponent<Rigidbody2D>();
+        PlayerRigidbody2D = GetComponent<Rigidbody2D>();
         PlayerInput = GetComponent<PlayerInput>();
 
         // Enables the PlayerInputActions input action asset.
@@ -76,7 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         currentThrusterPower = thrusterPower;
         currentThrusterSpeed = thrusterSpeed;
-        currentDrag = PlayeRigidbody2D.drag;
+        currentDrag = PlayerRigidbody2D.drag;
     }
 
     // Update is called once per frame
@@ -110,7 +107,7 @@ public class PlayerController : MonoBehaviour
             isthrusterOnDuringDash = true;
 
             // PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
-            PlayeRigidbody2D.AddForce(transform.up.normalized * thrusterPower * thrusterSpeed * Time.deltaTime);
+            PlayerRigidbody2D.AddForce(transform.up.normalized * thrusterPower * thrusterSpeed * Time.deltaTime);
         }
         else
         #endregion
@@ -206,14 +203,14 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Enters coroutine");
 
-        PlayeRigidbody2D.AddForce(transform.up.normalized * driftPower * Time.deltaTime);
+        PlayerRigidbody2D.AddForce(transform.up.normalized * driftPower * Time.deltaTime);
         yield return new WaitForSeconds(3);
 
         StopAllCoroutines();
 
         // All coroutines get stopped mid way, so this means, some values must be reset.
         // Resets these values so that the player doesn't become slow and dash can be used again.
-        PlayeRigidbody2D.drag = currentDrag;
+        PlayerRigidbody2D.drag = currentDrag;
         playerControls.Player.Dash.Enable();
 
         isThrusterReleased = false;
@@ -227,8 +224,8 @@ public class PlayerController : MonoBehaviour
         thrusterSpeed = 0;
 
         // Damping to zero. No hard brakes.
-        PlayeRigidbody2D.velocity = Vector2.SmoothDamp(PlayeRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
-        PlayeRigidbody2D.angularVelocity = 0;
+        PlayerRigidbody2D.velocity = Vector2.SmoothDamp(PlayerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
+        PlayerRigidbody2D.angularVelocity = 0;
 
         // TODO - Make brake work with drifting.
 
@@ -239,11 +236,11 @@ public class PlayerController : MonoBehaviour
     // To perform a dash.
     IEnumerator DashCoroutine(float smoothTime)
     {
-        PlayeRigidbody2D.drag = dashDrag;
-        PlayeRigidbody2D.AddForce(transform.up.normalized * (dashPower * 10) * Time.deltaTime, ForceMode2D.Impulse);
+        PlayerRigidbody2D.drag = dashDrag;
+        PlayerRigidbody2D.AddForce(transform.up.normalized * (dashPower * 10) * Time.deltaTime, ForceMode2D.Impulse);
         yield return new WaitForSeconds(dashLimit);
         OnBrake(smoothTime);
-        PlayeRigidbody2D.drag = currentDrag;
+        PlayerRigidbody2D.drag = currentDrag;
         playerControls.Player.Dash.Enable();
     }
 
