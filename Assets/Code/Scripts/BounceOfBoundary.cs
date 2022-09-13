@@ -24,6 +24,7 @@ public class BounceOfBoundary : MonoBehaviour
         var speed = lastVelocity.magnitude;
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
+        if (collision.gameObject.tag == "Boundary")
         PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
     }
 }

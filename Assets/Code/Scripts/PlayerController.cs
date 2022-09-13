@@ -125,14 +125,26 @@ public class PlayerController : MonoBehaviour
 
         #region Brake
         // HOLD L2 or B key to activate brakes
-
         /* Let's not call it brake. This can be used for smaller more precise movements.
          * HOLD L2 and R2 for precision aim */
 
+        // Hold [O] or V key to activate hard-brakes.
+        // Stops ship immediately. Simulates car hand brake.
+
         if (playerControls.Player.Brake.IsPressed())
         {
-            OnBrake(brakeStrengthInverse);
+            OnBrake(brakeStrengthInverse, false);
         }
+        if (playerControls.Player.Hardbrake.IsPressed())
+        {
+            // TODO 
+
+            OnBrake(brakeStrengthInverse, true);
+            playerControls.Player.Thrusters.Disable();
+        }
+
+        playerControls.Player.Thrusters.Enable();
+        
         #endregion
 
         #region Dash
@@ -211,7 +223,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // To brake the ship.
-    void OnBrake(float smoothTime)
+    void OnBrake(float smoothTime, bool brakeType)
     {
         thrusterPower = 0;
         thrusterSpeed = 0;
@@ -223,7 +235,10 @@ public class PlayerController : MonoBehaviour
         thrusterPower = currentThrusterPower;
         thrusterSpeed = currentThrusterSpeed;
 
-        DashReset();
+        if (brakeType)
+        {
+            DashReset();
+        }
     }
 
     // To perform a dash.
@@ -232,7 +247,7 @@ public class PlayerController : MonoBehaviour
         PlayerRigidbody2D.drag = dashDrag;
         PlayerRigidbody2D.AddForce(transform.up.normalized * (dashPower * 10) * Time.deltaTime, ForceMode2D.Impulse);
         yield return new WaitForSeconds(dashLimit);
-        OnBrake(smoothTime);
+        OnBrake(smoothTime, true);
         PlayerRigidbody2D.drag = currentDrag;
         playerControls.Player.Dash.Enable();
     }

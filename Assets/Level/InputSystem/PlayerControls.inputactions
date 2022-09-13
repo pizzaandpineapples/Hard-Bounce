@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Hardbrake",
+                    "type": "Button",
+                    "id": "509bbf78-9e6c-4791-a454-5559fafb9d14",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "c54e00a4-4fd8-490b-aea8-4d5164b31bb3",
@@ -212,6 +221,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c8122da-b77a-466f-90c2-b1c1f6694835",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hardbrake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

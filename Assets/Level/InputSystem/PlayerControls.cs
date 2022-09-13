@@ -64,6 +64,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Hardbrake"",
+                    ""type"": ""Button"",
+                    ""id"": ""509bbf78-9e6c-4791-a454-5559fafb9d14"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""c54e00a4-4fd8-490b-aea8-4d5164b31bb3"",
@@ -236,6 +245,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c8122da-b77a-466f-90c2-b1c1f6694835"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hardbrake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Thrusters = m_Player.FindAction("Thrusters", throwIfNotFound: true);
         m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
+        m_Player_Hardbrake = m_Player.FindAction("Hardbrake", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
     }
@@ -313,6 +334,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Thrusters;
     private readonly InputAction m_Player_Brake;
+    private readonly InputAction m_Player_Hardbrake;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Fire;
     public struct PlayerActions
@@ -323,6 +345,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Thrusters => m_Wrapper.m_Player_Thrusters;
         public InputAction @Brake => m_Wrapper.m_Player_Brake;
+        public InputAction @Hardbrake => m_Wrapper.m_Player_Hardbrake;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -346,6 +369,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Brake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
                 @Brake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
                 @Brake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
+                @Hardbrake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHardbrake;
+                @Hardbrake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHardbrake;
+                @Hardbrake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHardbrake;
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
@@ -368,6 +394,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Brake.started += instance.OnBrake;
                 @Brake.performed += instance.OnBrake;
                 @Brake.canceled += instance.OnBrake;
+                @Hardbrake.started += instance.OnHardbrake;
+                @Hardbrake.performed += instance.OnHardbrake;
+                @Hardbrake.canceled += instance.OnHardbrake;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
@@ -384,6 +413,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnThrusters(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
+        void OnHardbrake(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
     }
