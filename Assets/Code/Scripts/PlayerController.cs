@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Smoothdamp
-
     private Vector2 smoothVelocity; // Empty velocity reference for all Smoothdamp functions.
 
     // Movement Smoothdamp
@@ -49,7 +48,6 @@ public class PlayerController : MonoBehaviour
     // Dash Smoothdamp
     [SerializeField] private float smoothDash;
     private float smoothVelocityDash; // Empty velocity reference for dash Smoothdamp functions.
-
     #endregion
 
     private Rigidbody2D PlayerRigidbody2D;
@@ -137,8 +135,6 @@ public class PlayerController : MonoBehaviour
         }
         if (playerControls.Player.Hardbrake.IsPressed())
         {
-            // TODO 
-
             OnBrake(brakeStrengthInverse, true);
             playerControls.Player.Thrusters.Disable();
         }
@@ -218,12 +214,14 @@ public class PlayerController : MonoBehaviour
 
         PlayerRigidbody2D.AddForce(transform.up.normalized * driftPower * Time.deltaTime);
         yield return new WaitForSeconds(driftTime);
+        OnBrake(brakeStrengthInverse, false);
 
         DashReset();
+        Debug.Log("Exits coroutine");
     }
 
     // To brake the ship.
-    void OnBrake(float smoothTime, bool brakeType)
+    void OnBrake(float smoothTime, bool isHardBrake)
     {
         thrusterPower = 0;
         thrusterSpeed = 0;
@@ -235,7 +233,7 @@ public class PlayerController : MonoBehaviour
         thrusterPower = currentThrusterPower;
         thrusterSpeed = currentThrusterSpeed;
 
-        if (brakeType)
+        if (isHardBrake)
         {
             DashReset();
         }
