@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MoveForward : MonoBehaviour
 {
+    // Primarily for use with ammunition.
+
     public float speed;
     
     // Update is called once per frame

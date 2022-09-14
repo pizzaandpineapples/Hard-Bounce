@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DestroyOutOfBounds : MonoBehaviour
 {
+    // Primarily for use with ammunition.
+
     private float verticalLimits = 12;
     private float horizontalLimits = 22;
 
@@ -15,7 +17,7 @@ public class DestroyOutOfBounds : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        // 
+        // Horizontal Boundary
         else if (transform.position.x > horizontalLimits|| transform.position.x < -horizontalLimits)
         {
             Destroy(gameObject);

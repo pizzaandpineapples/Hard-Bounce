@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BounceOfBoundary : MonoBehaviour
+public class BounceOfObjects : MonoBehaviour
 {
     private Vector3 lastVelocity;
 
@@ -25,6 +25,8 @@ public class BounceOfBoundary : MonoBehaviour
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
         if (collision.gameObject.tag == "Boundary")
-        PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
+        }
     }
 }
