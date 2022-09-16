@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7581821700638709294}
   - component: {fileID: 7581821700638709292}
-  - component: {fileID: 5000841396928123042}
+  - component: {fileID: 6089117942992263074}
   m_Layer: 20
   m_Name: Stone 5
   m_TagString: Obstacle
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!60 &5000841396928123042
-PolygonCollider2D:
+--- !u!68 &6089117942992263074
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -99,29 +99,16 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.78125, y: 1.3125}
-    newSize: {x: 1.78125, y: 1.3125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: 0.3820238, y: 1.1299924}
-      - {x: 0.20521164, y: 1.3401057}
-      - {x: -0.4924612, y: 1.2702156}
-      - {x: -0.8294178, y: 0.72218066}
-      - {x: -0.9148946, y: 0.60007155}
-      - {x: -0.87042713, y: 0.33939064}
-      - {x: -0.6077547, y: 0.22630084}
-      - {x: -0.48241997, y: 0.26708686}
-      - {x: 0.14353085, y: 0.09471536}
-      - {x: 0.22327891, y: -0.0058109164}
-      - {x: 0.5263977, y: 0.008507013}
-      - {x: 0.77948666, y: 0.17788613}
-      - {x: 0.75151443, y: 0.38088596}
-      - {x: 0.9461317, y: 0.5659681}
-      - {x: 0.7979976, y: 0.89863366}
+  - {x: -0.9249611, y: 0.45023417}
+  - {x: -0.44150448, y: 1.2775992}
+  - {x: 0.20923519, y: 1.2879854}
+  - {x: 0.9165535, y: 0.6957134}
+  - {x: 0.68321323, y: 0.11455202}
+  - {x: 0.4177456, y: -0.0038318634}
+  - {x: -0.90759134, y: 0.46870732}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0

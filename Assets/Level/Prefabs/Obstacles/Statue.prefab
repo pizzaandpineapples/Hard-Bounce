@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4981603212875624579}
   - component: {fileID: 4981603212875624577}
-  - component: {fileID: 7043565344232162316}
+  - component: {fileID: 4991843481815137808}
   m_Layer: 20
   m_Name: Statue
   m_TagString: Obstacle
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!60 &7043565344232162316
-PolygonCollider2D:
+--- !u!68 &4991843481815137808
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -99,22 +99,25 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.15625, y: 2.28125}
-    newSize: {x: 1.15625, y: 2.28125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_EdgeRadius: 0
   m_Points:
-    m_Paths:
-    - - {x: -0.35327452, y: 2.2449074}
-      - {x: -0.3149479, y: 2.1857872}
-      - {x: -0.53967685, y: 0.13366851}
-      - {x: -0.3923114, y: 0.024400651}
-      - {x: 0.4089223, y: 0.02737099}
-      - {x: 0.5397376, y: 0.12529735}
-      - {x: 0.5414568, y: 0.5411497}
-      - {x: 0.32947546, y: 2.244026}
+  - {x: -0.47044373, y: 1.140625}
+  - {x: -0.3593359, y: 2.0527494}
+  - {x: -0.24531937, y: 2.242775}
+  - {x: 0.25970173, y: 2.2427754}
+  - {x: 0.37371922, y: 2.0116823}
+  - {x: 0.49688435, y: 0.90440226}
+  - {x: 0.3689165, y: 0.8471823}
+  - {x: 0.5957966, y: 0.6617999}
+  - {x: 0.58997154, y: 0.19858861}
+  - {x: 0.43237877, y: -0.013559818}
+  - {x: -0.40407276, y: -0.021603107}
+  - {x: -0.59206104, y: 0.135257}
+  - {x: -0.591794, y: 0.70470595}
+  - {x: -0.36104012, y: 0.84509444}
+  - {x: -0.50734425, y: 0.9225868}
+  - {x: -0.4760046, y: 1.1403643}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
