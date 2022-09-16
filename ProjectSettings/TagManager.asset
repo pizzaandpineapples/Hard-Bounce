@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Projectile
   - Boundary
   - Obstacle
+  - Enemy
+  - Player Ammo
+  - Enemy Ammo
   layers:
   - Default
   - TransparentFX

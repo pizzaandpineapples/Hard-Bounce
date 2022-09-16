@@ -14,8 +14,8 @@ public class PlayerAimWeapons : MonoBehaviour
     [SerializeField] private float weaponSpeed;
     private float weaponSpeedTimer;
 
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform projectileSpawnPosition; // A separate transform variable is used so that we can manually change the food spawn location as per our need.
+    [SerializeField] private GameObject ammoPrefab;
+    [SerializeField] private Transform ammoSpawnPosition; // A separate transform variable is used so that we can manually change the ammo spawn location as per our need.
     [SerializeField] private GameObject reticle;
 
     private PlayerControls playerControls;
@@ -66,7 +66,7 @@ public class PlayerAimWeapons : MonoBehaviour
             if (playerControls.Player.Fire.IsPressed())
             {
                 // Uses the transforms rotation to make the ammo rotate in the direction the player is aiming.
-                Instantiate(projectilePrefab, projectileSpawnPosition.position, transform.rotation); 
+                Instantiate(ammoPrefab, ammoSpawnPosition.position, transform.rotation); 
                 // Debug.Log(weaponTimer);
                 weaponSpeedTimer = 0;
             }

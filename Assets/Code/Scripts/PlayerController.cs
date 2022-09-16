@@ -84,6 +84,8 @@ public class PlayerController : MonoBehaviour
         // Left stick or WASD keys to move.
         // HOLD R2 or shift keys to activate thrusters.
 
+        playerControls.Player.Thrusters.Enable();
+
         inputVectorMovement = playerControls.Player.Movement.ReadValue<Vector2>();
         /* maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
          * currentVelocity -> ref smoothInputVelocity. We don't need the current velocity, but we need to pass it. */
@@ -115,6 +117,8 @@ public class PlayerController : MonoBehaviour
         // R2 is released.
         // Control movement for a while without thrusters. Then you are stuck on that path until you turn on thrusters or brake.
 
+        // TODO - Don't start drifitng letting go of HardBrake.
+
         if (isThrusterReleased)
         {
             StartCoroutine(DriftCoroutine());
@@ -138,9 +142,6 @@ public class PlayerController : MonoBehaviour
             OnBrake(brakeStrengthInverse, true);
             playerControls.Player.Thrusters.Disable();
         }
-
-        playerControls.Player.Thrusters.Enable();
-        
         #endregion
 
         #region Dash
