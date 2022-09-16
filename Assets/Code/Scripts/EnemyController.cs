@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour
     #endregion
 
     [SerializeField] private float detectionRadius;
+    [SerializeField] private float aimAngleSpeed;
+    private float aimAngleSpeedTimer;
     [SerializeField] private float weaponSpeed;
     private float weaponSpeedTimer;
     [SerializeField] private GameObject ammoPrefab;
@@ -48,6 +50,7 @@ public class EnemyController : MonoBehaviour
         }
         #endregion
 
+        aimAngleSpeedTimer = Time.time;
         weaponSpeedTimer = Time.time;
     }
 
@@ -102,7 +105,13 @@ public class EnemyController : MonoBehaviour
         // Angle of the player from the enemy.
         float aimAngleOffset = -90; // To correct the rotation, as this way of implementation creates an offset.
         float aimAngle = (Mathf.Atan2(directionOfTarget.y, directionOfTarget.x) * Mathf.Rad2Deg) + aimAngleOffset;
-        aimCenter.transform.rotation = Quaternion.Euler(0, 0, aimAngle);
+        // Aim speed controller.
+        aimAngleSpeedTimer += Time.deltaTime;
+        if (aimAngleSpeedTimer >= aimAngleSpeed)
+        {
+            aimCenter.transform.rotation = Quaternion.Euler(0, 0, aimAngle);
+            aimAngleSpeedTimer = 0;
+        }
 
         // Weapon speed controller.
         weaponSpeedTimer += Time.deltaTime;

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8842952291983487500}
   - component: {fileID: 8842952291983487507}
-  - component: {fileID: 7471807173376008825}
+  - component: {fileID: 6379961860067134940}
   m_Layer: 0
   m_Name: Asteroid 1
   m_TagString: Obstacle
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &7471807173376008825
-PolygonCollider2D:
+--- !u!58 &6379961860067134940
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -99,27 +99,5 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.7, y: 0.61}
-    newSize: {x: 0.7, y: 0.61}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.26999998, y: 0.185}
-      - {x: 0.19999999, y: 0.265}
-      - {x: 0.08, y: 0.305}
-      - {x: -0.16, y: 0.305}
-      - {x: -0.34, y: 0.225}
-      - {x: -0.35, y: 0.175}
-      - {x: -0.35, y: -0.105}
-      - {x: -0.34770235, y: -0.0756817}
-      - {x: -0.12838358, y: -0.28729787}
-      - {x: -0.06, y: -0.28959596}
-      - {x: 0.28, y: -0.305}
-      - {x: 0.35, y: -0.225}
-      - {x: 0.35, y: 0.065}
+  serializedVersion: 2
+  m_Radius: 0.3064497

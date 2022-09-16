@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8626264424251170467}
-  - component: {fileID: 6281199850266312791}
+  - component: {fileID: 7860446702066548239}
   m_Layer: 0
   m_Name: CargoPurple
   m_TagString: Obstacle
@@ -35,8 +35,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &6281199850266312791
-PolygonCollider2D:
+--- !u!61 &7860446702066548239
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -58,13 +58,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.8153634, y: 1.378562}
-      - {x: -0.8345757, y: 1.3864619}
-      - {x: -0.84986633, y: -1.4059801}
-      - {x: 0.82074654, y: -1.4059799}
-      - {x: 0.83457565, y: 1.4010227}
+  serializedVersion: 2
+  m_Size: {x: 1.648986, y: 2.7856946}
+  m_EdgeRadius: 0
 --- !u!1001 &3074244261882674990
 PrefabInstance:
   m_ObjectHideFlags: 0

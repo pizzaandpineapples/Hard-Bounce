@@ -1751,6 +1751,7 @@ MonoBehaviour:
   speed: 0
   nextWaypointDistance: 0
   detectionRadius: 15
+  aimAngleSpeed: 0.25
   weaponSpeed: 0.25
   ammoPrefab: {fileID: 1049497257877225160, guid: 5dc4790578e28bd41a22c5d8d5bd3819, type: 3}
   ammoSpawnPosition: {fileID: 856030748}
@@ -1909,6 +1910,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.61, y: 0.94}
   m_EdgeRadius: 0
+--- !u!114 &710740551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710740537}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe07c6ecf61a20d4a824329e5313629b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &762573499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,6 +3846,7 @@ GameObject:
   - component: {fileID: 2114741827}
   - component: {fileID: 2114741826}
   - component: {fileID: 2114741829}
+  - component: {fileID: 2114741831}
   m_Layer: 0
   m_Name: Basic Enemy 1
   m_TagString: Enemy
@@ -3894,6 +3908,7 @@ MonoBehaviour:
   speed: 750
   nextWaypointDistance: 2
   detectionRadius: 12.5
+  aimAngleSpeed: 0.1
   weaponSpeed: 0.3
   ammoPrefab: {fileID: 1049497257877225160, guid: 5dc4790578e28bd41a22c5d8d5bd3819, type: 3}
   ammoSpawnPosition: {fileID: 1919615093}
@@ -4047,6 +4062,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28, y: 0.46}
   m_EdgeRadius: 0
+--- !u!114 &2114741831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114741818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe07c6ecf61a20d4a824329e5313629b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2126146246
 PrefabInstance:
   m_ObjectHideFlags: 0

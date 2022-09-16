@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3879864797904149927}
   - component: {fileID: 3879864797904149925}
-  - component: {fileID: 5640568106953282805}
+  - component: {fileID: 2235663895605147368}
   m_Layer: 0
   m_Name: Altar
   m_TagString: Obstacle
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!60 &5640568106953282805
-PolygonCollider2D:
+--- !u!70 &2235663895605147368
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -98,35 +98,6 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 2.9375, y: 2.25}
-    newSize: {x: 2.9375, y: 2.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.2969208, y: 1.541306}
-      - {x: 0.9106617, y: 1.9651477}
-      - {x: 0.4007187, y: 2.129112}
-      - {x: 0.375, y: 2.25}
-      - {x: -0.35978127, y: 2.2616174}
-      - {x: -0.3953762, y: 2.1335146}
-      - {x: -1.0008106, y: 1.9106631}
-      - {x: -1.2815533, y: 1.5516638}
-      - {x: -1.503602, y: 1.4927958}
-      - {x: -1.503602, y: 0.79565835}
-      - {x: -1.3824015, y: 0.73111975}
-      - {x: -1.0625, y: 0.28485203}
-      - {x: -0.37438202, y: 0.06722069}
-      - {x: -0.31934547, y: -0.023234606}
-      - {x: 0.31493378, y: -0.023234606}
-      - {x: 0.38126183, y: 0.056584835}
-      - {x: 0.99279594, y: 0.2732346}
-      - {x: 1.3701897, y: 0.7478981}
-      - {x: 1.4687519, y: 0.7491888}
-      - {x: 1.4919853, y: 1.5204437}
+  m_Offset: {x: 0.005541935, y: 1.1139084}
+  m_Size: {x: 2.893156, y: 2.1391451}
+  m_Direction: 1

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2948557659996792988}
-  - component: {fileID: 2164546509265976013}
+  - component: {fileID: 7078714729966485531}
   m_Layer: 0
   m_Name: CargoBlue
   m_TagString: Obstacle
@@ -35,8 +35,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &2164546509265976013
-PolygonCollider2D:
+--- !u!61 &7078714729966485531
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -58,13 +58,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.029120445, y: 1.4222419}
-      - {x: -0.8491364, y: 1.4155822}
-      - {x: -0.86442703, y: -1.4205399}
-      - {x: 0.8644272, y: -1.4205399}
-      - {x: 0.83457565, y: 1.4301424}
+  serializedVersion: 2
+  m_Size: {x: 1.6432514, y: 2.7649508}
+  m_EdgeRadius: 0
 --- !u!1001 &3052366704829397186
 PrefabInstance:
   m_ObjectHideFlags: 0

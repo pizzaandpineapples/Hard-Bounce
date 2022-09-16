@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4449657362902140603}
-  - component: {fileID: 2116045302962264143}
+  - component: {fileID: 3360006022472195001}
   m_Layer: 0
   m_Name: CargoGreen 2
   m_TagString: Obstacle
@@ -35,8 +35,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &2116045302962264143
-PolygonCollider2D:
+--- !u!61 &3360006022472195001
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -58,13 +58,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.0032572746, y: 0.60508865}
-      - {x: -1.0058789, y: 0.56451184}
-      - {x: -0.9893532, y: -0.60126907}
-      - {x: 0.997995, y: -0.5700395}
-      - {x: 1.0026217, y: 0.60973233}
+  serializedVersion: 2
+  m_Size: {x: 2.0113301, y: 1.1684}
+  m_EdgeRadius: 0
 --- !u!1001 &4573147047262394085
 PrefabInstance:
   m_ObjectHideFlags: 0

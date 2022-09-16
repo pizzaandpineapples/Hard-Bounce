@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2455694994312423772}
-  - component: {fileID: 182828580457854888}
+  - component: {fileID: 4972960898818198018}
   m_Layer: 0
   m_Name: CargoRed
   m_TagString: Obstacle
@@ -35,8 +35,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &182828580457854888
-PolygonCollider2D:
+--- !u!61 &4972960898818198018
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -58,13 +58,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.014560223, y: 0.95631975}
-      - {x: -0.8345757, y: 0.9642196}
-      - {x: -0.84986633, y: -0.998298}
-      - {x: 0.82074654, y: -0.9982979}
-      - {x: 0.82001543, y: 0.9496605}
+  serializedVersion: 2
+  m_Size: {x: 1.6728506, y: 1.9372313}
+  m_EdgeRadius: 0
 --- !u!1001 &2351775517549148418
 PrefabInstance:
   m_ObjectHideFlags: 0

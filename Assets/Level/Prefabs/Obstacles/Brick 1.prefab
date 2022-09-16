@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3371911785756418259}
   - component: {fileID: 3371911785756418257}
   - component: {fileID: 7878555000959531485}
-  - component: {fileID: 3974361677747686872}
+  - component: {fileID: 3408709880446507992}
   m_Layer: 20
   m_Name: Brick 1
   m_TagString: Obstacle
@@ -107,8 +107,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &3974361677747686872
-PolygonCollider2D:
+--- !u!61 &3408709880446507992
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -120,7 +120,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.005321026, y: 0.2880069}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -130,16 +130,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.19637585, y: 0.59375}
-      - {x: -0.11991501, y: 0.57988167}
-      - {x: -0.32614326, y: 0.4663452}
-      - {x: -0.51211166, y: 0.46532917}
-      - {x: -0.50517845, y: 0.04853916}
-      - {x: 0.07396412, y: 0.051211476}
-      - {x: 0.24158669, y: -0.013868213}
-      - {x: 0.484375, y: 0.093657374}
-      - {x: 0.5087223, y: 0.22412694}
-      - {x: 0.42890167, y: 0.375}
-      - {x: 0.390625, y: 0.42030346}
+  serializedVersion: 2
+  m_Size: {x: 0.89425755, y: 0.4199357}
+  m_EdgeRadius: 0
