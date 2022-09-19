@@ -863,12 +863,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41418c6619d183e47a62003c59e32566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrusterPower: 75
-  thrusterSpeed: 10
+  movementStrength: 750
   dashPower: 50
   dashDrag: 3
-  driftPower: 300
-  driftTime: 5
   movementSmooth: 0
   brakeStrengthInverse: 100
   smoothDash: 0.2
@@ -945,7 +942,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0.2
   m_AngularDrag: 0.2
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

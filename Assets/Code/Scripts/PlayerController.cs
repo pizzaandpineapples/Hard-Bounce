@@ -13,10 +13,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputVectorMovement;
     private Vector2 inputVectorRotate;
     // Thrusters
-    [SerializeField] private float thrusterPower;
-    [SerializeField] private float thrusterSpeed;
-    private float currentThrusterPower;
-    private float currentThrusterSpeed;
+    [SerializeField] private float movementStrength;
+    private float currentMovementStrength;
     private bool isThrusterReleased;
     // Dash
     private float dashLimit = 0.625f;
@@ -24,9 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashDrag;
     private float currentDrag;
     private bool isthrusterOnDuringDash = false;
-    // Drift
-    [SerializeField] private float driftPower;
-    [SerializeField] private float driftTime;
     #endregion
 
     #region Smoothdamp
@@ -47,7 +42,6 @@ public class PlayerController : MonoBehaviour
 
     // Dash Smoothdamp
     [SerializeField] private float smoothDash;
-    private float smoothVelocityDash; // Empty velocity reference for dash Smoothdamp functions.
     #endregion
 
     private Rigidbody2D PlayerRigidbody2D;
@@ -70,8 +64,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        currentThrusterPower = thrusterPower;
-        currentThrusterSpeed = thrusterSpeed;
+        currentMovementStrength = movementStrength;
         currentDrag = PlayerRigidbody2D.drag;
     }
 
@@ -99,44 +92,22 @@ public class PlayerController : MonoBehaviour
         // Will stay in last rotated position.
         if (inputVectorRotate != Vector2.zero)
         {
-            RotateShip(inputVectorRotate.normalized);
+            RotatePlayer(inputVectorRotate.normalized);
         }
+
         // Only moves when thrusters are activated.
         if (playerControls.Player.Thrusters.IsPressed())
         {
-            isThrusterReleased = false;
-            isthrusterOnDuringDash = true;
-
             // PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
-            PlayerRigidbody2D.AddForce(transform.up.normalized * thrusterPower * thrusterSpeed * Time.deltaTime);
+            PlayerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime);
         }
         else
         #endregion
 
-        #region Drift
-        // R2 is released.
-        // Control movement for a while without thrusters. Then you are stuck on that path until you turn on thrusters or brake.
-
-        // TODO - Don't start drifitng letting go of HardBrake.
-
-        if (isThrusterReleased)
-        {
-            StartCoroutine(DriftCoroutine());
-        }
-        #endregion
-
-        #region Brake
-        // HOLD L2 or B key to activate brakes
-        /* Let's not call it brake. This can be used for smaller more precise movements.
-         * HOLD L2 and R2 for precision aim */
-
+        #region Brake [Only for testing]
         // Hold [O] or V key to activate hard-brakes.
         // Stops ship immediately. Simulates car hand brake.
 
-        if (playerControls.Player.Brake.IsPressed())
-        {
-            OnBrake(brakeStrengthInverse, false);
-        }
         if (playerControls.Player.Hardbrake.IsPressed())
         {
             OnBrake(brakeStrengthInverse, true);
@@ -149,57 +120,14 @@ public class PlayerController : MonoBehaviour
 
         if (playerControls.Player.Dash.IsPressed())
         {
-            // Basic dash
-            if (!isthrusterOnDuringDash)
-            {
-                playerControls.Player.Dash.Disable();
-                StartCoroutine(DashCoroutine(0));
-            }
-            else if (isthrusterOnDuringDash) // Thruster dash
-            {
-                playerControls.Player.Dash.Disable();
-                StartCoroutine(DashCoroutine(brakeStrengthInverse));
-            }
-            else if (!isthrusterOnDuringDash && isThrusterReleased) // Drift dash
-            {
-                // DashReset(); // Drift dashing this way feels unnatural.
-            }
-        }
-
-        /* OLD DASH SYSTEM.
-         * Triggered both actions when using a Modifier Composite.
-         * Triggered both actions even if I used separated binding combos.
-         *
-        // Basic dash
-        if (playerInputActions.Player.Dash.IsPressed())
-        {
-            playerInputActions.Player.Dash.Disable();
-            StartCoroutine(BasicDashCoroutine(0));
-        }
-        // Thruster dash
-        else if (playerInputActions.Player.Dash.IsPressed() && playerInputActions.Player.Thrusters.IsPressed())
-        {
-            playerInputActions.Player.Dash.Disable();
-            StartCoroutine(BasicDashCoroutine(brakeStrengthInverse));
-        } */
-        #endregion
-    }
-
-    void Update()
-    {
-        #region Check if thruster is released
-        // R2 is released.
-
-        if (playerControls.Player.Thrusters.WasReleasedThisFrame())
-        {
-            Debug.Log("Thruster is released");
-            isThrusterReleased = true;
+            playerControls.Player.Dash.Disable();
+            StartCoroutine(DashCoroutine(brakeStrengthInverse));
         }
         #endregion
     }
-
+    
     // To rotate the player.
-    void RotateShip(Vector2 direction)
+    void RotatePlayer(Vector2 direction)
     {
         // Vertical and horizontal axes were flipped. Not sure why?
         // I had to reverse the x and y for this to work somewhat correctly.
@@ -207,36 +135,26 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg; 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
-
-    // To maintain drift while thruster is released.
-    IEnumerator DriftCoroutine()
-    {
-        Debug.Log("Enters coroutine");
-
-        PlayerRigidbody2D.AddForce(transform.up.normalized * driftPower * Time.deltaTime);
-        yield return new WaitForSeconds(driftTime);
-        OnBrake(brakeStrengthInverse, false);
-
-        DashReset();
-        Debug.Log("Exits coroutine");
-    }
-
+    
     // To brake the ship.
     void OnBrake(float smoothTime, bool isHardBrake)
     {
-        thrusterPower = 0;
-        thrusterSpeed = 0;
+        if (!isHardBrake)
+        {
+            movementStrength = 0;
 
-        // Damping to zero. No hard brakes.
-        PlayerRigidbody2D.velocity = Vector2.SmoothDamp(PlayerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
-        PlayerRigidbody2D.angularVelocity = 0;
+            // Damping to zero.
+            PlayerRigidbody2D.velocity = Vector2.SmoothDamp(PlayerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
+            PlayerRigidbody2D.angularVelocity = 0;
 
-        thrusterPower = currentThrusterPower;
-        thrusterSpeed = currentThrusterSpeed;
-
+            movementStrength = currentMovementStrength;
+        }
+        
         if (isHardBrake)
         {
-            DashReset();
+            // Hard brake.
+            PlayerRigidbody2D.velocity = Vector2.zero;
+            PlayerRigidbody2D.angularVelocity = 0;
         }
     }
 
@@ -246,28 +164,11 @@ public class PlayerController : MonoBehaviour
         PlayerRigidbody2D.drag = dashDrag;
         PlayerRigidbody2D.AddForce(transform.up.normalized * (dashPower * 10) * Time.deltaTime, ForceMode2D.Impulse);
         yield return new WaitForSeconds(dashLimit);
-        OnBrake(smoothTime, true);
+        OnBrake(smoothTime, false);
         PlayerRigidbody2D.drag = currentDrag;
         playerControls.Player.Dash.Enable();
     }
 
-    // To reset some variables related to Dash.
-    void DashReset()
-    {
-        // Need to stop all coroutines, for drifting to not glitch out.
-        // Definitely not the right approach. Works for now.
-        // This method is called whenever interfacing with the drift mechanic.
-
-        // All coroutines stop mid way, so this means, some values must be reset.
-        // Resets these values (Values related to dash) so that the player doesn't become slow and dash can be used again.
-
-        StopAllCoroutines();
-
-        PlayerRigidbody2D.drag = currentDrag;
-        playerControls.Player.Dash.Enable();
-
-        isThrusterReleased = false;
-    }
 
 
 
