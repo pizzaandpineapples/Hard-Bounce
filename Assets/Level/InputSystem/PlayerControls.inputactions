@@ -24,30 +24,12 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Thrusters",
-                    "type": "Button",
-                    "id": "054c8fa2-0210-44d9-b346-7ee311fc7b08",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Brake",
-                    "type": "Button",
-                    "id": "14bdcc7a-3bc5-4ae8-9d09-7f8e91f5d0cd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Hardbrake",
                     "type": "Button",
                     "id": "509bbf78-9e6c-4791-a454-5559fafb9d14",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -57,15 +39,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Tap",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Fire",
-                    "type": "Button",
-                    "id": "3456759e-1ac4-4d70-ad37-7236cce360de",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -160,67 +133,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4ca9c101-3149-4272-8e06-ab135a489d3b",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Thrusters",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5847c22e-678d-4d1e-bc8b-b10f6e4eb212",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Thrusters",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c3de805e-dbb2-4582-977f-b49b45dd74e0",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Brake",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "167c8676-72dc-482d-8855-81bf17207146",
-                    "path": "<Keyboard>/b",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Brake",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8557efbb-37c9-4917-bc39-25ac0806e87d",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "66e49da1-4b6a-4f81-b246-33d28f7d21b3",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -48,29 +48,29 @@ public class PlayerAimWeapons : MonoBehaviour
             RotateAim(currentInputVectorAim.normalized);
         }
 
-        if (playerControls.Player.Look.inProgress || playerControls.Player.Fire.IsPressed())
-        {
-            reticle.SetActive(true);
-        }
+        //if (playerControls.Player.Look.inProgress || playerControls.Player.Fire.IsPressed())
+        //{
+        //    reticle.SetActive(true);
+        //}
 
         #endregion
 
         #region Fire Weapon Basic
-        // Right stick to fire in direction of aim.
+        //// Right stick to fire in direction of aim.
 
-        weaponSpeedTimer += Time.deltaTime;
-        // Debug.Log(weaponTimer);
-        if (weaponSpeedTimer >= weaponSpeed)
-        {
-            // Fire when the Right stick is moved.
-            if (playerControls.Player.Fire.IsPressed())
-            {
-                // Uses the transforms rotation to make the ammo rotate in the direction the player is aiming.
-                Instantiate(ammoPrefab, ammoSpawnPosition.position, transform.rotation); 
-                // Debug.Log(weaponTimer);
-                weaponSpeedTimer = 0;
-            }
-        }
+        //weaponSpeedTimer += Time.deltaTime;
+        //// Debug.Log(weaponTimer);
+        //if (weaponSpeedTimer >= weaponSpeed)
+        //{
+        //    // Fire when the Right stick is moved.
+        //    if (playerControls.Player.Fire.IsPressed())
+        //    {
+        //        // Uses the transforms rotation to make the ammo rotate in the direction the player is aiming.
+        //        Instantiate(ammoPrefab, ammoSpawnPosition.position, transform.rotation); 
+        //        // Debug.Log(weaponTimer);
+        //        weaponSpeedTimer = 0;
+        //    }
+        //}
         #endregion
 
     }

@@ -12,16 +12,15 @@ public class PlayerController : MonoBehaviour
     // Input Vectors
     private Vector2 inputVectorMovement;
     private Vector2 inputVectorRotate;
-    // Thrusters
+    // Movement
+    private bool isMovementActive;
     [SerializeField] private float movementStrength;
     private float currentMovementStrength;
-    private bool isThrusterReleased;
     // Dash
-    private float dashLimit = 0.625f;
+    [SerializeField] private float dashLimit = 0.625f;
     [SerializeField] private float dashPower;
     [SerializeField] private float dashDrag;
     private float currentDrag;
-    private bool isthrusterOnDuringDash = false;
     #endregion
 
     #region Smoothdamp
@@ -64,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        isMovementActive = true;
         currentMovementStrength = movementStrength;
         currentDrag = PlayerRigidbody2D.drag;
     }
@@ -71,13 +71,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        isthrusterOnDuringDash = false;
-
         #region Movement & Rotation of ship
         // Left stick or WASD keys to move.
         // HOLD R2 or shift keys to activate thrusters.
-
-        playerControls.Player.Thrusters.Enable();
 
         inputVectorMovement = playerControls.Player.Movement.ReadValue<Vector2>();
         /* maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
@@ -95,11 +91,21 @@ public class PlayerController : MonoBehaviour
             RotatePlayer(inputVectorRotate.normalized);
         }
 
+        if ((PlayerRigidbody2D.velocity.magnitude > 4.0f))
+        {
+            playerControls.Player.Movement.Enable();
+        }
+        else
+        {
+            playerControls.Player.Movement.Disable();
+        }
+
         // Only moves when thrusters are activated.
-        if (playerControls.Player.Thrusters.IsPressed())
+        if (isMovementActive)
         {
             // PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
-            PlayerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime);
+            PlayerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
+            Debug.Log(PlayerRigidbody2D.velocity.magnitude);
         }
         else
         #endregion
@@ -108,10 +114,9 @@ public class PlayerController : MonoBehaviour
         // Hold [O] or V key to activate hard-brakes.
         // Stops ship immediately. Simulates car hand brake.
 
-        if (playerControls.Player.Hardbrake.IsPressed())
+        if (!isMovementActive)
         {
             OnBrake(brakeStrengthInverse, true);
-            playerControls.Player.Thrusters.Disable();
         }
         #endregion
 
@@ -124,6 +129,20 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DashCoroutine(brakeStrengthInverse));
         }
         #endregion
+    }
+
+    void Update()
+    {
+        if (playerControls.Player.Hardbrake.IsPressed())
+        {
+            Debug.Log("Circle is pressed");
+            isMovementActive = false;
+        }
+        if (playerControls.Player.Hardbrake.WasReleasedThisFrame())
+        {
+            Debug.Log("Circle was released");
+            isMovementActive = true;
+        }
     }
     
     // To rotate the player.
