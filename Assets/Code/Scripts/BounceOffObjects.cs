@@ -31,6 +31,13 @@ public class BounceOffObjects : MonoBehaviour
         var speed = lastVelocity.magnitude;
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-        PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
+        if (gameObject.CompareTag("RegularPlatform"))
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
+        }
+        if (gameObject.CompareTag("SMPlatform1"))
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed * 2.0f, 0);
+        }
     }
 }
