@@ -6,9 +6,13 @@ TagManager:
   tags:
   - Boundary
   - Obstacle
-  - Enemy
-  - Player Ammo
-  - Enemy Ammo
+  - RegularPlatform
+  - SMPlatform1
+  - SMPlatform2
+  - SMPlatform3
+  - SDPlatform1
+  - SDPlatform2
+  - SDPlatform3
   layers:
   - Default
   - TransparentFX

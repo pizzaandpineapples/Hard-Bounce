@@ -31,13 +31,37 @@ public class BounceOffObjects : MonoBehaviour
         var speed = lastVelocity.magnitude;
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-        if (gameObject.CompareTag("RegularPlatform"))
+        if (collision.gameObject.tag == "Boundary")
         {
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
         }
-        if (gameObject.CompareTag("SMPlatform1"))
+        if (collision.gameObject.tag == "RegularPlatform")
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
+        }
+
+        // Speed Multiplier platforms
+        if (collision.gameObject.tag == "SMPlatform1")
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed * 1.25f, 0);
+        }
+        if (collision.gameObject.tag == "SMPlatform2")
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed * 1.5f, 0);
+        }
+        if (collision.gameObject.tag == "SMPlatform3")
         {
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed * 2.0f, 0);
+        }
+
+        // Speed Divider platforms
+        if (collision.gameObject.tag == "SDPlatform1")
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed / 2.0f, 0);
+        }
+        if (collision.gameObject.tag == "SDPlatform2")
+        {
+            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed / 4.0f, 0);
         }
     }
 }
