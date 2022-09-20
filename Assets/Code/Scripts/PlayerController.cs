@@ -10,55 +10,48 @@ public class PlayerController : MonoBehaviour
 {
     #region Spaceship
     // Input Vectors
-    private Vector2 inputVectorMovement;
     private Vector2 inputVectorRotate;
     // Movement
     private bool isMovementActive;
     [SerializeField] private float movementStrength;
     private float currentMovementStrength;
+    [SerializeField] private float minimumVelocityToControlShip;
     // Dash
-    [SerializeField] private float dashLimit = 0.625f;
-    [SerializeField] private float dashPower;
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float dashLimit;
+    [SerializeField] private float dashStrength;
     [SerializeField] private float dashDrag;
     private float currentDrag;
     #endregion
 
     #region Smoothdamp
     private Vector2 smoothVelocity; // Empty velocity reference for all Smoothdamp functions.
-
-    // Movement Smoothdamp
-    private Vector2 currentInputVectorMovement;
-    [SerializeField] private float movementSmooth;
-
-    /*
-    // Rotate Smoothdamp
-    private Vector2 currentInputVectorRotate;
-    [SerializeField] private float rotateSmooth;
-    */
-
-    // Brake Smoothdamp
-    [SerializeField] private float brakeStrengthInverse; // Strength decreases as field value increases. 100 is preferred.
-
     // Dash Smoothdamp
+    [SerializeField] private float dashStrengthInverse; // Strength decreases as field value increases. 100 is preferred.
     [SerializeField] private float smoothDash;
     #endregion
 
     private Rigidbody2D PlayerRigidbody2D;
     private PlayerInput PlayerInput;
     private PlayerControls playerControls;
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip DashFX;
+    private TrailRenderer trailRenderer;
 
     void Awake()
     {
         PlayerRigidbody2D = GetComponent<Rigidbody2D>();
         PlayerInput = GetComponent<PlayerInput>();
 
-        // Enables the PlayerInputActions input action asset.
-        // Subscribes a method to the Movement action in the Player action map.
+        // Enables the playerControls input action asset.
         playerControls = new PlayerControls();
         playerControls.Player.Enable();
+        // Subscribes a method to the Hardbrake action in the Player action map.
+        // playerInputActions.Player.Hardbrake.canceled += HardbrakeOnCanceled; // Another way of implementing Input.GetKeyUp.
 
-        // playerInputActions.Player.Movement.performed += MovementOnPerformed; // No longer need because we aren't calling this method anymore. It has been moved to the FixedUpdate() method.
-        // playerInputActions.Player.Thrusters.canceled += ThrustersOnCanceled; // Another way of implementing Input.GetKeyUp.
+        playerAudioSource = GetComponent<AudioSource>();
+
+        trailRenderer = transform.Find("Trail").GetComponent<TrailRenderer>();
     }
 
     void Start()
@@ -73,17 +66,8 @@ public class PlayerController : MonoBehaviour
     {
         #region Movement & Rotation of ship
         // Left stick or WASD keys to move.
-        // HOLD R2 or shift keys to activate thrusters.
-
-        inputVectorMovement = playerControls.Player.Movement.ReadValue<Vector2>();
-        /* maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
-         * currentVelocity -> ref smoothInputVelocity. We don't need the current velocity, but we need to pass it. */
-        currentInputVectorMovement = Vector2.SmoothDamp(currentInputVectorMovement, inputVectorMovement, ref smoothVelocity, movementSmooth);
 
         inputVectorRotate = playerControls.Player.Movement.ReadValue<Vector2>();
-        // currentInputVectorRotate = Vector2.SmoothDamp(currentInputVectorRotate, inputVectorRotate, ref smoothInputVelocity, rotateSmooth); 
-        /* For some reason I can't pass the Rotate Smoothdamp into the Rotate aim method.
-         * All the inputs get combined. Left and right stick, both move and rotate the player. */
 
         // Will stay in last rotated position.
         if (inputVectorRotate != Vector2.zero)
@@ -91,7 +75,7 @@ public class PlayerController : MonoBehaviour
             RotatePlayer(inputVectorRotate.normalized);
         }
 
-        if ((PlayerRigidbody2D.velocity.magnitude > 4.0f))
+        if ((PlayerRigidbody2D.velocity.magnitude > minimumVelocityToControlShip))
         {
             playerControls.Player.Movement.Enable();
         }
@@ -100,10 +84,9 @@ public class PlayerController : MonoBehaviour
             playerControls.Player.Movement.Disable();
         }
 
-        // Only moves when thrusters are activated.
+        // If statement only for brake.
         if (isMovementActive)
         {
-            // PlayeRigidbody2D.AddForce(currentInputVectorMovement * thrusterPower * thrusterSpeed * Time.deltaTime);
             PlayerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
             Debug.Log(PlayerRigidbody2D.velocity.magnitude);
         }
@@ -116,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isMovementActive)
         {
-            OnBrake(brakeStrengthInverse, true);
+            OnBrake();
         }
         #endregion
 
@@ -126,7 +109,7 @@ public class PlayerController : MonoBehaviour
         if (playerControls.Player.Dash.IsPressed())
         {
             playerControls.Player.Dash.Disable();
-            StartCoroutine(DashCoroutine(brakeStrengthInverse));
+            StartCoroutine(DashCoroutine(dashStrengthInverse));
         }
         #endregion
     }
@@ -156,35 +139,38 @@ public class PlayerController : MonoBehaviour
     }
     
     // To brake the ship.
-    void OnBrake(float smoothTime, bool isHardBrake)
+    void OnBrake()
     {
-        if (!isHardBrake)
-        {
-            movementStrength = 0;
-
-            // Damping to zero.
-            PlayerRigidbody2D.velocity = Vector2.SmoothDamp(PlayerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
-            PlayerRigidbody2D.angularVelocity = 0;
-
-            movementStrength = currentMovementStrength;
-        }
-        
-        if (isHardBrake)
-        {
-            // Hard brake.
-            PlayerRigidbody2D.velocity = Vector2.zero;
-            PlayerRigidbody2D.angularVelocity = 0;
-        }
+        PlayerRigidbody2D.velocity = Vector2.zero;
+        PlayerRigidbody2D.angularVelocity = 0;
+    
     }
 
     // To perform a dash.
     IEnumerator DashCoroutine(float smoothTime)
     {
+        playerAudioSource.PlayOneShot(DashFX, 0.3f);
+
+        // Apply a force
         PlayerRigidbody2D.drag = dashDrag;
-        PlayerRigidbody2D.AddForce(transform.up.normalized * (dashPower * 10) * Time.deltaTime, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(dashLimit);
-        OnBrake(smoothTime, false);
+        PlayerRigidbody2D.AddForce(transform.up.normalized * (dashStrength * 10) * Time.deltaTime, ForceMode2D.Impulse);
+        
+        // Duration of the force
+        yield return new WaitForSeconds(dashDuration);
+        
+        // Make the player come to stop using smoothdamp.
+        movementStrength = 0;
+
+        PlayerRigidbody2D.velocity = Vector2.SmoothDamp(PlayerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
+        PlayerRigidbody2D.angularVelocity = 0;
+
+        movementStrength = currentMovementStrength;
         PlayerRigidbody2D.drag = currentDrag;
+
+        // Time before you can use dash again.
+        yield return new WaitForSeconds(dashLimit);
+
+        // Enable dash again.
         playerControls.Player.Dash.Enable();
     }
 
