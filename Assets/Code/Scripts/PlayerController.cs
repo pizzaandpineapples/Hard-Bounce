@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D PlayerRigidbody2D;
     private PlayerInput PlayerInput;
-    private PlayerControls playerControls;
+    public PlayerControls playerControls;
     private AudioSource playerAudioSource;
     [SerializeField] private AudioClip DashFX;
     private TrailRenderer trailRenderer;

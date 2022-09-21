@@ -13,6 +13,9 @@ TagManager:
   - SDPlatform1
   - SDPlatform2
   - SDPlatform3
+  - DPlatform
+  - Enemy
+  - Enemy Ammo
   layers:
   - Default
   - TransparentFX
