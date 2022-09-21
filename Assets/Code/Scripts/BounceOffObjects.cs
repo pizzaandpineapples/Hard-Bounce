@@ -37,12 +37,7 @@ public class BounceOffObjects : MonoBehaviour
         var speed = lastVelocity.magnitude;
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-        if (collision.gameObject.tag == "Boundary")
-        {
-            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
-            PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
-        }
-        if (collision.gameObject.tag == "RegularPlatform")
+        if (collision.gameObject.tag == "Boundary" || collision.gameObject.tag == "RegularPlatform" || collision.gameObject.tag == "ObstacleBouncy")
         {
             playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);

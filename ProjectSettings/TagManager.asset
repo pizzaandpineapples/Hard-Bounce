@@ -14,8 +14,8 @@ TagManager:
   - SDPlatform2
   - SDPlatform3
   - DPlatform
-  - Enemy
-  - Enemy Ammo
+  - FxTemporaire
+  - ObstacleBouncy
   layers:
   - Default
   - TransparentFX
