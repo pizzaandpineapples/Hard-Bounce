@@ -10,9 +10,12 @@ public class BounceOffObjects : MonoBehaviour
     private Rigidbody2D PlayerRigidbody2D;
 
     private AudioSource playerAudioSource;
-    [SerializeField] private AudioClip[] BounceFX;
-    [SerializeField] private AudioClip DestroyFX;
-    [SerializeField] private AudioClip PopFX;
+    [SerializeField] private AudioClip[] bounceFX;
+    [SerializeField] private AudioClip destroyFX;
+    [SerializeField] private AudioClip popFX;
+
+    [SerializeField] private ParticleSystem skullParticle;
+    [SerializeField] private ParticleSystem explosionParticle;
 
     void Awake()
     {
@@ -29,53 +32,53 @@ public class BounceOffObjects : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        int bounceIndex = Random.Range(0, BounceFX.Length);
+        int bounceIndex = Random.Range(0, bounceFX.Length);
 
         var speed = lastVelocity.magnitude;
         var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
         if (collision.gameObject.tag == "Boundary")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
         }
         if (collision.gameObject.tag == "RegularPlatform")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
         }
 
         // Speed Multiplier platforms
         if (collision.gameObject.tag == "SMPlatform1")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed * 1.25f, 0);
         }
         if (collision.gameObject.tag == "SMPlatform2")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed * 1.5f, 0);
         }
         if (collision.gameObject.tag == "SMPlatform3")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed * 2.0f, 0);
         }
 
         // Speed Divider platforms
         if (collision.gameObject.tag == "SDPlatform1")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed / 2.0f, 0);
         }
         if (collision.gameObject.tag == "SDPlatform2")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed / 4.0f, 0);
         }
         if (collision.gameObject.tag == "SDPlatform3")
         {
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = Vector2.zero;
             PlayerRigidbody2D.Sleep();
             gameObject.GetComponent<PlayerController>().enabled = false;
@@ -89,14 +92,16 @@ public class BounceOffObjects : MonoBehaviour
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
             collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-            playerAudioSource.PlayOneShot(BounceFX[bounceIndex], 0.2f);
+            playerAudioSource.PlayOneShot(bounceFX[bounceIndex], 0.2f);
             PlayerRigidbody2D.velocity = Vector2.zero;
             PlayerRigidbody2D.Sleep();
             gameObject.GetComponent<PlayerController>().enabled = false;
             PlayerController.playerControls.Player.Disable();
 
-            playerAudioSource.PlayOneShot(DestroyFX, 0.1f);
-            playerAudioSource.PlayOneShot(PopFX, 0.5f);
+            playerAudioSource.PlayOneShot(destroyFX, 0.1f);
+            playerAudioSource.PlayOneShot(popFX, 0.5f);
+            skullParticle.Play();
+            explosionParticle.Play();
 
             StartCoroutine(DestroyCoroutine(collision));
         }
@@ -104,7 +109,7 @@ public class BounceOffObjects : MonoBehaviour
 
     IEnumerator DestroyCoroutine(Collision2D collision)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         Destroy(gameObject);
         Destroy(collision.gameObject);
     }
