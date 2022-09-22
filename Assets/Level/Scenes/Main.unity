@@ -775,6 +775,7 @@ MonoBehaviour:
   dashLimit: 0.625
   dashStrength: 50
   dashDrag: 3
+  isColliding: 0
   dashStrengthInverse: 100
   smoothDash: 0.2
   DashFX: {fileID: 8300000, guid: 0e87c4405b2196245bf465c82394160e, type: 3}

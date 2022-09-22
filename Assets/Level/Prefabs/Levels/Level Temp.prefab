@@ -200,7 +200,7 @@ PrefabInstance:
     - target: {fileID: 1271318032707714444, guid: 7e65a89b80ee6954a861abcf78229c99, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 6200000, guid: 435268e6f68a753418c9d455322b2d8a, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 1271318032707714447, guid: 7e65a89b80ee6954a861abcf78229c99, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -311,6 +311,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1142014788067031083, guid: 1085c9c629dc77a46995a0e15dc53fb4, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1142014788067031087, guid: 1085c9c629dc77a46995a0e15dc53fb4, type: 3}
       propertyPath: m_Name
       value: SMPlatform3
@@ -376,6 +380,10 @@ PrefabInstance:
     - target: {fileID: 1505759871410312341, guid: 798ccbdf6af4ab740a3b6e7470706da1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505759871410312342, guid: 798ccbdf6af4ab740a3b6e7470706da1, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 798ccbdf6af4ab740a3b6e7470706da1, type: 3}
@@ -505,6 +513,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6713382221226052850, guid: ac0fb90b357dded49852bb058c1f5a0d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6713382221226052854, guid: ac0fb90b357dded49852bb058c1f5a0d, type: 3}
       propertyPath: m_Name
       value: SMPlatform1
@@ -618,6 +630,10 @@ PrefabInstance:
     - target: {fileID: 6670922360324725408, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_Name
       value: RegularPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670922360324725412, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6670922360324725415, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_RootOrder
@@ -845,7 +861,7 @@ PrefabInstance:
     - target: {fileID: 6494109518027706731, guid: 6d5f206e3e714664499606c4ab6871b6, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 6200000, guid: 435268e6f68a753418c9d455322b2d8a, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6494109518027706735, guid: 6d5f206e3e714664499606c4ab6871b6, type: 3}
       propertyPath: m_Name
       value: SDPlatform2

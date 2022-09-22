@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
     {
         #region Movement & Rotation of ship
         // Left stick or WASD keys to move.
-        isColliding = false;
 
         inputVectorRotate = playerControls.Player.Movement.ReadValue<Vector2>();
 
@@ -78,16 +77,23 @@ public class PlayerController : MonoBehaviour
             RotatePlayer(inputVectorRotate.normalized);
         }
 
-        if (!isColliding && (PlayerRigidbody2D.velocity.magnitude > minimumVelocityToControlShip))
+        if (isColliding)
         {
             playerControls.Player.Movement.Enable();
         }
-        else
+        else if (!isColliding)
         {
-            playerControls.Player.Movement.Disable();
+            if (PlayerRigidbody2D.velocity.magnitude > minimumVelocityToControlShip)
+            {
+                playerControls.Player.Movement.Enable();
+            }
+            else
+            {
+                playerControls.Player.Movement.Disable();
+            }
         }
 
-        // If statement only for brake.
+            // If statement only for brake.
         if (isMovementActive)
         {
             PlayerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
@@ -179,10 +185,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        while (gameObject.GetComponent<Collider2D>().IsTouching(collision.collider))
-        {
-            isColliding = true;
-        }
+        isColliding = true;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isColliding = false;
     }
 
 
