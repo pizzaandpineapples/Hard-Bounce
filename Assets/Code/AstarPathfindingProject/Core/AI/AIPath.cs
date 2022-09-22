@@ -359,9 +359,11 @@ namespace Pathfinding {
 			interpolator.MoveToCircleIntersection2D(currentPosition, pickNextWaypointDist, movementPlane);
 			var dir = movementPlane.ToPlane(steeringTarget - currentPosition);
 
+			/*
 			// Adding force. But this line probably does not work.
             Vector2 force = dir * maxSpeed * Time.deltaTime;
             rigid2D.AddForce(force);
+			*/
 
 			// Calculate the distance to the end of the path
             float distanceToEnd = dir.magnitude + Mathf.Max(0, interpolator.remainingDistance);

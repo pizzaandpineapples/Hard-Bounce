@@ -8,7 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
 {
-    #region Spaceship
+    #region Ball
     // Input Vectors
     private Vector2 inputVectorRotate;
     // Movement
@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashStrength;
     [SerializeField] private float dashDrag;
     private float currentDrag;
+    // Collision detection
+    [SerializeField] private bool isColliding = false;
     #endregion
 
     #region Smoothdamp
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
     {
         #region Movement & Rotation of ship
         // Left stick or WASD keys to move.
+        isColliding = false;
 
         inputVectorRotate = playerControls.Player.Movement.ReadValue<Vector2>();
 
@@ -75,7 +78,7 @@ public class PlayerController : MonoBehaviour
             RotatePlayer(inputVectorRotate.normalized);
         }
 
-        if ((PlayerRigidbody2D.velocity.magnitude > minimumVelocityToControlShip))
+        if (!isColliding && (PlayerRigidbody2D.velocity.magnitude > minimumVelocityToControlShip))
         {
             playerControls.Player.Movement.Enable();
         }
@@ -172,6 +175,14 @@ public class PlayerController : MonoBehaviour
 
         // Enable dash again.
         playerControls.Player.Dash.Enable();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        while (gameObject.GetComponent<Collider2D>().IsTouching(collision.collider))
+        {
+            isColliding = true;
+        }
     }
 
 

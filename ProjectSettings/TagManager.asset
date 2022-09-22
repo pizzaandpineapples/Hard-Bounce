@@ -16,6 +16,9 @@ TagManager:
   - DPlatform
   - FxTemporaire
   - ObstacleBouncy
+  - Enemy
+  - Enemy Ammo
+  - EPlatform
   layers:
   - Default
   - TransparentFX
