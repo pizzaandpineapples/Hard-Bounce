@@ -42,7 +42,6 @@ public class BounceOffObjects : MonoBehaviour
         {
             RandomBounceSFX(0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
-            //StartCoroutine(PlatformUnlatchCoroutine(0.1f, collision));
         }
         #endregion
 
@@ -71,13 +70,11 @@ public class BounceOffObjects : MonoBehaviour
         {
             RandomBounceSFX(0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed / 2.0f, 0);
-            //StartCoroutine(PlatformUnlatchCoroutine(0.2f, collision));
         }
         if (collision.gameObject.tag == "SDPlatform2") // /4
         {
             RandomBounceSFX(0.2f);
             PlayerRigidbody2D.velocity = direction * Mathf.Max(speed / 4.0f, 0);
-            //StartCoroutine(PlatformUnlatchCoroutine(0.2f, collision));
         }
         #endregion
 
