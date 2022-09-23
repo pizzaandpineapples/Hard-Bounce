@@ -93,21 +93,22 @@ public class BounceOffObjects : MonoBehaviour
             // Hides the gameobjects in question.
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
-            collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            // collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
             // Disables player movement and controls.
             RandomBounceSFX(0.2f);
             PlayerRigidbody2D.velocity = Vector2.zero;
             PlayerRigidbody2D.Sleep();
+            PlayerRigidbody2D.isKinematic = true;
             gameObject.GetComponent<PlayerController>().enabled = false;
             PlayerController.playerControls.Player.Disable();
 
             // Plays audio clips and particle effects.
-            playerAudioSource.PlayOneShot(destroyFX, 0.1f);
+            // playerAudioSource.PlayOneShot(destroyFX, 0.1f);
             playerAudioSource.PlayOneShot(popFX, 0.5f);
             skullParticle.Play();
-            collision.gameObject.GetComponentInChildren<ParticleSystem>().Play();
-            //explosionParticle.Play();
+            // collision.gameObject.GetComponentInChildren<ParticleSystem>().Play();
+            // explosionParticle.Play();
 
             // Destroys both gameobjects.
             StartCoroutine(DestroyCoroutine(collision));
@@ -134,6 +135,6 @@ public class BounceOffObjects : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         Destroy(gameObject);
-        Destroy(collision.gameObject);
+        // Destroy(collision.gameObject);
     }
 }
