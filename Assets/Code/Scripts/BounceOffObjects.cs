@@ -91,7 +91,7 @@ public class BounceOffObjects : MonoBehaviour
         if (collision.gameObject.tag == "DPlatform") // Death Platform. Gets destroyed.
         {
             // Hides the gameobjects in question.
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
             // collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
 

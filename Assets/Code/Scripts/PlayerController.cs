@@ -117,8 +117,17 @@ public class PlayerController : MonoBehaviour
 
         if (playerControls.Player.Dash.IsPressed())
         {
-            playerControls.Player.Dash.Disable();
-            StartCoroutine(DashCoroutine(dashStrengthInverse));
+            if (PlayerRigidbody2D.velocity.magnitude < 1000)
+            {
+                playerControls.Player.Dash.Disable();
+                StartCoroutine(DashCoroutine(dashStrengthInverse));
+            }
+            else if (PlayerRigidbody2D.velocity.magnitude > 1000)
+            {
+                OnBrake();
+                playerControls.Player.Dash.Disable();
+                StartCoroutine(DashCoroutine(dashStrengthInverse));
+            }
         }
         #endregion
     }
