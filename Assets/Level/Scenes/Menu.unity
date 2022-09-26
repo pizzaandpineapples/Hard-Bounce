@@ -1705,7 +1705,7 @@ MonoBehaviour:
   TutorialButton: {fileID: 241026352}
   QuitButton: {fileID: 1575640000}
   ResetButton: {fileID: 317210932}
-  isTutorialComplete: 1
+  isTutorialComplete: 0
 --- !u!1 &1575639998
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,8 +2137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dcbf5e67ad56034ea9de3402cbbbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3159746274027761670, guid: 131d97f633137984f817ddbb346e69cf, type: 3}
-  playerSpawnPosition: {fileID: 2068814192}
+  player: {fileID: 0}
+  playerSpawnPosition: {fileID: 0}
 --- !u!4 &1956960467
 Transform:
   m_ObjectHideFlags: 0
