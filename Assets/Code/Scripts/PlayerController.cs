@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
         // Left stick or WASD keys to move.
 
         inputVectorRotate = playerControls.Player.Movement.ReadValue<Vector2>();
+        
 
         // Will stay in last rotated position.
         if (inputVectorRotate != Vector2.zero)

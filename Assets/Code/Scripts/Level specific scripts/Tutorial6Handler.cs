@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial6Handler : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(RestartCoroutine());
+        if (collision.gameObject.tag == "Player")
+        {
+            StartCoroutine(RestartCoroutine());
+        }
     }
 
     IEnumerator RestartCoroutine()

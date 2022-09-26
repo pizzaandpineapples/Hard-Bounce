@@ -35,7 +35,7 @@ public class Tutorial4Handler : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         diedOnce = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         SpawnManager.GetComponent<SpawnManager>().SpawnPlayer();
     }
 }

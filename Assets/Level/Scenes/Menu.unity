@@ -1705,7 +1705,7 @@ MonoBehaviour:
   TutorialButton: {fileID: 241026352}
   QuitButton: {fileID: 1575640000}
   ResetButton: {fileID: 317210932}
-  isTutorialComplete: 0
+  isTutorialComplete: 1
 --- !u!1 &1575639998
 GameObject:
   m_ObjectHideFlags: 0

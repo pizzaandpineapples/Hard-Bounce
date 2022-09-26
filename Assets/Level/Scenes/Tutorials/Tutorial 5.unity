@@ -594,6 +594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4465f4544e4354194d084d60ab2baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyAmountCollected: 0
+  keyAmountRequired: 0
   SceneName: Tutorial 6
 --- !u!61 &643361498
 BoxCollider2D:
@@ -1588,7 +1590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashCount: 0
-  howManyDashes: 0
+  howManyDashes: 2
   instructions: {fileID: 451959109}
   goThisWay: {fileID: 43902382}
   nextLevel: {fileID: 643361496}
