@@ -7,7 +7,7 @@ public class Tutorial1Handler : MonoBehaviour
     [SerializeField] private int bounceCount;
     [SerializeField] private int howManyBounces;
 
-    [SerializeField] private GameObject instructions;
+    [SerializeField] private GameObject controller;
     [SerializeField] private GameObject goThisWay;
     [SerializeField] private GameObject nextLevel;
 
@@ -15,6 +15,7 @@ public class Tutorial1Handler : MonoBehaviour
     void Start()
     {
         howManyBounces = Random.Range(8, 13);
+        StartCoroutine(ControllerTextCoroutine());
     }
 
     // Update is called once per frame
@@ -30,5 +31,11 @@ public class Tutorial1Handler : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         bounceCount++;
+    }
+
+    IEnumerator ControllerTextCoroutine()
+    {
+        yield return new WaitForSeconds(3f);
+        controller.gameObject.SetActive(false);
     }
 }

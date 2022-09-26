@@ -39,7 +39,7 @@ public class Tutorial5Handler : MonoBehaviour
             dashCount++;
         }
 
-        if (playerVelocity > 1000)
+        if (playerVelocity > 100)
         {
             instructions.gameObject.SetActive(true);
         }

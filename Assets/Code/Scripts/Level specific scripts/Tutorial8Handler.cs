@@ -17,6 +17,6 @@ public class Tutorial8Handler : MonoBehaviour
     IEnumerator NewGame()
     {
         yield return new WaitForSecondsRealtime(5);
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 }

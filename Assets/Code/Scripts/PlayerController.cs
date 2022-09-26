@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
 
     #region Smoothdamp
     private Vector2 smoothVelocity; // Empty velocity reference for all Smoothdamp functions.
+    // Movement
+    //private Vector2 currentInputVectorRotate;
+    //[SerializeField] private float smoothRotate;
     // Dash Smoothdamp
     [SerializeField] private float dashStrengthInverse; // Strength decreases as field value increases. 100 is preferred.
     [SerializeField] private float smoothDash;
@@ -71,7 +74,7 @@ public class PlayerController : MonoBehaviour
         // Left stick or WASD keys to move.
 
         inputVectorRotate = playerControls.Player.Movement.ReadValue<Vector2>();
-        
+        //currentInputVectorRotate = Vector2.SmoothDamp(currentInputVectorRotate, inputVectorRotate, ref smoothVelocity, smoothRotate);
 
         // Will stay in last rotated position.
         if (inputVectorRotate != Vector2.zero)
