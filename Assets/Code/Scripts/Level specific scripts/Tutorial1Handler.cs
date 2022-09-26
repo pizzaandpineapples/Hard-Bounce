@@ -20,10 +20,6 @@ public class Tutorial1Handler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bounceCount >= (howManyBounces / 2))
-        {
-            instructions.gameObject.SetActive(false);
-        }
         if (bounceCount >= howManyBounces)
         {
             goThisWay.gameObject.SetActive(true);

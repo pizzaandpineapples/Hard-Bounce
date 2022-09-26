@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private float currentDrag;
     // Collision detection
     [SerializeField] private bool isColliding = false;
+    [SerializeField] public int keyAmountCollected;
     #endregion
 
     #region Smoothdamp
@@ -77,6 +78,8 @@ public class PlayerController : MonoBehaviour
             RotatePlayer(inputVectorRotate.normalized);
         }
 
+        // Limiting player control when under a certain velocity.
+        // This limiter is off when player is colliding.
         if (isColliding)
         {
             playerControls.Player.Movement.Enable();
@@ -122,7 +125,7 @@ public class PlayerController : MonoBehaviour
                 playerControls.Player.Dash.Disable();
                 StartCoroutine(DashCoroutine(dashStrengthInverse));
             }
-            else if (PlayerRigidbody2D.velocity.magnitude > 1000)
+            else if (PlayerRigidbody2D.velocity.magnitude > 100)
             {
                 OnBrake();
                 playerControls.Player.Dash.Disable();
@@ -199,6 +202,15 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         isColliding = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Key")
+        {
+            keyAmountCollected++;
+            Destroy(collision.gameObject);
+        }
     }
 
 

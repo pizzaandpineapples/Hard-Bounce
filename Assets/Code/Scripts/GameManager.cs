@@ -18,10 +18,19 @@ public class GameManager : MonoBehaviour
         {
             RestartGame();
         }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            BackToMainMenu();
+        }
     }
 
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }

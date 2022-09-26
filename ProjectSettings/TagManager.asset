@@ -19,6 +19,7 @@ TagManager:
   - Enemy
   - Enemy Ammo
   - EPlatform
+  - Key
   layers:
   - Default
   - TransparentFX

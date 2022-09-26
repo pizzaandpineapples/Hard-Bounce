@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tutorial5Handler : MonoBehaviour
 {
     [SerializeField] private int dashCount;
-    [SerializeField] private int howManydashes;
+    [SerializeField] private int howManyDashes;
 
     [SerializeField] private GameObject instructions;
     [SerializeField] private GameObject goThisWay;
@@ -44,7 +44,7 @@ public class Tutorial5Handler : MonoBehaviour
             instructions.gameObject.SetActive(true);
         }
 
-        if (dashCount >= howManydashes)
+        if (dashCount >= howManyDashes)
         {
             goThisWay.gameObject.SetActive(true);
             nextLevel.gameObject.SetActive(true);
