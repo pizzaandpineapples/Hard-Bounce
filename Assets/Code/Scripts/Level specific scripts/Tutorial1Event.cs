@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tutorial1Handler : MonoBehaviour
+public class Tutorial1Event : MonoBehaviour
 {
     [SerializeField] private int bounceCount;
-    [SerializeField] private int howManyBounces;
+    [SerializeField] private int howManyBouncesToNextLevel;
 
-    [SerializeField] private GameObject controller;
-    [SerializeField] private GameObject goThisWay;
+    [SerializeField] private GameObject controllerInstruction;
+    [SerializeField] private GameObject goThisWayInstruction;
     [SerializeField] private GameObject nextLevel;
 
     // Start is called before the first frame update
     void Start()
     {
-        howManyBounces = Random.Range(8, 13);
+        howManyBouncesToNextLevel = Random.Range(6, 11);
         StartCoroutine(ControllerTextCoroutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (bounceCount >= howManyBounces)
+        if (bounceCount >= howManyBouncesToNextLevel)
         {
-            goThisWay.gameObject.SetActive(true);
+            goThisWayInstruction.gameObject.SetActive(true);
             nextLevel.gameObject.SetActive(true);
         }
     }
@@ -35,7 +35,7 @@ public class Tutorial1Handler : MonoBehaviour
 
     IEnumerator ControllerTextCoroutine()
     {
-        yield return new WaitForSeconds(3f);
-        controller.gameObject.SetActive(false);
+        yield return new WaitForSeconds(10f);
+        controllerInstruction.gameObject.SetActive(false);
     }
 }

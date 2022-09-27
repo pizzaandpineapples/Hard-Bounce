@@ -38,26 +38,21 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     private Rigidbody2D PlayerRigidbody2D;
-    private PlayerInput PlayerInput;
+    // private PlayerInput PlayerInput;
     public PlayerControls playerControls;
+    [SerializeField] private bool isPlayerControlEnabled;
     private AudioSource playerAudioSource;
     [SerializeField] private AudioClip DashFX;
-    private TrailRenderer trailRenderer;
 
     void Awake()
     {
         PlayerRigidbody2D = GetComponent<Rigidbody2D>();
-        PlayerInput = GetComponent<PlayerInput>();
+        // PlayerInput = GetComponent<PlayerInput>();
 
         // Enables the playerControls input action asset.
         playerControls = new PlayerControls();
-        playerControls.Player.Enable();
-        // Subscribes a method to the Hardbrake action in the Player action map.
-        // playerInputActions.Player.Hardbrake.canceled += HardbrakeOnCanceled; // Another way of implementing Input.GetKeyUp.
 
         playerAudioSource = GetComponent<AudioSource>();
-
-        trailRenderer = transform.Find("Trail").GetComponent<TrailRenderer>();
     }
 
     void Start()
@@ -135,6 +130,17 @@ public class PlayerController : MonoBehaviour
                 playerControls.Player.Dash.Disable();
                 StartCoroutine(DashCoroutine(dashStrengthInverse));
             }
+        }
+        #endregion
+
+        #region Control Enable/Disable
+        if (isPlayerControlEnabled)
+        {
+            playerControls.Player.Enable();
+        }
+        else
+        {
+            playerControls.Player.Disable();
         }
         #endregion
     }

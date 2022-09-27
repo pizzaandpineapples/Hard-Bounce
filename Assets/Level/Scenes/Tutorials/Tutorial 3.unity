@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 419662840}
   - component: {fileID: 419662839}
   m_Layer: 5
-  m_Name: Instructions
+  m_Name: Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 460897364}
   - component: {fileID: 460897363}
   m_Layer: 0
-  m_Name: BounceEvent
+  m_Name: Tutorial3Event
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -605,8 +605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceCount: 0
-  howManyBounces: 5
-  goThisWay: {fileID: 1375263286}
+  howManyBouncesToNextLevel: 5
+  goThisWayInstruction: {fileID: 1375263286}
   nextLevel: {fileID: 378288068}
 --- !u!61 &460897364
 BoxCollider2D:
@@ -1954,7 +1954,7 @@ GameObject:
   - component: {fileID: 1850123249}
   - component: {fileID: 1850123248}
   m_Layer: 5
-  m_Name: Instructions (1)
+  m_Name: Yellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

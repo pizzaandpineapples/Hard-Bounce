@@ -463,9 +463,9 @@ MonoBehaviour:
   dashDrag: 3
   isColliding: 0
   keyAmountCollected: 0
-  smoothRotate: 0.2
   dashStrengthInverse: 100
   smoothDash: 0.2
+  isPlayerControlEnabled: 1
   DashFX: {fileID: 8300000, guid: 0e87c4405b2196245bf465c82394160e, type: 3}
 --- !u!114 &3159746274027761671
 MonoBehaviour:

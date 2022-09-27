@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tutorial3Handler : MonoBehaviour
+public class Tutorial3Event : MonoBehaviour
 {
     [SerializeField] private int bounceCount;
-    [SerializeField] private int howManyBounces;
+    [SerializeField] private int howManyBouncesToNextLevel;
 
-    [SerializeField] private GameObject goThisWay;
+    [SerializeField] private GameObject goThisWayInstruction;
     [SerializeField] private GameObject nextLevel;
 
     // Start is called before the first frame update
@@ -15,9 +15,9 @@ public class Tutorial3Handler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bounceCount >= howManyBounces)
+        if (bounceCount >= howManyBouncesToNextLevel)
         {
-            goThisWay.gameObject.SetActive(true);
+            goThisWayInstruction.gameObject.SetActive(true);
             nextLevel.gameObject.SetActive(true);
         }
     }

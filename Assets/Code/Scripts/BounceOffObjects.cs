@@ -98,6 +98,7 @@ public class BounceOffObjects : MonoBehaviour
             // Disables player movement and controls.
             RandomBounceSFX(0.2f);
             PlayerRigidbody2D.velocity = Vector2.zero;
+            PlayerRigidbody2D.angularVelocity = 0;
             PlayerRigidbody2D.Sleep();
             PlayerRigidbody2D.isKinematic = true;
             gameObject.GetComponent<PlayerController>().enabled = false;
@@ -120,15 +121,6 @@ public class BounceOffObjects : MonoBehaviour
     {
         int bounceIndex = Random.Range(0, bounceFX.Length);
         playerAudioSource.PlayOneShot(bounceFX[bounceIndex], sfxVolume);
-    }
-
-    IEnumerator PlatformUnlatchCoroutine(float time, Collision2D collision)
-    {
-        yield return new WaitForSeconds(time);
-        PlayerRigidbody2D.AddForce(direction * 0.5f, ForceMode2D.Impulse); 
-        collision.gameObject.GetComponent<Collider2D>().enabled = false;
-        yield return new WaitForSeconds(time);
-        collision.gameObject.GetComponent<Collider2D>().enabled = true;
     }
 
     IEnumerator DestroyCoroutine(Collision2D collision)
