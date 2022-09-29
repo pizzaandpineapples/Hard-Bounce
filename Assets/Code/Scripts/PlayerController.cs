@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerControls = new PlayerControls();
+        playerControls.Player.Enable();
         playerAudioSource = GetComponent<AudioSource>();
     }
 
@@ -131,16 +132,7 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-        #region Control Enable/Disable
-        if (isPlayerControlEnabled)
-        {
-            playerControls.Player.Enable();
-        }
-        else
-        {
-            playerControls.Player.Disable();
-        }
-        #endregion
+        
     }
 
     void Update()
@@ -159,8 +151,15 @@ public class PlayerController : MonoBehaviour
             isMovementActive = true;
         }
         #endregion
+
+        #region Control Enable/Disable
+        if (!isPlayerControlEnabled)
+        {
+            playerControls.Player.Disable();
+        }
+        #endregion
     }
-    
+
     // To rotate the player.
     void RotatePlayer(Vector2 direction)
     {
