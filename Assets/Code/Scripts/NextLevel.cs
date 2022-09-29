@@ -15,7 +15,6 @@ public class NextLevel : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             keyAmountCollected = collision.gameObject.GetComponent<PlayerController>().keyAmountCollected;
-           
         }
         if (keyAmountCollected >= keyAmountRequired)
         {

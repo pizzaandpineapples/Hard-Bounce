@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 3159746274027761668}
   - component: {fileID: 3159746274027761671}
   m_Layer: 0
-  m_Name: Player Menu
+  m_Name: Player-Menu
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -456,16 +456,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementStrength: 1000
-  minimumVelocityToControlShip: 0
+  minimumVelocityToControlPlayer: 4
   dashDuration: 0.625
   dashLimit: 0.625
   dashStrength: 50
   dashDrag: 3
+  brakeStrengthInverse: 100
+  dashAudioClip: {fileID: 8300000, guid: 0e87c4405b2196245bf465c82394160e, type: 3}
+  dashVolume: 0.3
   isColliding: 0
   keyAmountCollected: 0
-  dashStrengthInverse: 1000
-  smoothDash: 0.2
-  DashFX: {fileID: 8300000, guid: 0e87c4405b2196245bf465c82394160e, type: 3}
+  isPlayerControlEnabled: 0
 --- !u!114 &3159746274027761671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,12 +479,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe07c6ecf61a20d4a824329e5313629b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceFX:
+  bounceAudioClips:
   - {fileID: 8300000, guid: 952ed7d99cedbb543aa6ae8848727fec, type: 3}
   - {fileID: 8300000, guid: ed4d4f5f340818849b14b48315976e26, type: 3}
-  destroyFX: {fileID: 8300000, guid: 27e1e219ad3c6c2478f8ae3a35ddea3e, type: 3}
-  popFX: {fileID: 8300000, guid: 896d0f2705ae39749827750195c64691, type: 3}
-  skullParticle: {fileID: 8703367507081526293}
+  bounceVolume: 0.2
+  playerDeathAudioClip: {fileID: 8300000, guid: 896d0f2705ae39749827750195c64691, type: 3}
+  playerDeathVolume: 0.5
+  playerDeathParticleSystem: {fileID: 8703367507081526293}
 --- !u!1001 &3159746274116503663
 PrefabInstance:
   m_ObjectHideFlags: 0

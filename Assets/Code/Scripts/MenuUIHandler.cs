@@ -7,10 +7,10 @@ using UnityEditor;
 
 public class MenuUIHandler : MonoBehaviour
 {
-    [SerializeField] private Button StartButton;
-    [SerializeField] private Button TutorialButton;
-    [SerializeField] private Button QuitButton;
-    [SerializeField] private Button ResetButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button tutorialButton;
+    [SerializeField] private Button quitButton;
+    [SerializeField] private Button resetButton;
 
     [SerializeField] public bool isTutorialComplete;
 
@@ -32,19 +32,19 @@ public class MenuUIHandler : MonoBehaviour
 
         if (isTutorialComplete)
         {
-            TutorialButton.gameObject.SetActive(true);
-            QuitButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
-            ResetButton.gameObject.transform.localPosition = new Vector3(0, -108, 0);
+            tutorialButton.gameObject.SetActive(true);
+            quitButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
+            resetButton.gameObject.transform.localPosition = new Vector3(0, -108, 0);
         }
         else
         {
-            TutorialButton.gameObject.SetActive(false);
-            QuitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
-            ResetButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
+            tutorialButton.gameObject.SetActive(false);
+            quitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
+            resetButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
         }
     }
 
-    public void PlayGame()
+    public void StartGame()
     {
         if (isTutorialComplete)
         {
@@ -56,7 +56,7 @@ public class MenuUIHandler : MonoBehaviour
         }
     }
 
-    public void Tutorial()
+    public void StartTutorial()
     {
         SceneManager.LoadScene("Tutorial 1", LoadSceneMode.Single);
     }

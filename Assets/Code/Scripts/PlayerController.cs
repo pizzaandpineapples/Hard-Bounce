@@ -8,50 +8,49 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
 {
-    #region Ball
-    // Input Vectors
+    // Input Vector
     private Vector2 inputVectorRotate;
     // Movement
     private bool isMovementActive;
     [SerializeField] private float movementStrength;
     private float currentMovementStrength;
-    [SerializeField] private float minimumVelocityToControlShip;
+    [SerializeField] private float minimumVelocityToControlPlayer;
     // Dash
+    public int dashCount;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashLimit;
     [SerializeField] private float dashStrength;
     [SerializeField] private float dashDrag;
     private float currentDrag;
+
+    private Vector2 smoothVelocity; // Empty velocity reference for all Smoothdamp functions.
+
+    //// Movement Smoothdamp
+    // private Vector2 currentInputVectorRotate;
+    // [SerializeField] private float smoothRotate;
+
+    // Dash Smoothdamp
+    [SerializeField] private float brakeStrengthInverse; // Dash mechanic employs a brake to function. Strength decreases as field value increases. 100 is preferred.
+
+    private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip dashAudioClip;
+    [Range(0.0f, 1.0f)]
+    [SerializeField] private float dashVolume;
+
     // Collision detection
     [SerializeField] private bool isColliding = false;
+
     [SerializeField] public int keyAmountCollected;
-    #endregion
-
-    #region Smoothdamp
-    private Vector2 smoothVelocity; // Empty velocity reference for all Smoothdamp functions.
-    // Movement
-    //private Vector2 currentInputVectorRotate;
-    //[SerializeField] private float smoothRotate;
-    // Dash Smoothdamp
-    [SerializeField] private float dashStrengthInverse; // Strength decreases as field value increases. 100 is preferred.
-    [SerializeField] private float smoothDash;
-    #endregion
-
-    private Rigidbody2D PlayerRigidbody2D;
+    [SerializeField] private bool isPlayerControlEnabled;
+    
+    private Rigidbody2D playerRigidbody2D;
     // private PlayerInput PlayerInput;
     public PlayerControls playerControls;
-    [SerializeField] private bool isPlayerControlEnabled;
-    private AudioSource playerAudioSource;
-    [SerializeField] private AudioClip DashFX;
-
+    
     void Awake()
     {
-        PlayerRigidbody2D = GetComponent<Rigidbody2D>();
-        // PlayerInput = GetComponent<PlayerInput>();
-
-        // Enables the playerControls input action asset.
+        playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerControls = new PlayerControls();
-
         playerAudioSource = GetComponent<AudioSource>();
     }
 
@@ -59,10 +58,9 @@ public class PlayerController : MonoBehaviour
     {
         isMovementActive = true;
         currentMovementStrength = movementStrength;
-        currentDrag = PlayerRigidbody2D.drag;
+        currentDrag = playerRigidbody2D.drag;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         #region Movement & Rotation of ship
@@ -85,7 +83,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (!isColliding)
         {
-            if (PlayerRigidbody2D.velocity.magnitude > minimumVelocityToControlShip)
+            if (playerRigidbody2D.velocity.magnitude > minimumVelocityToControlPlayer)
             {
                 playerControls.Player.Movement.Enable();
             }
@@ -95,18 +93,18 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-            // If statement only for brake.
+        // If statement only for brake. Final build won't require the if wrapper.
         if (isMovementActive)
         {
-            PlayerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
-            Debug.Log(PlayerRigidbody2D.velocity.magnitude);
+            playerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
+            Debug.Log(playerRigidbody2D.velocity.magnitude);
         }
         else
         #endregion
 
         #region Brake [Only for testing]
-        // Hold [O] or V key to activate hard-brakes.
-        // Stops ship immediately. Simulates car hand brake.
+        // Hold [CIRCLE]/[B] or SHIFT key to activate hard-brakes.
+        // Stops player immediately.
 
         if (!isMovementActive)
         {
@@ -115,20 +113,20 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Dash
-        // Tap [X] or shift keys to dash.
+        // Tap [CROSS]/[A] or SPACE key to dash.
 
         if (playerControls.Player.Dash.IsPressed())
         {
-            if (PlayerRigidbody2D.velocity.magnitude < 1000)
+            if (playerRigidbody2D.velocity.magnitude < 100)
             {
                 playerControls.Player.Dash.Disable();
-                StartCoroutine(DashCoroutine(dashStrengthInverse));
+                StartCoroutine(DashCoroutine(brakeStrengthInverse));
             }
-            else if (PlayerRigidbody2D.velocity.magnitude > 100)
+            else if (playerRigidbody2D.velocity.magnitude > 100)
             {
                 OnBrake();
                 playerControls.Player.Dash.Disable();
-                StartCoroutine(DashCoroutine(dashStrengthInverse));
+                StartCoroutine(DashCoroutine(brakeStrengthInverse));
             }
         }
         #endregion
@@ -147,6 +145,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        #region Brake [Only for testing]
+        // Only used to get proper key presses and releases.
+
         if (playerControls.Player.Hardbrake.IsPressed())
         {
             Debug.Log("Circle is pressed");
@@ -157,6 +158,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Circle was released");
             isMovementActive = true;
         }
+        #endregion
     }
     
     // To rotate the player.
@@ -169,39 +171,36 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
     
-    // To brake the ship.
+    // To brake.
     void OnBrake()
     {
-        PlayerRigidbody2D.velocity = Vector2.zero;
-        PlayerRigidbody2D.angularVelocity = 0;
-    
+        playerRigidbody2D.velocity = Vector2.zero;
+        playerRigidbody2D.angularVelocity = 0;
     }
 
     // To perform a dash.
     IEnumerator DashCoroutine(float smoothTime)
     {
-        playerAudioSource.PlayOneShot(DashFX, 0.3f);
+        playerAudioSource.PlayOneShot(dashAudioClip, dashVolume);
+        dashCount++;
 
         // Apply a force
-        PlayerRigidbody2D.drag = dashDrag;
-        PlayerRigidbody2D.AddForce(transform.up.normalized * (dashStrength * 10) * Time.deltaTime, ForceMode2D.Impulse);
+        playerRigidbody2D.drag = dashDrag;
+        playerRigidbody2D.AddForce(transform.up.normalized * (dashStrength * 10) * Time.deltaTime, ForceMode2D.Impulse);
         
         // Duration of the force
         yield return new WaitForSeconds(dashDuration);
         
-        // Make the player come to stop using smoothdamp.
+        // Make the player come to stop.
         movementStrength = 0;
-
-        PlayerRigidbody2D.velocity = Vector2.SmoothDamp(PlayerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
-        PlayerRigidbody2D.angularVelocity = 0;
-
+        playerRigidbody2D.velocity = Vector2.SmoothDamp(playerRigidbody2D.velocity, Vector2.zero, ref smoothVelocity, (smoothTime / 1000));
+        playerRigidbody2D.angularVelocity = 0;
         movementStrength = currentMovementStrength;
-        PlayerRigidbody2D.drag = currentDrag;
+        playerRigidbody2D.drag = currentDrag;
 
         // Time before you can use dash again.
         yield return new WaitForSeconds(dashLimit);
 
-        // Enable dash again.
         playerControls.Player.Dash.Enable();
     }
 
@@ -216,46 +215,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Used for key collection.
         if (collision.gameObject.tag == "Key")
         {
             keyAmountCollected++;
             Destroy(collision.gameObject);
         }
     }
-
-
-
-
-
-    /* Input.GetKeyUp implementation of releasing thrusters.
-     * Checks when the thruster button is released.
-    private void ThrustersOnCanceled(InputAction.CallbackContext obj)
-    {
-        Debug.Log("Thruster was released.");
-        isThrusterReleased = true;
-    }
-    */
-    /* Old thruster dash coroutine. This is accomplished by the Dash Coroutine.
-     *
-    // To perform thruster dash.
-    IEnumerator ThrusterDashCoroutine()
-    {
-        PlayeRigidbody2D.drag = dashDrag;
-        PlayeRigidbody2D.AddForce(currentInputVectorMovement * (dashPower / 50000) * Time.deltaTime, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(dashLimit);
-        PlayeRigidbody2D.drag = Mathf.SmoothDamp(dashDrag, currentDrag, ref smoothVelocityDash, smoothDash);
-        playerControls.Player.Dash.Enable();
-    }
-    */
-    /* This method is moved into the FixedUpdate() method.
-     * This allows continuous movement with a keypress.
-    private void MovementOnPerformed(InputAction.CallbackContext context)
-    {
-        Debug.Log(context);
-        Vector2 inputVector = playerControls.Player.Movement.ReadValue<Vector2>();
-        currentInputVector = Vector2.SmoothDamp(currentInputVector, inputVector, ref smoothInputVelocity, inputSpeed); // maxSpeed parameter is not used, because we know that the keyboard entry will be clamped to 1.
-
-        PlayeRigidbody2D.AddForce(currentInputVector * thrusterPower * speed * Time.deltaTime);
-    }
-    */
 }

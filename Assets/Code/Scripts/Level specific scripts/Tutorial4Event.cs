@@ -26,7 +26,7 @@ public class Tutorial4Event : MonoBehaviour
 
             if (Gamepad.current == DualShockGamepad.current)
             {
-                xboxImage.gameObject.SetActive(false);
+                psImage.gameObject.SetActive(true);
             }
             else
             {

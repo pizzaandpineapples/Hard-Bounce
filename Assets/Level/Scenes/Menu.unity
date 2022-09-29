@@ -209,7 +209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1205540562}
         m_TargetAssemblyTypeName: MenuUIHandler, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -478,7 +478,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1205540562}
         m_TargetAssemblyTypeName: MenuUIHandler, Assembly-CSharp
-        m_MethodName: Tutorial
+        m_MethodName: StartTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1897,10 +1897,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c015d55595889644af2933b6043a123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartButton: {fileID: 33547208}
-  TutorialButton: {fileID: 241026352}
-  QuitButton: {fileID: 1575640000}
-  ResetButton: {fileID: 317210932}
+  startButton: {fileID: 33547208}
+  tutorialButton: {fileID: 241026352}
+  quitButton: {fileID: 1575640000}
+  resetButton: {fileID: 317210932}
   isTutorialComplete: 0
 --- !u!1001 &1250959911
 PrefabInstance:
@@ -2413,7 +2413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dcbf5e67ad56034ea9de3402cbbbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3159746274027761670, guid: 131d97f633137984f817ddbb346e69cf, type: 3}
+  player: {fileID: 3159746274027761670, guid: 9c58e65f6837c7c40b8a7cf0d3d38535, type: 3}
   playerSpawnPosition: {fileID: 2068814192}
 --- !u!4 &1956960467
 Transform:
