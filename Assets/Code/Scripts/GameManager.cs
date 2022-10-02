@@ -7,30 +7,27 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] protected GameObject playerPrefab;
     [SerializeField] protected Transform playerSpawnPosition;
-    [SerializeField] protected GameObject playerThatIsCurrentlySpawned = null;
+    [SerializeField] protected GameObject playerThatIsCurrentlySpawned;
     [SerializeField] protected Collider2D collider;
 
+    public float playerVelocity;
     public int bounceCount;
     public int dashCount;
-
-    [SerializeField] protected int dashesMin;
-    [SerializeField] protected int dashesMax;
-    public int howManyDashesToNextLevel;
 
     void Awake()
     {
         collider.gameObject.SetActive(true);
+        playerThatIsCurrentlySpawned = playerPrefab;
     }
 
     void Start()
     {
-        howManyDashesToNextLevel = Random.Range(dashesMin, dashesMax);
-
         SpawnPlayer();
     }
 
     void Update()
     {
+        playerVelocity = playerThatIsCurrentlySpawned.GetComponent<Rigidbody2D>().velocity.magnitude; 
         bounceCount = playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().bounceCount;
         dashCount = playerThatIsCurrentlySpawned.GetComponent<PlayerController>().dashCount;
 
