@@ -32,7 +32,6 @@ public class BounceOffObjects : MonoBehaviour
         playerAudioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         lastVelocity = playerRigidbody2D.velocity;

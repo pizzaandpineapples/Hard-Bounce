@@ -5,15 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform playerSpawnPosition;
-    private GameObject playerThatIsCurrentlySpawned;
-    [SerializeField] private Collider2D collider;
+    [SerializeField] protected GameObject playerPrefab;
+    [SerializeField] protected Transform playerSpawnPosition;
+    [SerializeField] protected GameObject playerThatIsCurrentlySpawned = null;
+    [SerializeField] protected Collider2D collider;
 
-    [SerializeField] private int bounceCount;
-    [SerializeField] private int howManyBouncesToNextLevel;
-    [SerializeField] private int dashCount;
-    [SerializeField] private int howManyDashes;
+    public int bounceCount;
+    public int dashCount;
+
+    [SerializeField] protected int dashesMin;
+    [SerializeField] protected int dashesMax;
+    public int howManyDashesToNextLevel;
 
     void Awake()
     {
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        howManyDashesToNextLevel = Random.Range(dashesMin, dashesMax);
+
         SpawnPlayer();
     }
 
@@ -39,11 +43,6 @@ public class GameManager : MonoBehaviour
             BackToMainMenu();
         }
     }
-    public void SpawnPlayer()
-    {
-        Vector3 rotation = new Vector3(0, 0, Random.Range(0, 361));
-        Instantiate(playerPrefab, playerSpawnPosition.position, Quaternion.Euler(rotation));
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -52,6 +51,12 @@ public class GameManager : MonoBehaviour
         {
             playerThatIsCurrentlySpawned = collision.gameObject;
         }
+    }
+
+    public void SpawnPlayer()
+    {
+        Vector3 rotation = new Vector3(0, 0, Random.Range(0, 361));
+        Instantiate(playerPrefab, playerSpawnPosition.position, Quaternion.Euler(rotation));
     }
 
     public void RestartGame()

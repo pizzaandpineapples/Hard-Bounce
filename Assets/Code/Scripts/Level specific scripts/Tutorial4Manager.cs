@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 
-public class Tutorial4Event : MonoBehaviour
+public class Tutorial4Manager : MonoBehaviour
 {
-    [SerializeField] private GameObject SpawnManager;
+    [SerializeField] private GameObject gameManager;
 
     [SerializeField] private bool diedOnce = false;
 
@@ -49,6 +49,6 @@ public class Tutorial4Event : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         diedOnce = true;
         yield return new WaitForSeconds(0.5f);
-        SpawnManager.GetComponent<SpawnManager>().SpawnPlayer();
+        gameManager.GetComponent<GameManager>().SpawnPlayer();
     }
 }
