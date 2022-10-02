@@ -131,8 +131,6 @@ public class PlayerController : MonoBehaviour
             }
         }
         #endregion
-
-        
     }
 
     void Update()
