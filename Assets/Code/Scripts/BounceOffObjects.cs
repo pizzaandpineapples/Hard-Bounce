@@ -8,6 +8,7 @@ public class BounceOffObjects : MonoBehaviour
     private float speed;
     private Vector3 direction;
     public int bounceCount;
+    public bool isPlayerDead = false;
 
     private Rigidbody2D playerRigidbody2D;
     private PlayerController playerController;
@@ -99,6 +100,8 @@ public class BounceOffObjects : MonoBehaviour
 
         if (collision.gameObject.tag == "DPlatform") // Death Platform. Results in player death.
         {
+            isPlayerDead = true;
+
             // Hides the gameobjects in question.
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;

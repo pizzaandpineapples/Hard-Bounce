@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tutorial7Handler : MonoBehaviour
+public class Tutorial7Manager : MonoBehaviour
 {
-    [SerializeField] private GameObject redWalls;
+    [SerializeField] private float weightLerpSpeed;
+    private Vector2 smoothVelocity;
+
+    [SerializeField] private GameObject redBarriers;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "ObstacleBouncy")
         {
-            Destroy(redWalls);
+            Destroy(redBarriers);
+        }
+
+        if (collision.gameObject.tag == "Weights")
+        {
+            Destroy(redBarriers);
+            collision.transform.position = Vector2.SmoothDamp(collision.transform.position, transform.position, ref smoothVelocity,weightLerpSpeed * Time.deltaTime);
+            collision.attachedRigidbody.velocity = Vector2.zero;
         }
     }
 }

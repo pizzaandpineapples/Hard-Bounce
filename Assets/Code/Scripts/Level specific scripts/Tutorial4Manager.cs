@@ -8,29 +8,34 @@ public class Tutorial4Manager : MonoBehaviour
 {
     [SerializeField] private GameObject gameManager;
 
-    [SerializeField] private bool diedOnce = false;
+    [SerializeField] private int howManyPlayerDeathsToNextLevel;
+    [SerializeField] private bool hasPlayerDiedOnce = false;
 
     [SerializeField] private GameObject redInstruction;
     [SerializeField] private GameObject dashInstructions;
-    [SerializeField] private GameObject psImage;
-    [SerializeField] private GameObject xboxImage;
+    [SerializeField] private GameObject playStationControllerImage;
     [SerializeField] private GameObject goThisWayInstruction;
     [SerializeField] private GameObject nextLevel;
 
     // Update is called once per frame
     void Update()
     {
-        if (diedOnce)
+        if (gameManager.GetComponent<GameManager>().playerDeathCount >= howManyPlayerDeathsToNextLevel)
+        {
+            StartCoroutine(ShowInstructionsCoroutine());
+        }
+
+        if (hasPlayerDiedOnce)
         {
             dashInstructions.gameObject.SetActive(true);
 
             if (Gamepad.current == DualShockGamepad.current)
             {
-                psImage.gameObject.SetActive(true);
+                playStationControllerImage.gameObject.SetActive(true);
             }
             else
             {
-                psImage.gameObject.SetActive(false);
+                playStationControllerImage.gameObject.SetActive(false);
             }
 
             goThisWayInstruction.gameObject.SetActive(true);
@@ -38,17 +43,11 @@ public class Tutorial4Manager : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        StartCoroutine(RespawnCoroutine());
-        redInstruction.gameObject.SetActive(true);
-    }
-
-    IEnumerator RespawnCoroutine()
+    IEnumerator ShowInstructionsCoroutine()
     {
         yield return new WaitForSeconds(1.5f);
-        diedOnce = true;
-        yield return new WaitForSeconds(0.5f);
-        gameManager.GetComponent<GameManager>().SpawnPlayer();
+        redInstruction.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        hasPlayerDiedOnce = true;
     }
 }

@@ -9,7 +9,7 @@ public class Tutorial5Manager : MonoBehaviour
     [SerializeField] private int howManyDashesToNextLevel;
 
     [SerializeField] private GameObject instructions;
-    [SerializeField] private GameObject goThisWay;
+    [SerializeField] private GameObject goThisWayInstruction;
     [SerializeField] private GameObject nextLevel;
 
     void Update()
@@ -21,7 +21,7 @@ public class Tutorial5Manager : MonoBehaviour
 
         if (gameManager.GetComponent<GameManager>().dashCount >= howManyDashesToNextLevel)
         {
-            goThisWay.gameObject.SetActive(true);
+            goThisWayInstruction.gameObject.SetActive(true);
             nextLevel.gameObject.SetActive(true);
         }
     }
