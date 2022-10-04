@@ -13,7 +13,7 @@ public class Tutorial7Manager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Weight" || collision.gameObject.tag == "WeightBouncy")
         {
-            //Vector2 direction = collision.ri
+            Vector2 direction = collision.attachedRigidbody.velocity.normalized;
 
             redBarriers.SetActive(false);
             collision.transform.position = Vector2.SmoothDamp(collision.transform.position, transform.position, ref smoothVelocity,weightLerpSpeed * Time.deltaTime);
