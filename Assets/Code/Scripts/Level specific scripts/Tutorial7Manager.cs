@@ -11,16 +11,22 @@ public class Tutorial7Manager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "ObstacleBouncy")
+        if (collision.gameObject.tag == "Weight" || collision.gameObject.tag == "WeightBouncy")
         {
-            Destroy(redBarriers);
-        }
+            //Vector2 direction = collision.ri
 
-        if (collision.gameObject.tag == "Weights")
-        {
-            Destroy(redBarriers);
+            redBarriers.SetActive(false);
             collision.transform.position = Vector2.SmoothDamp(collision.transform.position, transform.position, ref smoothVelocity,weightLerpSpeed * Time.deltaTime);
-            collision.attachedRigidbody.velocity = Vector2.zero;
+            collision.transform.position = Vector2.SmoothDamp(collision.transform.position, transform.position, ref smoothVelocity, weightLerpSpeed * Time.deltaTime);
+            //collision.attachedRigidbody.velocity = Vector2.zero;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Weight" || collision.gameObject.tag == "WeightBouncy")
+        {
+            redBarriers.SetActive(true);
         }
     }
 }

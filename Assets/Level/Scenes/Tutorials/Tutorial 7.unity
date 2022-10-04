@@ -721,7 +721,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &769781397
 GameObject:
@@ -1072,6 +1072,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386513807}
   m_CullTransparentMesh: 1
+--- !u!1 &1706956042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2907900898601363604, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
+  m_PrefabInstance: {fileID: 2907900897463942470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1706956047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706956042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511afebbccbc30842b7cf70d97300b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weightLerpSpeed: 0.01
+  redBarriers: {fileID: 1874324457}
 --- !u!1 &1720411059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,7 +1680,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 673309200064045868, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: m_TagString
-      value: Weights
+      value: Weight
       objectReference: {fileID: 0}
     - target: {fileID: 673309200064045875, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: m_Size.y
@@ -1677,23 +1696,31 @@ PrefabInstance:
       objectReference: {fileID: 1874324457}
     - target: {fileID: 2907900898601363600, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: weightLerpSpeed
-      value: 0.25
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907900898601363604, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2907900898601363605, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: m_Size.x
-      value: 0.5294285
+      value: 0.8678532
       objectReference: {fileID: 0}
     - target: {fileID: 2907900898601363605, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: m_Size.y
-      value: 0.5294285
+      value: 0.8678532
       objectReference: {fileID: 0}
     - target: {fileID: 3029781624300834874, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: m_Name
       value: Tutorial7
       objectReference: {fileID: 0}
+    - target: {fileID: 3187074047713688897, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
+      propertyPath: m_Name
+      value: RedBarriers
+      objectReference: {fileID: 0}
     - target: {fileID: 6060661519978223325, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6060661519978223325, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1735,5 +1762,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2907900898601363600, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1bfd80a829629348a04c2ae5c6fa77d, type: 3}
