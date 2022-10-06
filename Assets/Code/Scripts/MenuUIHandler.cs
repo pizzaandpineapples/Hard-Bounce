@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ public class MenuUIHandler : MonoBehaviour
     [SerializeField] private Button quitButton;
     [SerializeField] private Button resetButton;
 
-    [SerializeField] public bool isTutorialComplete;
+    [NonSerialized] public bool isTutorialComplete;
 
     void Start()
     {
@@ -46,7 +47,7 @@ public class MenuUIHandler : MonoBehaviour
     {
         if (isTutorialComplete)
         {
-            SceneManager.LoadScene("Main", LoadSceneMode.Single);
+            SceneManager.LoadScene("Level 1", LoadSceneMode.Single);
         }
         else
         {

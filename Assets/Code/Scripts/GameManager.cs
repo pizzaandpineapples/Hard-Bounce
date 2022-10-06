@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public bool isPlayerRespawnable;
     [SerializeField] private float restartTimeForRespawn = 2f;
 
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+
     void Awake()
     {
         collider.gameObject.SetActive(true);
@@ -89,6 +91,6 @@ public class GameManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        SceneManager.LoadScene(mainMenuSceneName, LoadSceneMode.Single);
     }
 }

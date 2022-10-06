@@ -1364,6 +1364,7 @@ MonoBehaviour:
   restartTimeForMenu: 0
   isPlayerRespawnable: 0
   restartTimeForRespawn: 2
+  mainMenuSceneName: MainMenu
 --- !u!61 &1230905247
 BoxCollider2D:
   m_ObjectHideFlags: 0

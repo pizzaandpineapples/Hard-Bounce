@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 3159746274027761668}
   - component: {fileID: 3159746274027761671}
   m_Layer: 0
-  m_Name: Player-Menu
+  m_Name: Player for MainMenu
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
