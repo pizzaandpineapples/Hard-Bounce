@@ -457,6 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementStrength: 1000
   minimumVelocityToControlPlayer: 4
+  dashCount: 0
   dashDuration: 0.625
   dashLimit: 0.625
   dashStrength: 50
@@ -479,6 +480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe07c6ecf61a20d4a824329e5313629b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bounceCount: 0
+  isPlayerDead: 0
   bounceAudioClips:
   - {fileID: 8300000, guid: 952ed7d99cedbb543aa6ae8848727fec, type: 3}
   - {fileID: 8300000, guid: ed4d4f5f340818849b14b48315976e26, type: 3}

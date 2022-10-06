@@ -2,10 +2,15 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject pauseMenu;
+    private bool isPaused = false;
+    [SerializeField] private Slider sfxVolumeSlider;
+
     [SerializeField] protected GameObject playerPrefab;
     [SerializeField] protected Transform playerSpawnPosition;
     [SerializeField] protected GameObject playerThatIsCurrentlySpawned;
@@ -24,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float restartTimeForRespawn = 2f;
 
     [SerializeField] private string mainMenuSceneName = "MainMenu";
+    
+    private AudioSource audioSource;
 
     void Awake()
     {
@@ -33,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         SpawnPlayer();
     }
 
@@ -48,16 +56,20 @@ public class GameManager : MonoBehaviour
             playerDeathCount++;
 
             // If player is NOT respawnable, then restart the level. Else, respawn player.
-            StartCoroutine(!isPlayerRespawnable ? RestartGame(restartTimeAfterPlayerDeath) : RespawnCoroutine(restartTimeForRespawn));
+            StartCoroutine(!isPlayerRespawnable ? RestartGameCoroutine(restartTimeAfterPlayerDeath) : RespawnCoroutine(restartTimeForRespawn));
             isPlayerDead = false;
             playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().isPlayerDead = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu();
+        }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(RestartGame(restartTimeForMenu));
+            StartCoroutine(RestartGameCoroutine(restartTimeForMenu));
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             BackToMainMenu();
         }
@@ -69,6 +81,7 @@ public class GameManager : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             playerThatIsCurrentlySpawned = collision.gameObject;
+            //sfxVolumeSlider.onValueChanged.AddListener(value => playerThatIsCurrentlySpawned.GetComponent<AudioSource>().volume(sfxVolumeSlider.value));
         }
     }
 
@@ -83,7 +96,35 @@ public class GameManager : MonoBehaviour
         SpawnPlayer();
     }
 
-    IEnumerator RestartGame(float restartTime)
+    public void PauseMenu()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            isPaused = false;
+        }
+        else if (!isPaused && SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            isPaused = true;
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0; // Setting the Time.timeScale to 0 makes it so that physics calculations are paused.
+            audioSource.Pause();
+        }
+        else if (isPaused && SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            isPaused = false;
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1;
+            audioSource.Play();
+        }
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator RestartGameCoroutine(float restartTime)
     {
         yield return new WaitForSeconds(restartTime);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
