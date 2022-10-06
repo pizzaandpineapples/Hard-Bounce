@@ -89,8 +89,18 @@ public class PlayerController : MonoBehaviour
             else
             {
                 playerControls.Player.Movement.Disable();
+                //StartCoroutine(PlayerMovementCheck());
             }
+
+            // If the speed is below 0.5 but still not colliding, that means the player is stuck.
+            // The PlayerUnlatch coroutine checks for this and unlatches the player.
+            if (playerRigidbody2D.velocity.magnitude < 0.5f)
+            {
+                StartCoroutine(PlayerUnlatch());
+            }
+
         }
+
 
         // If statement only for brake. Final build won't require the if wrapper.
         if (isMovementActive)
@@ -202,9 +212,18 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isColliding = true;
+        StopCoroutine(PlayerUnlatch());
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
+        isColliding = false;
+    }
+    IEnumerator PlayerUnlatch()
+    {
+        Debug.Log("Start coroutine");
+        yield return new WaitForSeconds(2f);
+        isColliding = true;
+        yield return new WaitForSeconds(1f);
         isColliding = false;
     }
 
