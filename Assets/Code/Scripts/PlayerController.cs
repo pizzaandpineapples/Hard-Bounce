@@ -107,7 +107,6 @@ public class PlayerController : MonoBehaviour
         if (isMovementActive)
         {
             playerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
-            Debug.Log(playerRigidbody2D.velocity.magnitude);
         }
         else
         #endregion
@@ -223,7 +222,6 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator PlayerUnlatch()
     {
-        Debug.Log("Start coroutine");
         yield return new WaitForSeconds(2f);
         isColliding = true;
         yield return new WaitForSeconds(1f);

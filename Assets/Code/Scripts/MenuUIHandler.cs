@@ -50,7 +50,7 @@ public class MenuUIHandler : MonoBehaviour
     {
         if (isTutorialComplete)
         {
-            SceneManager.LoadScene("Level 1", LoadSceneMode.Single);
+            SceneManager.LoadScene(PlayerPrefs.GetString("Current-Scene"), LoadSceneMode.Single);
         }
         else
         {

@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private string currentSceneName;
+
     // Pause menu
     [SerializeField] private GameObject pauseMenu;
     private bool isPaused = false;
@@ -15,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip pauseMenuAudioClip;
     [Range(0.0f, 1.0f)]
     [SerializeField] private float pauseMenuVolume;
-    [SerializeField] private string mainMenuSceneName = "MainMenu";
+
     // public delegate void SfxVolumeSliderChange(float volume); // Not using this delegate anymore.
     // public static SfxVolumeSliderChange sfxVolumeSliderChange; 
 
@@ -54,8 +56,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameManagerAudioSource= GetComponent<AudioSource>();
+        currentSceneName = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("Current-Scene", currentSceneName);
+        PlayerPrefs.Save();
         SpawnPlayer();
+        gameManagerAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -149,6 +154,6 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(mainMenuSceneName, LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }
