@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class BounceOffObjects : MonoBehaviour
 {
+    // Bounce
     private Vector3 lastVelocity;
     private float speed;
     private Vector3 direction;
     public int bounceCount;
+
     public bool isPlayerDead = false;
 
     private Rigidbody2D playerRigidbody2D;
     private PlayerController playerController;
     
+    // Audio controls
     private AudioSource playerAudioSource;
     [SerializeField] private AudioClip[] bounceAudioClips;
     [Range(0.0f, 1.0f)]
@@ -23,6 +26,7 @@ public class BounceOffObjects : MonoBehaviour
     [Range(0.0f, 1.0f)]
     [SerializeField] private float playerDeathVolume;
     
+    // Particle system
     [SerializeField] private ParticleSystem playerDeathParticleSystem;
 
     void Awake()

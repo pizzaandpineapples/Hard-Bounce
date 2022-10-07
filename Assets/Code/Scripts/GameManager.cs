@@ -3,34 +3,40 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    // Pause menu
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
     [SerializeField] private GameObject pauseMenu;
     private bool isPaused = false;
     [SerializeField] private Slider sfxVolumeSlider;
+    public delegate void SfxVolumeSliderChange(float volume);
+    public static SfxVolumeSliderChange sfxVolumeSliderChange;
 
+    private AudioSource audioSource;
+
+    // Player spawn
     [SerializeField] protected GameObject playerPrefab;
     [SerializeField] protected Transform playerSpawnPosition;
     [SerializeField] protected GameObject playerThatIsCurrentlySpawned;
     [SerializeField] protected Collider2D collider;
 
     // TODO: Make GameManager persistent or save these values, so that they can be utilized for scoring/challenge/achievement systems.
+    // Player properties
     public float playerVelocity;
     public int bounceCount;
     public int dashCount;
     public int playerDeathCount; 
 
+    // Restart/Respawn
     [NonSerialized] public bool isPlayerDead = false;
     [SerializeField] private float restartTimeAfterPlayerDeath = 2f;
     [SerializeField] private float restartTimeForMenu = 0f;
     public bool isPlayerRespawnable;
     [SerializeField] private float restartTimeForRespawn = 2f;
-
-    [SerializeField] private string mainMenuSceneName = "MainMenu";
-    
-    private AudioSource audioSource;
 
     void Awake()
     {
@@ -71,7 +77,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            BackToMainMenu();
+            QuitGame();
         }
     }
 
@@ -81,7 +87,8 @@ public class GameManager : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             playerThatIsCurrentlySpawned = collision.gameObject;
-            //sfxVolumeSlider.onValueChanged.AddListener(value => playerThatIsCurrentlySpawned.GetComponent<AudioSource>().volume(sfxVolumeSlider.value));
+            //sfxVolumeSlider.onValueChanged.AddListener(delegate { sfxVolumeSliderChange(sfxVolumeSlider.value); });
+            sfxVolumeSlider.onValueChanged.AddListener(value => collision.GetComponent<PlayerController>().AdjustVolume(sfxVolumeSlider.value));
         }
     }
 
@@ -130,7 +137,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void BackToMainMenu()
+    public void QuitGame()
     {
         SceneManager.LoadScene(mainMenuSceneName, LoadSceneMode.Single);
     }

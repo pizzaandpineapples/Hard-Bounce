@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        GameManager.sfxVolumeSliderChange += AdjustVolume;
+
         isMovementActive = true;
         currentMovementStrength = movementStrength;
         currentDrag = playerRigidbody2D.drag;
@@ -235,5 +237,15 @@ public class PlayerController : MonoBehaviour
             keyAmountCollected++;
             Destroy(collision.gameObject);
         }
+    }
+
+    public void AdjustVolume(float volume)
+    {
+        playerAudioSource.volume = volume;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.sfxVolumeSliderChange -= AdjustVolume;
     }
 }
