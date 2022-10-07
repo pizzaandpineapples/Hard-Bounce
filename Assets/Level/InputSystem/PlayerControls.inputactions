@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "e1987a3b-c33d-41cd-90e4-e280a2159dd5",
-                    "expectedControlType": "Stick",
-                    "processors": "InvertVector2(invertY=false)",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Hardbrake",
                     "type": "Button",
                     "id": "509bbf78-9e6c-4791-a454-5559fafb9d14",
@@ -111,28 +102,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2e788aef-d205-426c-8b68-86faa73e2719",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "45df71b2-0f15-49ec-a291-eac8fd96ad36",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8557efbb-37c9-4917-bc39-25ac0806e87d",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -172,6 +141,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hardbrake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "bfbb8455-82cc-4ff7-833f-2a49acb14ed0",
+            "actions": [
+                {
+                    "name": "PauseMenu",
+                    "type": "Button",
+                    "id": "8bdd6064-5da7-4564-8441-f7ff6d66fdb1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d6123639-1ee7-49f3-9463-cf60482ad056",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf5e9b44-74cf-4f67-b143-60113f0db98a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

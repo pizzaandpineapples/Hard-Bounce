@@ -8,6 +8,7 @@ public class MenuUIHandler : MonoBehaviour
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button tutorialButton;
+    [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Button resetButton;
 
@@ -32,14 +33,16 @@ public class MenuUIHandler : MonoBehaviour
         if (isTutorialComplete)
         {
             tutorialButton.gameObject.SetActive(true);
-            quitButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
-            resetButton.gameObject.transform.localPosition = new Vector3(0, -108, 0);
+            optionsButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
+            quitButton.gameObject.transform.localPosition = new Vector3(0, -108, 0);
+            resetButton.gameObject.transform.localPosition = new Vector3(0, -144, 0);
         }
         else
         {
             tutorialButton.gameObject.SetActive(false);
-            quitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
-            resetButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
+            optionsButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
+            quitButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
+            resetButton.gameObject.transform.localPosition = new Vector3(0, -108, 0);
         }
     }
 

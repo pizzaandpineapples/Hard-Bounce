@@ -1003,9 +1003,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 498848397179460676}
     m_Modifications:
+    - target: {fileID: 751210915577699704, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
+      propertyPath: rotationSpeed
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5302735659621559505, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
+      propertyPath: rotationSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5492010454500551053, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
       propertyPath: m_Name
-      value: DualLock
+      value: NextLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7253084788745019147, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
+      propertyPath: rotationSpeed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7322358685369473722, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
       propertyPath: m_RootOrder
@@ -1051,13 +1063,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3733456713378723992, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
 --- !u!4 &5645410073048836679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7322358685369473722, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
   m_PrefabInstance: {fileID: 3154411866467168509}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7489823215715473776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5492010454500551053, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
+  m_PrefabInstance: {fileID: 3154411866467168509}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1581221140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489823215715473776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4465f4544e4354194d084d60ab2baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyAmountCollected: 0
+  keyAmountRequired: 2
+  SceneName: Tutorial 7
 --- !u!1001 &4183841586952303214
 PrefabInstance:
   m_ObjectHideFlags: 0

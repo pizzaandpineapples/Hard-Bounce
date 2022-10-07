@@ -22,7 +22,7 @@ public class BounceOffObjects : MonoBehaviour
     //[SerializeField] private float platfromDestroyVolume;
     //[SerializeField] private AudioClip platfromDestroyAudioClip;
     //[Range(0.0f, 1.0f)]
-    [SerializeField] private AudioClip playerDeathAudioClip;
+    [SerializeField] private AudioClip[] playerDeathAudioClips;
     [Range(0.0f, 1.0f)]
     [SerializeField] private float playerDeathVolume;
     
@@ -48,7 +48,8 @@ public class BounceOffObjects : MonoBehaviour
 
         bounceCount++;
 
-        int bounceAudioClipsIndex = Random.Range(0, bounceAudioClips.Length); 
+        int bounceAudioClipsIndex = Random.Range(0, bounceAudioClips.Length);
+        int playerDeathAudioClipsIndex = Random.Range(0, playerDeathAudioClips.Length);
 
         #region In-general bounce behavior
         // Bounce of boundaries, non-bouncy objects and regular platforms.
@@ -118,8 +119,8 @@ public class BounceOffObjects : MonoBehaviour
             playerController.playerControls.Player.Disable();
 
             // Plays audio clips and particle effects.
-            playerAudioSource.PlayOneShot(bounceAudioClips[bounceAudioClipsIndex], bounceVolume);
-            playerAudioSource.PlayOneShot(playerDeathAudioClip, playerDeathVolume);
+            //playerAudioSource.PlayOneShot(bounceAudioClips[bounceAudioClipsIndex], bounceVolume);
+            playerAudioSource.PlayOneShot(playerDeathAudioClips[playerDeathAudioClipsIndex], playerDeathVolume);
             playerDeathParticleSystem.Play();
             //playerAudioSource.PlayOneShot(destroyFX, 0.1f);
             //collision.gameObject.GetComponentInChildren<ParticleSystem>().Play();

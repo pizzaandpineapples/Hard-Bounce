@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float brakeStrengthInverse; // Dash mechanic employs a brake to function. Strength decreases as field value increases. 100 is preferred.
 
     private AudioSource playerAudioSource;
-    [SerializeField] private AudioClip dashAudioClip;
+    [SerializeField] private AudioClip[] playerDashAudioClips;
     [Range(0.0f, 1.0f)]
     [SerializeField] private float dashVolume;
 
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        GameManager.sfxVolumeSliderChange += AdjustVolume;
+        // GameManager.sfxVolumeSliderChange += AdjustVolume;
 
         isMovementActive = true;
         currentMovementStrength = movementStrength;
@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
 
         // If statement only for brake. Final build won't require the if wrapper.
         if (isMovementActive)
@@ -188,7 +187,9 @@ public class PlayerController : MonoBehaviour
     // To perform a dash.
     IEnumerator DashCoroutine(float smoothTime)
     {
-        playerAudioSource.PlayOneShot(dashAudioClip, dashVolume);
+        int playerDashAudioClipsIndex = Random.Range(0, playerDashAudioClips.Length);
+
+        playerAudioSource.PlayOneShot(playerDashAudioClips[playerDashAudioClipsIndex], dashVolume);
         dashCount++;
 
         // Apply a force
@@ -244,8 +245,8 @@ public class PlayerController : MonoBehaviour
         playerAudioSource.volume = volume;
     }
 
-    void OnDestroy()
-    {
-        GameManager.sfxVolumeSliderChange -= AdjustVolume;
-    }
+    //void OnDestroy()
+    //{
+    //    GameManager.sfxVolumeSliderChange -= AdjustVolume;
+    //}
 }

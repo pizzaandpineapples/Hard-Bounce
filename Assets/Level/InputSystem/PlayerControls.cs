@@ -37,15 +37,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""e1987a3b-c33d-41cd-90e4-e280a2159dd5"",
-                    ""expectedControlType"": ""Stick"",
-                    ""processors"": ""InvertVector2(invertY=false)"",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Hardbrake"",
                     ""type"": ""Button"",
                     ""id"": ""509bbf78-9e6c-4791-a454-5559fafb9d14"",
@@ -133,28 +124,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2e788aef-d205-426c-8b68-86faa73e2719"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""45df71b2-0f15-49ec-a291-eac8fd96ad36"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8557efbb-37c9-4917-bc39-25ac0806e87d"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -198,6 +167,45 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""bfbb8455-82cc-4ff7-833f-2a49acb14ed0"",
+            ""actions"": [
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""8bdd6064-5da7-4564-8441-f7ff6d66fdb1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d6123639-1ee7-49f3-9463-cf60482ad056"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf5e9b44-74cf-4f67-b143-60113f0db98a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -205,9 +213,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Hardbrake = m_Player.FindAction("Hardbrake", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_PauseMenu = m_UI.FindAction("PauseMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -268,7 +278,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Hardbrake;
     private readonly InputAction m_Player_Dash;
     public struct PlayerActions
@@ -276,7 +285,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Hardbrake => m_Wrapper.m_Player_Hardbrake;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -291,9 +299,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Hardbrake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHardbrake;
                 @Hardbrake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHardbrake;
                 @Hardbrake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHardbrake;
@@ -307,9 +312,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
                 @Hardbrake.started += instance.OnHardbrake;
                 @Hardbrake.performed += instance.OnHardbrake;
                 @Hardbrake.canceled += instance.OnHardbrake;
@@ -320,11 +322,47 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_PauseMenu;
+    public struct UIActions
+    {
+        private @PlayerControls m_Wrapper;
+        public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PauseMenu => m_Wrapper.m_UI_PauseMenu;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @PauseMenu.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseMenu;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @PauseMenu.started += instance.OnPauseMenu;
+                @PauseMenu.performed += instance.OnPauseMenu;
+                @PauseMenu.canceled += instance.OnPauseMenu;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
         void OnHardbrake(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
 }

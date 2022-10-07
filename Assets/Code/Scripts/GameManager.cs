@@ -9,14 +9,17 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     // Pause menu
-    [SerializeField] private string mainMenuSceneName = "MainMenu";
     [SerializeField] private GameObject pauseMenu;
     private bool isPaused = false;
     [SerializeField] private Slider sfxVolumeSlider;
-    public delegate void SfxVolumeSliderChange(float volume);
-    public static SfxVolumeSliderChange sfxVolumeSliderChange;
+    [SerializeField] private AudioClip pauseMenuAudioClip;
+    [Range(0.0f, 1.0f)]
+    [SerializeField] private float pauseMenuVolume;
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    // public delegate void SfxVolumeSliderChange(float volume); // Not using this delegate anymore.
+    // public static SfxVolumeSliderChange sfxVolumeSliderChange; 
 
-    private AudioSource audioSource;
+    private AudioSource gameManagerAudioSource;
 
     // Player spawn
     [SerializeField] protected GameObject playerPrefab;
@@ -38,15 +41,20 @@ public class GameManager : MonoBehaviour
     public bool isPlayerRespawnable;
     [SerializeField] private float restartTimeForRespawn = 2f;
 
+    public PlayerControls playerControls;
+
     void Awake()
     {
         collider.gameObject.SetActive(true);
         playerThatIsCurrentlySpawned = playerPrefab;
+
+        playerControls = new PlayerControls();
+        playerControls.UI.Enable();
     }
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        gameManagerAudioSource= GetComponent<AudioSource>();
         SpawnPlayer();
     }
 
@@ -67,7 +75,7 @@ public class GameManager : MonoBehaviour
             playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().isPlayerDead = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (playerControls.UI.PauseMenu.triggered)
         {
             PauseMenu();
         }
@@ -87,7 +95,7 @@ public class GameManager : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             playerThatIsCurrentlySpawned = collision.gameObject;
-            //sfxVolumeSlider.onValueChanged.AddListener(delegate { sfxVolumeSliderChange(sfxVolumeSlider.value); });
+            //sfxVolumeSlider.onValueChanged.AddListener(delegate { sfxVolumeSliderChange(sfxVolumeSlider.value); }); // Can use delegates/events too.
             sfxVolumeSlider.onValueChanged.AddListener(value => collision.GetComponent<PlayerController>().AdjustVolume(sfxVolumeSlider.value));
         }
     }
@@ -105,23 +113,25 @@ public class GameManager : MonoBehaviour
 
     public void PauseMenu()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenu")
-        {
-            isPaused = false;
-        }
-        else if (!isPaused && SceneManager.GetActiveScene().name != "MainMenu")
+        //if (SceneManager.GetActiveScene().name == "MainMenu")
+        //{
+        //    isPaused = false;
+        //}
+        if (!isPaused)
         {
             isPaused = true;
             pauseMenu.SetActive(true);
             Time.timeScale = 0; // Setting the Time.timeScale to 0 makes it so that physics calculations are paused.
-            audioSource.Pause();
+            gameManagerAudioSource.Pause();
+            gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
         }
-        else if (isPaused && SceneManager.GetActiveScene().name != "MainMenu")
+        else if (isPaused)
         {
             isPaused = false;
             pauseMenu.SetActive(false);
             Time.timeScale = 1;
-            audioSource.Play();
+            gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
+            gameManagerAudioSource.UnPause();
         }
     }
 

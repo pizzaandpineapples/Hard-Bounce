@@ -428,16 +428,16 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/DualShock4GamepadHID/leftStick,/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: e1987a3b-c33d-41cd-90e4-e280a2159dd5
-    m_ActionName: Player/Look[/DualShock4GamepadHID/rightStick,/XInputControllerWindows/rightStick,/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: c54e00a4-4fd8-490b-aea8-4d5164b31bb3
     m_ActionName: Player/Dash[/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 509bbf78-9e6c-4791-a454-5559fafb9d14
     m_ActionName: Player/Hardbrake[/DualSenseGamepadHID/buttonEast,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8bdd6064-5da7-4564-8441-f7ff6d66fdb1
+    m_ActionName: UI/PauseMenu[/DualShock4GamepadHID/start,/XInputControllerWindows/start,/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -457,12 +457,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementStrength: 1000
   minimumVelocityToControlPlayer: 4
+  dashCount: 0
   dashDuration: 0.625
   dashLimit: 0.625
   dashStrength: 50
   dashDrag: 3
   brakeStrengthInverse: 100
-  dashAudioClip: {fileID: 8300000, guid: 0e87c4405b2196245bf465c82394160e, type: 3}
+  playerDashAudioClips: []
   dashVolume: 0.3
   isColliding: 0
   keyAmountCollected: 0
@@ -479,11 +480,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe07c6ecf61a20d4a824329e5313629b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bounceCount: 0
+  isPlayerDead: 0
   bounceAudioClips:
   - {fileID: 8300000, guid: 952ed7d99cedbb543aa6ae8848727fec, type: 3}
   - {fileID: 8300000, guid: ed4d4f5f340818849b14b48315976e26, type: 3}
-  bounceVolume: 0.2
-  playerDeathAudioClip: {fileID: 8300000, guid: 896d0f2705ae39749827750195c64691, type: 3}
+  bounceVolume: 0
+  playerDeathAudioClips: []
   playerDeathVolume: 0.5
   playerDeathParticleSystem: {fileID: 8703367507081526293}
 --- !u!1001 &3159746274116503663
