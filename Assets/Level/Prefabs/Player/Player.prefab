@@ -498,13 +498,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b33125660be8adf4685c823d7130184e, type: 3}
   - {fileID: 8300000, guid: 225cb9c5bcaec164eb3b7bd1906c3ecd, type: 3}
   - {fileID: 8300000, guid: 8523e75c4775ed848934ef83a266033a, type: 3}
-  - {fileID: 8300000, guid: 72f6d5e9e96a4404a8563c21b9e90f63, type: 3}
-  - {fileID: 8300000, guid: c2faf303e480e054e991f0e55807d692, type: 3}
-  - {fileID: 8300000, guid: 314f6661812a3354cb36faa04ffae199, type: 3}
-  - {fileID: 8300000, guid: a3233348b2a34764ba56056293a820c1, type: 3}
-  - {fileID: 8300000, guid: 787a81d0bf8e2824eb84e91666fb03ca, type: 3}
-  - {fileID: 8300000, guid: 3c40c477d78fcd14eb161329c2db32a4, type: 3}
-  - {fileID: 8300000, guid: fdc13b58eace0d942ae171dc37796f84, type: 3}
   playerDeathVolume: 0.2
   playerDeathParticleSystem: {fileID: 8703367507081526293}
 --- !u!1001 &3159746274116503663

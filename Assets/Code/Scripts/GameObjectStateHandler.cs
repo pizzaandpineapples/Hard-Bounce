@@ -6,9 +6,9 @@ public class GameObjectStateHandler : MonoBehaviour
 {
     [SerializeField] private GameObject objectToHandle;
 
-    [SerializeField] private bool activateFirst;
-    [SerializeField] private bool isSwitchNeeded;
-    [SerializeField] private bool isSwitchNeededForRepetition;
+    [SerializeField] private bool activateFirst = false;
+    [SerializeField] private bool isSwitchNeeded = true;
+    [SerializeField] private bool isSwitchNeededForRepetition = false;
 
     [SerializeField] private float repeatTime;
     [SerializeField] private float activationTime = 0;
@@ -18,29 +18,45 @@ public class GameObjectStateHandler : MonoBehaviour
 
     void Start()
     {
-        if (isSwitchNeededForRepetition)
+        // Most cases will require a switch to operate an external mechanism.
+        // Mechanism may be ONESHOT or REPEATING.
+        // Default: Mechanism is initially OFF, Switch is required, ONESHOT. 
+
+        // Switch is required.
+        if (isSwitchNeeded)
         {
-            if (activateFirst)
+            if (isSwitchNeededForRepetition) // Mechanism is REPEATING.
             {
-                SwitchMechanism.OnSwitchDown += ActivateThenDeactivate;
-                SwitchMechanism.OnSwitchUp += DeactivateThenActivate;
+                if (activateFirst) // Mechanism is initially OFF.
+                {
+                    SwitchMechanism.OnSwitchDown += ActivateThenDeactivate;
+                    SwitchMechanism.OnSwitchUp += DeactivateThenActivate;
+                }
+                else // Mechanism is initially ON.
+                {
+                    SwitchMechanism.OnSwitchDown += DeactivateThenActivate;
+                    SwitchMechanism.OnSwitchUp += ActivateThenDeactivate;
+                }
             }
-            else
+            else // Mechanism is ONESHOT
             {
-                SwitchMechanism.OnSwitchDown += DeactivateThenActivate;
-                SwitchMechanism.OnSwitchUp += ActivateThenDeactivate;
+                if (activateFirst) // Mechanism is initially OFF.
+                {
+                    SwitchMechanism.OnSwitchDown += Activate;
+                    SwitchMechanism.OnSwitchUp += Deactivate;
+                }
+                else // Mechanism is initially ON.
+                {
+                    if (destroyObject)
+                        SwitchMechanism.OnSwitchDown += Destroy;
+                    else
+                        SwitchMechanism.OnSwitchDown += Deactivate;
+                    SwitchMechanism.OnSwitchUp += Activate;
+                }
             }
         }
+        // Switch is not required. Mechanism is REPEATING.
         else
-        {
-            if (destroyObject)
-                SwitchMechanism.OnSwitchDown += Destroy;
-            else
-                SwitchMechanism.OnSwitchDown += Deactivate;
-            SwitchMechanism.OnSwitchUp += Activate;
-        }
-        
-        if (!isSwitchNeeded)
         {
             if (activateFirst)
                 StartCoroutine(ActivateThenDeactivateRepeater());
@@ -94,13 +110,17 @@ public class GameObjectStateHandler : MonoBehaviour
         StartCoroutine(DeactivateThenActivateRepeater());
     }
 
-
     private void Destroy()
     {
         Destroy(objectToHandle);
+    }
 
+    private void OnDisable()
+    {
         SwitchMechanism.OnSwitchDown -= Destroy;
         SwitchMechanism.OnSwitchDown -= Deactivate;
         SwitchMechanism.OnSwitchUp -= Activate;
+        SwitchMechanism.OnSwitchDown -= DeactivateThenActivate;
+        SwitchMechanism.OnSwitchUp -= ActivateThenDeactivate;
     }
 }

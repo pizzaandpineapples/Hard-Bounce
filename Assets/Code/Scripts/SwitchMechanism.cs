@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class SwitchMechanism : MonoBehaviour
 {
+    private Animator switchAnimator;
+
     [SerializeField] private float moveTweenDuration = 1.5f;
     [SerializeField] private float easeOutBackOvershoot = 1.70158f;
 
     public static event Action OnSwitchDown;
     public static event Action OnSwitchUp;
+
+    private void Start()
+    {
+        switchAnimator = GetComponent<Animator>();
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,6 +24,7 @@ public class SwitchMechanism : MonoBehaviour
             collision.transform.DOMove(transform.position, moveTweenDuration).SetEase(Ease.OutBack, easeOutBackOvershoot);
             collision.attachedRigidbody.velocity = Vector2.zero;
 
+            switchAnimator.SetBool("isSwitchDown", true);
             OnSwitchDown?.Invoke();
         }
     }
@@ -25,6 +33,7 @@ public class SwitchMechanism : MonoBehaviour
     {
         if (collision.gameObject.tag == "Weight" || collision.gameObject.tag == "WeightBouncy")
         {
+            switchAnimator.SetBool("isSwitchDown", false);
             OnSwitchUp?.Invoke();
         }
     }

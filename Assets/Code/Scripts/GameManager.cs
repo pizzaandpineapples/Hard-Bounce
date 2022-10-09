@@ -56,19 +56,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentSceneName = SceneManager.GetActiveScene().name;
-        PlayerPrefs.SetString("Current-Scene", currentSceneName);
-        PlayerPrefs.Save();
         SpawnPlayer();
         gameManagerAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        isPlayerDead = playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().isPlayerDead;
-        playerVelocity = playerThatIsCurrentlySpawned.GetComponent<Rigidbody2D>().velocity.magnitude; 
-        bounceCount = playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().bounceCount;
-        dashCount = playerThatIsCurrentlySpawned.GetComponent<PlayerController>().dashCount;
+        if (playerThatIsCurrentlySpawned != null)
+        {
+            isPlayerDead = playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().isPlayerDead;
+            playerVelocity = playerThatIsCurrentlySpawned.GetComponent<Rigidbody2D>().velocity.magnitude;
+            bounceCount = playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().bounceCount;
+            dashCount = playerThatIsCurrentlySpawned.GetComponent<PlayerController>().dashCount;
+        }
 
         if (isPlayerDead)
         {
@@ -154,6 +154,9 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
+        currentSceneName = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("Current-Scene", currentSceneName);
+        PlayerPrefs.Save();
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }
