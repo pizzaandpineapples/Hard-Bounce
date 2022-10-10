@@ -53,6 +53,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FastRestart"",
+                    ""type"": ""Button"",
+                    ""id"": ""cdf5d311-cde2-4aca-810b-31b7f6cdcf50"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Hardbrake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e975d2e-92f5-48be-af7e-20f81c9613df"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FastRestart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""509e5d77-1265-47da-95b4-a7ad20bbacb7"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FastRestart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -215,6 +246,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Hardbrake = m_Player.FindAction("Hardbrake", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_FastRestart = m_Player.FindAction("FastRestart", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_PauseMenu = m_UI.FindAction("PauseMenu", throwIfNotFound: true);
@@ -280,6 +312,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Hardbrake;
     private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_FastRestart;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -287,6 +320,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Hardbrake => m_Wrapper.m_Player_Hardbrake;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @FastRestart => m_Wrapper.m_Player_FastRestart;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -305,6 +339,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @FastRestart.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFastRestart;
+                @FastRestart.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFastRestart;
+                @FastRestart.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFastRestart;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -318,6 +355,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @FastRestart.started += instance.OnFastRestart;
+                @FastRestart.performed += instance.OnFastRestart;
+                @FastRestart.canceled += instance.OnFastRestart;
             }
         }
     }
@@ -360,6 +400,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnHardbrake(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnFastRestart(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

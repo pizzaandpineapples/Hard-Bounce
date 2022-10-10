@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         playerThatIsCurrentlySpawned = playerPrefab;
 
         playerControls = new PlayerControls();
-        playerControls.UI.Enable();
+        playerControls.Enable();
     }
 
     void Start()
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         {
             PauseMenu();
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (playerControls.Player.FastRestart.IsPressed())
         {
             StartCoroutine(RestartGameCoroutine(restartTimeForMenu));
         }

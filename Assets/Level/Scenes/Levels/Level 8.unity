@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &12679783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,12 +718,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToHandle: {fileID: 12679782}
-  activateFirst: 0
+  activateFirst: 1
   isSwitchNeeded: 0
   isSwitchNeededForRepetition: 0
-  repeatTime: 1.5
-  activationTime: 0.5
-  deactivationTime: 0.5
+  repeatTime: 1
+  activationTime: 0
+  deactivationTime: 0
   destroyObject: 0
 --- !u!1 &102706247
 GameObject:
