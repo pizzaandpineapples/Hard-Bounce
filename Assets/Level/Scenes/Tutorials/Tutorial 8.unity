@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeTillNextScene: 5
-  nextSceneName: MainMenu
+  nextSceneName: Level 1
 --- !u!1 &1810871603
 GameObject:
   m_ObjectHideFlags: 0

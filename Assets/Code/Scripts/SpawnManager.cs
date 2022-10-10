@@ -5,18 +5,12 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject objectToSpawn;
-
-    [SerializeField] private Vector2[] spawnPositions;
+    [SerializeField] private Transform[] spawnPositions;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int spawnPositionsIndex = Random.Range(0, spawnPositions.Length);
+        Instantiate(objectToSpawn, spawnPositions[spawnPositionsIndex].position, spawnPositions[spawnPositionsIndex].rotation);
     }
 }

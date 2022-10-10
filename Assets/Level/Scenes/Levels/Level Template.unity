@@ -2146,8 +2146,6 @@ GameObject:
   - component: {fileID: 1032699312}
   - component: {fileID: 1032699311}
   - component: {fileID: 1032699310}
-  - component: {fileID: 1032699309}
-  - component: {fileID: 1032699308}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2155,46 +2153,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1032699308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032699307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149207d69a8c5e446a5e24bf9b9f2dd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToHandle: {fileID: 0}
-  activateFirst: 0
-  isSwitchNeeded: 0
-  isSwitchNeededForRepetition: 0
-  repeatTime: 2
-  activationTime: 0
-  deactivationTime: 0
-  destroyObject: 0
---- !u!114 &1032699309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032699307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149207d69a8c5e446a5e24bf9b9f2dd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToHandle: {fileID: 0}
-  activateFirst: 0
-  isSwitchNeeded: 0
-  isSwitchNeededForRepetition: 0
-  repeatTime: 2
-  activationTime: 0
-  deactivationTime: 0
-  destroyObject: 0
 --- !u!114 &1032699310
 MonoBehaviour:
   m_ObjectHideFlags: 0

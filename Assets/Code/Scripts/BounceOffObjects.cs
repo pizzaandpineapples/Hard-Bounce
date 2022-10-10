@@ -53,7 +53,7 @@ public class BounceOffObjects : MonoBehaviour
 
         #region In-general bounce behavior
         // Bounce of boundaries, non-bouncy objects and regular platforms.
-        if (collision.gameObject.tag == "Boundary" || collision.gameObject.tag == "ObstacleBouncy" || collision.gameObject.tag == "WeightsBouncy" || collision.gameObject.tag == "RegularPlatform")
+        if (collision.gameObject.tag == "Boundary" || collision.gameObject.tag == "ObstacleBouncy" || collision.gameObject.tag == "WeightBouncy" || collision.gameObject.tag == "RegularPlatform")
         {
             playerAudioSource.PlayOneShot(bounceAudioClips[bounceAudioClipsIndex], bounceVolume);
             playerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
