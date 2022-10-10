@@ -25,7 +25,9 @@ public class SwitchMechanism : MonoBehaviour
             collision.attachedRigidbody.velocity = Vector2.zero;
 
             switchAnimator.SetBool("isSwitchDown", true);
-            OnSwitchDown?.Invoke();
+
+            if (OnSwitchDown != null)
+                OnSwitchDown();
         }
     }
 
@@ -34,7 +36,9 @@ public class SwitchMechanism : MonoBehaviour
         if (collision.gameObject.tag == "Weight" || collision.gameObject.tag == "WeightBouncy")
         {
             switchAnimator.SetBool("isSwitchDown", false);
-            OnSwitchUp?.Invoke();
+            
+            if (OnSwitchUp != null) 
+                OnSwitchUp?.Invoke();
         }
     }
 
