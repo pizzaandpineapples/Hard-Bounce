@@ -877,6 +877,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Keyboard Black_38
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 208
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6310d85abeb7f404bb55fd4302b182f8
+      internalID: -457542590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -921,6 +942,7 @@ TextureImporter:
       Keyboard Black_19: 1361152646
       Keyboard Black_36: 1325671607
       Keyboard Black_6: -1707288411
+      Keyboard Black_38: -457542590
       Keyboard Black_10: -1767134034
       Keyboard Black_13: 1693906964
       Keyboard Black_25: 792658661

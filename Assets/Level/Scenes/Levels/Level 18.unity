@@ -721,8 +721,8 @@ MonoBehaviour:
   activateFirst: 1
   isSwitchNeeded: 0
   isSwitchNeededForRepetition: 0
-  repeatTime: 1
-  activationTime: 0
+  repeatTime: 1.5
+  activationTime: 1.25
   deactivationTime: 0
   destroyObject: 0
 --- !u!1 &102706247

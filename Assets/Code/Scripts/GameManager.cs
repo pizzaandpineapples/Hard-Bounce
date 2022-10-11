@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         {
             PauseMenu();
         }
-        if (playerControls.Player.FastRestart.IsPressed())
+        if (playerControls.Player.QuickRestart.IsPressed())
         {
             StartCoroutine(RestartGameCoroutine(restartTimeForMenu));
         }

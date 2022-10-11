@@ -45,9 +45,9 @@ public class MoveObject : MonoBehaviour
 
     IEnumerator MoveCoroutine()
     {
-        transform.DOMove(moveEndValue, moveDuration, false);
+        transform.DOMove(moveEndValue, moveDuration, false).SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(moveTimeGap);
-        transform.DOMove(moveStartValue, moveDuration, false);
+        transform.DOMove(moveStartValue, moveDuration, false).SetEase(Ease.InOutSine);
         yield return new WaitForSeconds(moveTimeGap);
         StartCoroutine(MoveCoroutine());
     }
