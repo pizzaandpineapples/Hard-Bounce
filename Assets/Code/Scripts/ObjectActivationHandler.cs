@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
-public class GameObjectStateHandler : MonoBehaviour
+public class ObjectActivationHandler : MonoBehaviour
 {
     [SerializeField] private GameObject objectToHandle;
 

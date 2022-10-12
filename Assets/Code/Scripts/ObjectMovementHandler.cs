@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class MoveObject : MonoBehaviour
+public class ObjectMovementHandler: MonoBehaviour
 {
     //[SerializeField] private float moveSpeed;
     //[SerializeField] private float moveDirection;

@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     [Range(0.0f, 1.0f)]
     [SerializeField] private float pauseMenuVolume;
 
+    [SerializeField] private AudioClip levelCompleteAudioClip;
+    [Range(0.0f, 1.0f)]
+    [SerializeField] private float levelCompleteVolume;
+
     // public delegate void SfxVolumeSliderChange(float volume); // Not using this delegate anymore.
     // public static SfxVolumeSliderChange sfxVolumeSliderChange; 
 
@@ -52,12 +56,14 @@ public class GameManager : MonoBehaviour
 
         playerControls = new PlayerControls();
         playerControls.Enable();
+
+        gameManagerAudioSource = GetComponent<AudioSource>();
     }
 
     void Start()
     {
+        gameManagerAudioSource.PlayOneShot(levelCompleteAudioClip, levelCompleteVolume);
         SpawnPlayer();
-        gameManagerAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()

@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class BounceOffObjects : MonoBehaviour
@@ -53,7 +54,7 @@ public class BounceOffObjects : MonoBehaviour
 
         #region In-general bounce behavior
         // Bounce of boundaries, non-bouncy objects and regular platforms.
-        if (collision.gameObject.tag == "Boundary" || collision.gameObject.tag == "ObstacleBouncy" || collision.gameObject.tag == "WeightBouncy" || collision.gameObject.tag == "RegularPlatform")
+        if (collision.gameObject.tag == "Boundary" || collision.gameObject.tag == "ObstacleBouncy" || collision.gameObject.tag == "WeightBouncy" || collision.gameObject.tag == "RegularPlatform" || collision.gameObject.tag == "DestroyablePlatform")
         {
             playerAudioSource.PlayOneShot(bounceAudioClips[bounceAudioClipsIndex], bounceVolume);
             playerRigidbody2D.velocity = direction * Mathf.Max(speed, 0);
@@ -78,7 +79,7 @@ public class BounceOffObjects : MonoBehaviour
         }
         #endregion
 
-        #region Speed Divider Platform
+        #region Speed Divider Platforms
         if (collision.gameObject.tag == "SDPlatform1") // /2
         {
             playerAudioSource.PlayOneShot(bounceAudioClips[bounceAudioClipsIndex], bounceVolume);

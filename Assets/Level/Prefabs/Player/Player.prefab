@@ -473,6 +473,8 @@ MonoBehaviour:
   dashVolume: 0.1
   isColliding: 0
   keyAmountCollected: 0
+  keyCollectionAudioClip: {fileID: 8300000, guid: b1563a011872d374a9745c740e289e79, type: 3}
+  keyCollectionVolume: 0.5
   isPlayerControlEnabled: 1
 --- !u!114 &3159746274027761671
 MonoBehaviour:

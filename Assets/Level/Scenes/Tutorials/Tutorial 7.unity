@@ -5046,6 +5046,8 @@ MonoBehaviour:
   sfxVolumeSlider: {fileID: 138643707}
   pauseMenuAudioClip: {fileID: 8300000, guid: 562b658e1febccb41a8cb670ae59b232, type: 3}
   pauseMenuVolume: 0.01
+  levelCompleteAudioClip: {fileID: 8300000, guid: bcf636a8ef359e34692d79640b7c11bd, type: 3}
+  levelCompleteVolume: 0
   playerPrefab: {fileID: 3159746274027761670, guid: 06b6e9bf789faa043901c757820d6bc4, type: 3}
   playerSpawnPosition: {fileID: 249767146}
   playerThatIsCurrentlySpawned: {fileID: 0}
@@ -5630,6 +5632,14 @@ PrefabInstance:
       propertyPath: SceneName
       value: Tutorial 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1581221140, guid: b14c4751d6ef94e4880aabd8fcd6056b, type: 3}
+      propertyPath: levelCompleteVolume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581221140, guid: b14c4751d6ef94e4880aabd8fcd6056b, type: 3}
+      propertyPath: levelCompleteAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bcf636a8ef359e34692d79640b7c11bd, type: 3}
     - target: {fileID: 498848397179460675, guid: b14c4751d6ef94e4880aabd8fcd6056b, type: 3}
       propertyPath: m_Name
       value: Tutorial6

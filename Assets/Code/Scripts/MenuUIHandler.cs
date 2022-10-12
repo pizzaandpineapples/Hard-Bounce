@@ -14,11 +14,6 @@ public class MenuUIHandler : MonoBehaviour
 
     [NonSerialized] public bool isTutorialComplete;
 
-    void Start()
-    {
-
-    }
-    
     void Update()
     {
         if (PlayerPrefs.GetString("isTutorialComplete") == "true")

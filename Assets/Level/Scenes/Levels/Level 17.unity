@@ -1280,7 +1280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3733456713378723992, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
       propertyPath: SceneName
-      value: Level 8
+      value: Level 18
       objectReference: {fileID: 0}
     - target: {fileID: 3733456713378723992, guid: 1ea207b6189b6e7498ddff3b0e6dd881, type: 3}
       propertyPath: keyAmountRequired
@@ -3453,6 +3453,8 @@ MonoBehaviour:
   sfxVolumeSlider: {fileID: 1987615299}
   pauseMenuAudioClip: {fileID: 8300000, guid: 562b658e1febccb41a8cb670ae59b232, type: 3}
   pauseMenuVolume: 0.01
+  levelCompleteAudioClip: {fileID: 8300000, guid: bcf636a8ef359e34692d79640b7c11bd, type: 3}
+  levelCompleteVolume: 0.4
   playerPrefab: {fileID: 3159746274027761670, guid: 06b6e9bf789faa043901c757820d6bc4, type: 3}
   playerSpawnPosition: {fileID: 1634690594}
   playerThatIsCurrentlySpawned: {fileID: 0}

@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isColliding = false;
 
     [SerializeField] public int keyAmountCollected;
+    [SerializeField] private AudioClip keyCollectionAudioClip;
+    [Range(0.0f, 1.0f)]
+    [SerializeField] private float keyCollectionVolume;
+
     [SerializeField] private bool isPlayerControlEnabled;
     
     private Rigidbody2D playerRigidbody2D;
@@ -233,6 +237,7 @@ public class PlayerController : MonoBehaviour
         // Used for key collection.
         if (collision.gameObject.tag == "Key")
         {
+            playerAudioSource.PlayOneShot(keyCollectionAudioClip, keyCollectionVolume);
             keyAmountCollected++;
             Destroy(collision.gameObject);
         }
