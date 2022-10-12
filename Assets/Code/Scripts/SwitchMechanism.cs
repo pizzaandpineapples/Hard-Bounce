@@ -38,7 +38,7 @@ public class SwitchMechanism : MonoBehaviour
             switchAnimator.SetBool("isSwitchDown", false);
             
             if (OnSwitchUp != null) 
-                OnSwitchUp?.Invoke();
+                OnSwitchUp();
         }
     }
 

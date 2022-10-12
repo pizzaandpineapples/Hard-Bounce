@@ -9,6 +9,7 @@ public class ObjectActivationHandler : MonoBehaviour
     [SerializeField] private bool activateFirst = false;
     [SerializeField] private bool isSwitchNeeded = true;
     [SerializeField] private bool isSwitchNeededForRepetition = false;
+    //[SerializeField] private bool isRepetitionOffWhenSwitchIsRemoved = true;
 
     [SerializeField] private float repeatTime;
     [SerializeField] private float activationTime = 0;
@@ -21,6 +22,7 @@ public class ObjectActivationHandler : MonoBehaviour
         // Most cases will require a switch to operate an external mechanism.
         // Mechanism may be ONESHOT or REPEATING.
         // Default: Mechanism is initially OFF, Switch is required, ONESHOT. 
+        // TODO: Switch ONESHOT repeating.
 
         // Switch is required.
         if (isSwitchNeeded)
@@ -30,12 +32,12 @@ public class ObjectActivationHandler : MonoBehaviour
                 if (activateFirst) // Mechanism is initially OFF.
                 {
                     SwitchMechanism.OnSwitchDown += ActivateThenDeactivate;
-                    SwitchMechanism.OnSwitchUp += DeactivateThenActivate;
+                    SwitchMechanism.OnSwitchUp += Deactivate;
                 }
                 else // Mechanism is initially ON.
                 {
                     SwitchMechanism.OnSwitchDown += DeactivateThenActivate;
-                    SwitchMechanism.OnSwitchUp += ActivateThenDeactivate;
+                    SwitchMechanism.OnSwitchUp += Activate;
                 }
             }
             else // Mechanism is ONESHOT
@@ -100,6 +102,11 @@ public class ObjectActivationHandler : MonoBehaviour
         StartCoroutine(DeactivateCoroutine());
         yield return new WaitForSeconds(repeatTime);
         StartCoroutine(ActivateThenDeactivateRepeater());
+
+        //if (isRepetitionOffWhenSwitchIsRemoved)
+        //{
+        //    StopAllCoroutines();
+        //}
     }
     IEnumerator DeactivateThenActivateRepeater()
     {
@@ -108,6 +115,11 @@ public class ObjectActivationHandler : MonoBehaviour
         StartCoroutine(ActivateCoroutine());
         yield return new WaitForSeconds(repeatTime);
         StartCoroutine(DeactivateThenActivateRepeater());
+
+        //if (isRepetitionOffWhenSwitchIsRemoved)
+        //{
+        //    StopAllCoroutines();
+        //}
     }
 
     private void Destroy()
@@ -117,10 +129,15 @@ public class ObjectActivationHandler : MonoBehaviour
 
     private void OnDisable()
     {
+        SwitchMechanism.OnSwitchDown -= ActivateThenDeactivate;
+        SwitchMechanism.OnSwitchUp -= DeactivateThenActivate;
+        SwitchMechanism.OnSwitchDown -= DeactivateThenActivate;
+        SwitchMechanism.OnSwitchUp -= ActivateThenDeactivate;
+
+        SwitchMechanism.OnSwitchDown -= Activate;
+        SwitchMechanism.OnSwitchUp -= Deactivate;
         SwitchMechanism.OnSwitchDown -= Destroy;
         SwitchMechanism.OnSwitchDown -= Deactivate;
         SwitchMechanism.OnSwitchUp -= Activate;
-        SwitchMechanism.OnSwitchDown -= DeactivateThenActivate;
-        SwitchMechanism.OnSwitchUp -= ActivateThenDeactivate;
     }
 }

@@ -4526,7 +4526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1667495463
 Transform:
   m_ObjectHideFlags: 0
@@ -4893,6 +4893,8 @@ MonoBehaviour:
   sfxVolumeSlider: {fileID: 1408435218}
   pauseMenuAudioClip: {fileID: 8300000, guid: 562b658e1febccb41a8cb670ae59b232, type: 3}
   pauseMenuVolume: 0.01
+  levelCompleteAudioClip: {fileID: 0}
+  levelCompleteVolume: 0
   playerPrefab: {fileID: 3159746274027761670, guid: 9c58e65f6837c7c40b8a7cf0d3d38535, type: 3}
   playerSpawnPosition: {fileID: 2068814192}
   playerThatIsCurrentlySpawned: {fileID: 0}
