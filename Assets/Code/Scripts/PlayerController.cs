@@ -112,7 +112,8 @@ public class PlayerController : MonoBehaviour
         {
             playerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
         }
-        else
+        //playerRigidbody2D.AddForce(transform.up.normalized * movementStrength * Time.deltaTime, ForceMode2D.Force);
+
         #endregion
 
         #region Brake [Only for testing]
@@ -179,8 +180,8 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg; 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
-    
-    // To brake.
+
+    //To brake.
     void OnBrake()
     {
         playerRigidbody2D.velocity = Vector2.zero;

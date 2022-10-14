@@ -19,6 +19,9 @@ public class Tutorial1Manager : MonoBehaviour
         howManyBouncesToNextLevel = Random.Range(bouncesLevelMin, bouncesLevelMax);
 
         StartCoroutine(ControllerInstructionCoroutine());
+
+        PlayerPrefs.SetString("isNewGameStarted", "true");
+        PlayerPrefs.Save();
     }
 
     void Update()

@@ -6,56 +6,50 @@ using UnityEditor;
 
 public class MenuUIHandler : MonoBehaviour
 {
-    [SerializeField] private Button startButton;
-    [SerializeField] private Button tutorialButton;
+    [SerializeField] private Button newGameButton;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button levelSelectButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
-    [SerializeField] private Button resetButton;
 
-    [NonSerialized] public bool isTutorialComplete;
+    [NonSerialized] public bool isNewGameStarted = false;
 
     void Update()
     {
-        if (PlayerPrefs.GetString("isTutorialComplete") == "true")
+        if (PlayerPrefs.GetString("isNewGameStarted") == "true")
         {
-            isTutorialComplete = true;
+            isNewGameStarted = true;
         }
-        else if (PlayerPrefs.GetString("isTutorialComplete") == "false")
+        else if (PlayerPrefs.GetString("isNewGameStarted") == "false")
         {
-            isTutorialComplete = false;
+            isNewGameStarted = false;
         }
 
-        if (isTutorialComplete)
+        if (isNewGameStarted)
         {
-            tutorialButton.gameObject.SetActive(true);
-            optionsButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
-            quitButton.gameObject.transform.localPosition = new Vector3(0, -108, 0);
-            resetButton.gameObject.transform.localPosition = new Vector3(0, -144, 0);
-        }
-        else
-        {
-            tutorialButton.gameObject.SetActive(false);
+            newGameButton.gameObject.transform.localPosition = new Vector3(0, 72, 0);
+            continueButton.gameObject.SetActive(true);
+            levelSelectButton.gameObject.SetActive(true);
             optionsButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
             quitButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
-            resetButton.gameObject.transform.localPosition = new Vector3(0, -108, 0);
-        }
-    }
-
-    public void StartGame()
-    {
-        if (isTutorialComplete)
-        {
-            SceneManager.LoadScene(PlayerPrefs.GetString("Current-Scene"), LoadSceneMode.Single);
         }
         else
         {
-            SceneManager.LoadScene("Tutorial 1", LoadSceneMode.Single);
+            continueButton.gameObject.SetActive(false);
+            levelSelectButton.gameObject.SetActive(false);
+            optionsButton.gameObject.transform.localPosition = new Vector3(0, -0, 0);
+            quitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
         }
     }
 
-    public void StartTutorial()
+    public void StartNewGame()
     {
         SceneManager.LoadScene("Tutorial 1", LoadSceneMode.Single);
+    }
+
+    public void ContinueGame()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetString("Current-Scene"), LoadSceneMode.Single);
     }
 
     public void Exit()
@@ -65,11 +59,5 @@ public class MenuUIHandler : MonoBehaviour
 #else
         Application.Quit(); // original code to quit Unity player
 #endif
-    }
-
-    public void Reset()
-    {
-        PlayerPrefs.SetString("isTutorialComplete", "false");
-        PlayerPrefs.Save();
     }
 }

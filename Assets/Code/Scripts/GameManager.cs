@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 
         playerControls = new PlayerControls();
         playerControls.Enable();
+        playerControls.UI.Cancel.Disable();
 
         gameManagerAudioSource = GetComponent<AudioSource>();
     }
@@ -86,10 +87,14 @@ public class GameManager : MonoBehaviour
             playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().isPlayerDead = false;
         }
 
-        if (playerControls.UI.PauseMenu.triggered)
+        if (playerControls.UI.PauseMenu.triggered || playerControls.UI.Cancel.triggered)
         {
-            PauseMenu();
+            if (isPaused)
+                PauseMenuDisable();
+            else
+                PauseMenuEnable();
         }
+
         if (playerControls.Player.QuickRestart.IsPressed())
         {
             StartCoroutine(RestartGameCoroutine(restartTimeForMenu));
@@ -122,40 +127,34 @@ public class GameManager : MonoBehaviour
         SpawnPlayer();
     }
 
-    public void PauseMenu()
-    {
-        //if (SceneManager.GetActiveScene().name == "MainMenu")
-        //{
-        //    isPaused = false;
-        //}
-        if (!isPaused)
-        {
-            isPaused = true;
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0; // Setting the Time.timeScale to 0 makes it so that physics calculations are paused.
-            gameManagerAudioSource.Pause();
-            gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
-        }
-        else if (isPaused)
-        {
-            isPaused = false;
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1;
-            gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
-            gameManagerAudioSource.UnPause();
-        }
-    }
-
     public void RestartGame()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     IEnumerator RestartGameCoroutine(float restartTime)
     {
         yield return new WaitForSeconds(restartTime);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseMenuEnable()
+    {
+        isPaused = true;
+        playerControls.UI.Cancel.Enable();
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0; // Setting the Time.timeScale to 0 makes it so that physics calculations are paused.
+        gameManagerAudioSource.Pause();
+        gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
+    }
+    public void PauseMenuDisable()
+    {
+        isPaused = false;
+        playerControls.UI.Cancel.Disable();
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+        gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
+        gameManagerAudioSource.UnPause();
     }
 
     public void QuitGame()
@@ -163,6 +162,8 @@ public class GameManager : MonoBehaviour
         currentSceneName = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetString("Current-Scene", currentSceneName);
         PlayerPrefs.Save();
+
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }

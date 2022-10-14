@@ -9,34 +9,34 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/MainMenu.unity
     guid: 8a912e55964099747a49cd35e3397a5c
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 1.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 1.unity
     guid: 93651c33bd8e8164fa53e743475591ef
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 2.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 2.unity
     guid: 4cb1586b0b28e1a4280b6645b9fecb3d
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 3.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 3.unity
     guid: c326b67e0a0dfce44b85b10f3d0c8504
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 4.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 4.unity
     guid: 81a62e93c6c38b74fb8714ef4771ca38
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 5.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 5.unity
     guid: 4df8fe4ebec90544bac9b10fd3e8a49b
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 6.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 6.unity
     guid: 583637a581782124ca642fbcf88eb4a6
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 7.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 7.unity
     guid: 60533d34124a8c647ac0cbea7c7890c5
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 8.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 8.unity
     guid: dd19790c5e4d95048a1d1b566bed33a3
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 9.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 9.unity
     guid: 2831b57c03d632e4da281828e35afad4
   - enabled: 1
-    path: Assets/Level/Scenes/Tutorials/Tutorial 10.unity
+    path: Assets/Level/Scenes/Levels/Tutorial 10.unity
     guid: 9725d7f808db2d548bedbfde2f8fa609
   - enabled: 1
     path: Assets/Level/Scenes/Levels/Level 1.unity
