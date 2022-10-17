@@ -3,8 +3,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.EventSystems;
+using TMPro;
 
-public class MenuUIHandler : MonoBehaviour
+
+public class MenuUIHandler : MonoBehaviour, ISelectHandler//, IDeselectHandler
 {
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
@@ -12,6 +15,7 @@ public class MenuUIHandler : MonoBehaviour
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
 
+    public TextMeshProUGUI text;
     [NonSerialized] public bool isNewGameStarted = false;
 
     void Update()
@@ -42,6 +46,16 @@ public class MenuUIHandler : MonoBehaviour
         }
     }
 
+    public void OnSelect(BaseEventData eventData)
+    {
+        text.color = Color.black;
+    }
+
+    //public void OnDeselect(BaseEventData eventData)
+    //{
+    //    newGameButton.GetComponentInChildren<Text>().color = new Color(0, 0, 100, 100);
+    //}
+
     public void StartNewGame()
     {
         SceneManager.LoadScene("Tutorial 1", LoadSceneMode.Single);
@@ -52,7 +66,7 @@ public class MenuUIHandler : MonoBehaviour
         SceneManager.LoadScene(PlayerPrefs.GetString("Current-Scene"), LoadSceneMode.Single);
     }
 
-    public void Exit()
+    public void QuitGame()
     {
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

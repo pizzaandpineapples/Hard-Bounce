@@ -276,7 +276,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -467,6 +467,8 @@ MonoBehaviour:
   dashVolume: 0.3
   isColliding: 0
   keyAmountCollected: 0
+  keyCollectionAudioClip: {fileID: 0}
+  keyCollectionVolume: 0
   isPlayerControlEnabled: 0
 --- !u!114 &3159746274027761671
 MonoBehaviour:

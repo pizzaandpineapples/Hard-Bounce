@@ -3,16 +3,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
+// using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [SerializeField] private string currentSceneName;
 
     // Pause menu
-    [SerializeField] private GameObject pauseMenu;
     private bool isPaused = false;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject newGameButton;
+    [SerializeField] private GameObject backButton;
+    [SerializeField] private GameObject restartButton;
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private AudioClip pauseMenuAudioClip;
     [Range(0.0f, 1.0f)]
@@ -116,6 +120,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void ISelectHandler.OnSelect(BaseEventData eventData)
+    {
+        gameObject.GetComponentInChildren<Text>().color = new Color(0, 0, 0, 255);
+
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        gameObject.GetComponentInChildren<Text>().color = new Color(0, 0, 100, 100);
+
+    }
+
     public void SpawnPlayer()
     {
         Vector3 rotation = new Vector3(0, 0, Random.Range(0, 361));
@@ -146,6 +162,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0; // Setting the Time.timeScale to 0 makes it so that physics calculations are paused.
         gameManagerAudioSource.Pause();
         gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
+
+        // clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // Set a new selected object
+        if (backButton == null)
+            EventSystem.current.SetSelectedGameObject(restartButton);
+        else
+            EventSystem.current.SetSelectedGameObject(backButton);
     }
     public void PauseMenuDisable()
     {
@@ -155,6 +179,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
         gameManagerAudioSource.UnPause();
+
+        // clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        // Set a new selected object
+        if (newGameButton == null)
+            EventSystem.current.SetSelectedGameObject(null);
+        else
+            EventSystem.current.SetSelectedGameObject(newGameButton);
     }
 
     public void QuitGame()
