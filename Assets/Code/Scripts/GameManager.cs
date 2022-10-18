@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 // using UnityEngine.Events;
 using Random = UnityEngine.Random;
+using TMPro;
 
 public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject newGameButton;
     [SerializeField] private GameObject backButton;
-    [SerializeField] private GameObject restartButton;
+    private GameObject currentPointerEnter;
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private AudioClip pauseMenuAudioClip;
     [Range(0.0f, 1.0f)]
@@ -120,18 +121,6 @@ public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
         }
     }
 
-    void ISelectHandler.OnSelect(BaseEventData eventData)
-    {
-        gameObject.GetComponentInChildren<Text>().color = new Color(0, 0, 0, 255);
-
-    }
-
-    public void OnDeselect(BaseEventData eventData)
-    {
-        gameObject.GetComponentInChildren<Text>().color = new Color(0, 0, 100, 100);
-
-    }
-
     public void SpawnPlayer()
     {
         Vector3 rotation = new Vector3(0, 0, Random.Range(0, 361));
@@ -166,10 +155,8 @@ public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
         // clear selected object
         EventSystem.current.SetSelectedGameObject(null);
         // Set a new selected object
-        if (backButton == null)
-            EventSystem.current.SetSelectedGameObject(restartButton);
-        else
-            EventSystem.current.SetSelectedGameObject(backButton);
+        //EventSystem.current.SetSelectedGameObject(restartButton);
+        EventSystem.current.SetSelectedGameObject(backButton);
     }
     public void PauseMenuDisable()
     {
@@ -187,6 +174,35 @@ public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
             EventSystem.current.SetSelectedGameObject(null);
         else
             EventSystem.current.SetSelectedGameObject(newGameButton);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        //Debug.Log("Selected");
+        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+    }
+    public void OnDeselect(BaseEventData eventData)
+    {
+        //Debug.Log("Deselected");
+        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+    }
+    public void OnPointerEnter(BaseEventData eventData)
+    {
+        Debug.Log("pointer enter");
+        PointerEventData pointerData = eventData as PointerEventData;
+
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+
+        currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
+
+        //EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
+    }
+    public void OnPointerExit(BaseEventData eventData)
+    {
+        Debug.Log("pointer exit");
+        PointerEventData pointerData = eventData as PointerEventData;
+        //pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
     }
 
     public void QuitGame()

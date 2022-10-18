@@ -5,17 +5,18 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEditor.U2D.Path.GUIFramework;
 
 
 public class MenuUIHandler : MonoBehaviour
 {
-    [SerializeField] private Button newGameButton;
+    [SerializeField] private GameObject newGameButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button levelSelectButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
 
-    private GameObject currentPointerEnter;
+    [SerializeField] private GameObject currentPointerEnter;
     
     [NonSerialized] public bool isNewGameStarted = false;
 
@@ -60,21 +61,20 @@ public class MenuUIHandler : MonoBehaviour
     public void OnPointerEnter(BaseEventData eventData)
     {
         Debug.Log("pointer enter");
-        PointerEventData pointerData =  eventData as PointerEventData;
-        currentPointerEnter = pointerData.pointerEnter.gameObject;
+        PointerEventData pointerData = eventData as PointerEventData;
+        
         pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
 
-        EventSystem.current.SetSelectedGameObject(null);
+        currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
+
+        //EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(currentPointerEnter);
     }
     public void OnPointerExit(BaseEventData eventData)
     {
         Debug.Log("pointer exit");
         PointerEventData pointerData = eventData as PointerEventData;
-        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
+        //pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
     }
 
     public void StartNewGame()
