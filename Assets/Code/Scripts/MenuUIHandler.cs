@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 
-public class MenuUIHandler : MonoBehaviour, ISelectHandler//, IDeselectHandler
+public class MenuUIHandler : MonoBehaviour
 {
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
@@ -15,7 +15,8 @@ public class MenuUIHandler : MonoBehaviour, ISelectHandler//, IDeselectHandler
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
 
-    public TextMeshProUGUI text;
+    private GameObject currentPointerEnter;
+    
     [NonSerialized] public bool isNewGameStarted = false;
 
     void Update()
@@ -48,13 +49,33 @@ public class MenuUIHandler : MonoBehaviour, ISelectHandler//, IDeselectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        text.color = Color.black;
+        //Debug.Log("Selected");
+        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
     }
+    public void OnDeselect(BaseEventData eventData)
+    {
+        //Debug.Log("Deselected");
+        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+    }
+    public void OnPointerEnter(BaseEventData eventData)
+    {
+        Debug.Log("pointer enter");
+        PointerEventData pointerData =  eventData as PointerEventData;
+        currentPointerEnter = pointerData.pointerEnter.gameObject;
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
 
-    //public void OnDeselect(BaseEventData eventData)
-    //{
-    //    newGameButton.GetComponentInChildren<Text>().color = new Color(0, 0, 100, 100);
-    //}
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
+    }
+    public void OnPointerExit(BaseEventData eventData)
+    {
+        Debug.Log("pointer exit");
+        PointerEventData pointerData = eventData as PointerEventData;
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
+    }
 
     public void StartNewGame()
     {
