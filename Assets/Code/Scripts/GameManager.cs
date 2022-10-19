@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using TMPro;
 
-public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private string currentSceneName;
 
@@ -193,16 +193,20 @@ public class GameManager : MonoBehaviour, ISelectHandler, IDeselectHandler
 
         pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
 
-        currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
-
-        //EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
+        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(pointerData.pointerEnter);
     }
     public void OnPointerExit(BaseEventData eventData)
     {
         Debug.Log("pointer exit");
         PointerEventData pointerData = eventData as PointerEventData;
-        //pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        
+        currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
+        
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
     }
 
     public void QuitGame()

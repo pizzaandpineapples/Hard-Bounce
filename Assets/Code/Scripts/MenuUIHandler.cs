@@ -48,38 +48,9 @@ public class MenuUIHandler : MonoBehaviour
         }
     }
 
-    public void OnSelect(BaseEventData eventData)
-    {
-        //Debug.Log("Selected");
-        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-    }
-    public void OnDeselect(BaseEventData eventData)
-    {
-        //Debug.Log("Deselected");
-        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-    }
-    public void OnPointerEnter(BaseEventData eventData)
-    {
-        Debug.Log("pointer enter");
-        PointerEventData pointerData = eventData as PointerEventData;
-        
-        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-
-        currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
-
-        //EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
-    }
-    public void OnPointerExit(BaseEventData eventData)
-    {
-        Debug.Log("pointer exit");
-        PointerEventData pointerData = eventData as PointerEventData;
-        //pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-    }
-
     public void StartNewGame()
     {
-        SceneManager.LoadScene("Tutorial 1", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level 1 T", LoadSceneMode.Single);
     }
 
     public void ContinueGame()
