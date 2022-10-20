@@ -116,6 +116,7 @@ public class BounceOffObjects : MonoBehaviour
             playerRigidbody2D.velocity = Vector2.zero;
             playerRigidbody2D.angularVelocity = 0;
             playerRigidbody2D.Sleep();
+            gameObject.GetComponent<Collider2D>().enabled = false;
             gameObject.GetComponent<PlayerController>().enabled = false;
             playerController.playerControls.Player.Disable();
 

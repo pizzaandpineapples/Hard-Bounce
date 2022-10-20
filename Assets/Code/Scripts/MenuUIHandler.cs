@@ -3,10 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
-using UnityEngine.EventSystems;
-using TMPro;
-using UnityEditor.U2D.Path.GUIFramework;
-
 
 public class MenuUIHandler : MonoBehaviour
 {
