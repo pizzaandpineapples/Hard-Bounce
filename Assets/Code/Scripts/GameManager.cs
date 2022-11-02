@@ -155,11 +155,12 @@ public class GameManager : MonoBehaviour
         // clear selected object
         EventSystem.current.SetSelectedGameObject(null);
         // Set a new selected object
-        //EventSystem.current.SetSelectedGameObject(restartButton);
         EventSystem.current.SetSelectedGameObject(backButton);
     }
     public void PauseMenuDisable()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         isPaused = false;
         playerControls.UI.Cancel.Disable();
         pauseMenu.SetActive(false);
@@ -179,30 +180,44 @@ public class GameManager : MonoBehaviour
     public void OnSelect(BaseEventData eventData)
     {
         //Debug.Log("Selected");
-        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        if (eventData.selectedObject.GetComponent<Slider>())
+            eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        else
+            eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
     }
     public void OnDeselect(BaseEventData eventData)
     {
         //Debug.Log("Deselected");
-        eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        if (eventData.selectedObject.GetComponent<Slider>())
+            eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = new Color(102f / 255f, 117f / 255f, 119f / 255f, 1f);
+        else
+            eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
     }
     public void OnPointerEnter(BaseEventData eventData)
     {
         Debug.Log("pointer enter");
         PointerEventData pointerData = eventData as PointerEventData;
 
-        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-
         EventSystem.current.SetSelectedGameObject(null);
-        //EventSystem.current.SetSelectedGameObject(pointerData.pointerEnter);
+
+        if (pointerData.pointerEnter.GetComponent<Slider>())
+        {
+            Debug.Log("Found Slider");
+            eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        }
+        else
+            pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
     }
     public void OnPointerExit(BaseEventData eventData)
     {
         Debug.Log("pointer exit");
         PointerEventData pointerData = eventData as PointerEventData;
         
-        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-        
+        //if (pointerData.pointerEnter.GetComponent<Slider>())
+        //    pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = new Color(102f / 255f, 117f / 255f, 119f / 255f, 1f);
+        //else
+            pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+
         currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
         
         EventSystem.current.SetSelectedGameObject(null);
