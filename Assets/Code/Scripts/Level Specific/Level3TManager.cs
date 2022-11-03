@@ -26,7 +26,7 @@ public class Level3TManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManagerScript.playerDeathCount >= howManyPlayerDeathsToNextLevel)
+        if (gameManagerScript.deathCount >= howManyPlayerDeathsToNextLevel)
         {
             StartCoroutine(ShowInstructionsCoroutine());
         }

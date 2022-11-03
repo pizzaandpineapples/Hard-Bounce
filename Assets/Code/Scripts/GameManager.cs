@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     public float playerVelocity;
     public int bounceCount;
     public int dashCount;
-    public int playerDeathCount; 
+    public int deathCount; 
 
     // Restart/Respawn
     [NonSerialized] public bool isPlayerDead = false;
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         if (isPlayerDead)
         {
-            playerDeathCount++;
+            deathCount++;
 
             // If player is NOT respawnable, then restart the level. Else, respawn player.
             StartCoroutine(!isPlayerRespawnable ? RestartGameCoroutine(restartTimeAfterPlayerDeath) : RespawnCoroutine(restartTimeForRespawn));
