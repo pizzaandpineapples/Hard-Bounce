@@ -14,6 +14,9 @@ public class BounceOffObjects : MonoBehaviour
 
     private Rigidbody2D playerRigidbody2D;
     private PlayerController playerController;
+    private Collider2D playerCollider;
+    private SpriteRenderer playerSpriteRenderer;
+    private TrailRenderer playerTrailRenderer;
     
     // Audio controls
     private AudioSource playerAudioSource;
@@ -34,6 +37,9 @@ public class BounceOffObjects : MonoBehaviour
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
+        playerCollider = GetComponent<Collider2D>();
+        playerSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        playerTrailRenderer = GetComponentInChildren<TrailRenderer>();
         playerAudioSource = GetComponent<AudioSource>();
     }
 
@@ -108,17 +114,16 @@ public class BounceOffObjects : MonoBehaviour
             isPlayerDead = true;
 
             // Hides the gameobjects in question.
-            gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
-            gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
+            playerSpriteRenderer.enabled = false;
+            playerTrailRenderer.enabled = false;
             //collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
             // Disables player movement and controls.
             playerRigidbody2D.velocity = Vector2.zero;
             playerRigidbody2D.angularVelocity = 0;
             playerRigidbody2D.Sleep();
-            gameObject.GetComponent<Collider2D>().enabled = false;
-            gameObject.GetComponent<PlayerController>().enabled = false;
-            playerController.playerControls.Player.Disable();
+            playerCollider.enabled = false;
+            playerController.enabled = false;
 
             // Plays audio clips and particle effects.
             //playerAudioSource.PlayOneShot(bounceAudioClips[bounceAudioClipsIndex], bounceVolume);

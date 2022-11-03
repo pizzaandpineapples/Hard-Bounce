@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
 
-public class Tutorial4Manager : MonoBehaviour
+public class Level3TManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameManager;
+    private GameManager gameManagerScript;
 
     [SerializeField] private int howManyPlayerDeathsToNextLevel;
-    [SerializeField] private bool hasPlayerDiedOnce = false;
+    [SerializeField] private bool hasPlayerDiedOnce;
 
     [SerializeField] private GameObject redInstruction;
     [SerializeField] private GameObject dashInstructions;
@@ -17,10 +18,15 @@ public class Tutorial4Manager : MonoBehaviour
     [SerializeField] private GameObject goThisWayInstruction;
     [SerializeField] private GameObject nextLevel;
 
+    void Awake()
+    {
+        gameManagerScript = gameManager.GetComponent<GameManager>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.GetComponent<GameManager>().playerDeathCount >= howManyPlayerDeathsToNextLevel)
+        if (gameManagerScript.playerDeathCount >= howManyPlayerDeathsToNextLevel)
         {
             StartCoroutine(ShowInstructionsCoroutine());
         }
@@ -29,14 +35,14 @@ public class Tutorial4Manager : MonoBehaviour
         {
             dashInstructions.gameObject.SetActive(true);
 
-            if (Gamepad.current == DualShockGamepad.current)
-            {
-                playStationControllerImage.gameObject.SetActive(true);
-            }
-            else
-            {
-                playStationControllerImage.gameObject.SetActive(false);
-            }
+            //if (Gamepad.current == DualShockGamepad.current)
+            //{
+            //    playStationControllerImage.gameObject.SetActive(true);
+            //}
+            //else
+            //{
+            //    playStationControllerImage.gameObject.SetActive(false);
+            //}
 
             goThisWayInstruction.gameObject.SetActive(true);
             nextLevel.gameObject.SetActive(true);

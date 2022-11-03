@@ -9,11 +9,10 @@ public class MenuUIHandler : MonoBehaviour
     [SerializeField] private GameObject newGameButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button levelSelectButton;
+    [SerializeField] private GameObject levelSelectMenu;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
 
-    [SerializeField] private GameObject currentPointerEnter;
-    
     [NonSerialized] public bool isNewGameStarted = false;
 
     void Update()
@@ -52,6 +51,11 @@ public class MenuUIHandler : MonoBehaviour
     public void ContinueGame()
     {
         SceneManager.LoadScene(PlayerPrefs.GetString("Current-Scene"), LoadSceneMode.Single);
+    }
+
+    public void LevelSelect()
+    {
+        levelSelectMenu.SetActive(true);
     }
 
     public void QuitGame()

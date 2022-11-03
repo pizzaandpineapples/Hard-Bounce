@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tutorial1Manager : MonoBehaviour
+public class Level1TManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameManager;
 

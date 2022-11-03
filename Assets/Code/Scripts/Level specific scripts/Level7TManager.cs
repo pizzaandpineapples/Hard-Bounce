@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tutorial5Manager : MonoBehaviour
+public class Level7TManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameManager;
+    private GameManager gameManagerScript;
 
     [SerializeField] private int howManyDashesToNextLevel;
 
@@ -12,14 +13,19 @@ public class Tutorial5Manager : MonoBehaviour
     [SerializeField] private GameObject goThisWayInstruction;
     [SerializeField] private GameObject nextLevel;
 
+    void Awake()
+    {
+        gameManagerScript = gameManager.GetComponent<GameManager>();
+    }
+
     void Update()
     {
-        if (gameManager.GetComponent<GameManager>().playerVelocity > 100)
+        if (gameManagerScript.playerVelocity > 100)
         {
             instructions.gameObject.SetActive(true);
         }
 
-        if (gameManager.GetComponent<GameManager>().dashCount >= howManyDashesToNextLevel)
+        if (gameManagerScript.dashCount >= howManyDashesToNextLevel)
         {
             goThisWayInstruction.gameObject.SetActive(true);
             nextLevel.gameObject.SetActive(true);

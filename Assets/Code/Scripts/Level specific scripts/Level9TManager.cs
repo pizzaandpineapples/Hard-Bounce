@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Tutorial8Manager : MonoBehaviour
+public class Level9TManager : MonoBehaviour
 {
     [SerializeField] private float timeTillNextScene = 5f;
     [SerializeField] private string nextSceneName;
@@ -12,8 +12,6 @@ public class Tutorial8Manager : MonoBehaviour
     void Start()
     {
         StartCoroutine(NewGame());
-        PlayerPrefs.SetString("isTutorialComplete", "true");
-        PlayerPrefs.Save();
     }
 
     IEnumerator NewGame()

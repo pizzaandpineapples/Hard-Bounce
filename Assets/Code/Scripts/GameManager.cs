@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     // TODO: Make GameManager persistent or save these values, so that they can be utilized for scoring/challenge/achievement systems.
     // Player properties
+    private Rigidbody2D playerRigidbody2D;
+    private BounceOffObjects playerBounceOffObjects;
+    private PlayerController playerController;
     public float playerVelocity;
     public int bounceCount;
     public int dashCount;
@@ -48,7 +51,7 @@ public class GameManager : MonoBehaviour
     // Restart/Respawn
     [NonSerialized] public bool isPlayerDead = false;
     [SerializeField] private float restartTimeAfterPlayerDeath = 2f;
-    [SerializeField] private float restartTimeForMenu = 0f;
+    [SerializeField] private float quickRestartTime = 0f;
     public bool isPlayerRespawnable;
     [SerializeField] private float restartTimeForRespawn = 2f;
 
@@ -76,10 +79,15 @@ public class GameManager : MonoBehaviour
     {
         if (playerThatIsCurrentlySpawned != null)
         {
-            isPlayerDead = playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().isPlayerDead;
-            playerVelocity = playerThatIsCurrentlySpawned.GetComponent<Rigidbody2D>().velocity.magnitude;
-            bounceCount = playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().bounceCount;
-            dashCount = playerThatIsCurrentlySpawned.GetComponent<PlayerController>().dashCount;
+            if (playerBounceOffObjects != null)
+            {
+                isPlayerDead = playerBounceOffObjects.isPlayerDead;
+                bounceCount = playerBounceOffObjects.bounceCount;
+            }
+            if (playerRigidbody2D != null)
+                playerVelocity = playerRigidbody2D.velocity.magnitude;
+            if (playerController != null)
+                dashCount = playerController.dashCount;
         }
 
         if (isPlayerDead)
@@ -89,7 +97,7 @@ public class GameManager : MonoBehaviour
             // If player is NOT respawnable, then restart the level. Else, respawn player.
             StartCoroutine(!isPlayerRespawnable ? RestartGameCoroutine(restartTimeAfterPlayerDeath) : RespawnCoroutine(restartTimeForRespawn));
             isPlayerDead = false;
-            playerThatIsCurrentlySpawned.GetComponent<BounceOffObjects>().isPlayerDead = false;
+            playerBounceOffObjects.isPlayerDead = false;
         }
 
         if (playerControls.UI.PauseMenu.triggered || playerControls.UI.Cancel.triggered)
@@ -100,13 +108,10 @@ public class GameManager : MonoBehaviour
                 PauseMenuEnable();
         }
 
+        // TODO: Restart/Respawn to checkpoints.
         if (playerControls.Player.QuickRestart.IsPressed())
         {
-            StartCoroutine(RestartGameCoroutine(restartTimeForMenu));
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            QuitGame();
+            StartCoroutine(RestartGameCoroutine(quickRestartTime));
         }
     }
 
@@ -115,7 +120,12 @@ public class GameManager : MonoBehaviour
         // Get the player gameobject after it has been spawned.
         if (collision.gameObject.tag == "Player")
         {
+            //Debug.Log("Spawned player");
             playerThatIsCurrentlySpawned = collision.gameObject;
+            playerRigidbody2D = playerThatIsCurrentlySpawned?.GetComponent<Rigidbody2D>();
+            playerBounceOffObjects = playerThatIsCurrentlySpawned?.GetComponent<BounceOffObjects>();
+            playerController = playerThatIsCurrentlySpawned?.GetComponent<PlayerController>();
+
             //sfxVolumeSlider.onValueChanged.AddListener(delegate { sfxVolumeSliderChange(sfxVolumeSlider.value); }); // Can use delegates/events too.
             sfxVolumeSlider.onValueChanged.AddListener(value => collision.GetComponent<PlayerController>().AdjustVolume(sfxVolumeSlider.value));
         }
@@ -140,6 +150,7 @@ public class GameManager : MonoBehaviour
     IEnumerator RestartGameCoroutine(float restartTime)
     {
         yield return new WaitForSeconds(restartTime);
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -151,7 +162,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0; // Setting the Time.timeScale to 0 makes it so that physics calculations are paused.
         gameManagerAudioSource.Pause();
         gameManagerAudioSource.PlayOneShot(pauseMenuAudioClip, pauseMenuVolume);
-
         // clear selected object
         EventSystem.current.SetSelectedGameObject(null);
         // Set a new selected object

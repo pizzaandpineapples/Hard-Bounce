@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 262797794}
   - component: {fileID: 262797793}
   m_Layer: 0
-  m_Name: Tutorial 6 Manager
+  m_Name: Level8T Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1197,7 +1197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instructions: {fileID: 792497313}
-  goThisWayInstruction: {fileID: 1551385577}
   playStationControllerImage: {fileID: 826225014}
   xboxControllerImage: {fileID: 1866910505}
   nextLevel: {fileID: 194991741}
@@ -1489,7 +1488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00012207031, y: -98.399994}
+  m_AnchoredPosition: {x: 241.4, y: -59.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &362487539
@@ -3299,7 +3298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 155.8, y: -44.1}
+  m_AnchoredPosition: {x: 111.60005, y: -53.999977}
   m_SizeDelta: {x: 236.921, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &826225016
@@ -5353,7 +5352,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -35, y: -93.9}
+  m_AnchoredPosition: {x: 206.39983, y: -55.000008}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1319658139
@@ -5652,7 +5651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 391.4, y: -96.6}
+  m_AnchoredPosition: {x: 391.89984, y: -57.700005}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1395472491
@@ -6587,7 +6586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00012207031, y: -50}
+  m_AnchoredPosition: {x: -1.1998267, y: -59.89998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1654483607
@@ -6908,7 +6907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 99.99994, y: -98.4}
+  m_AnchoredPosition: {x: 341.39978, y: -59.500008}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1734866873
@@ -6931,7 +6930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'on the keyboard to
+  m_text: 'to
 
 '
   m_isRightToLeft: 0
@@ -7310,7 +7309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 97.9, y: -47.5}
+  m_AnchoredPosition: {x: 96.70005, y: -57.39998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1865179461
@@ -7333,7 +7332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SELECT
+  m_text: BACK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ae47462656051747b343fd0d0fb2f2a, type: 2}
   m_sharedMaterial: {fileID: 8982095055817308715, guid: 4ae47462656051747b343fd0d0fb2f2a, type: 2}
@@ -7445,7 +7444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 152, y: -44.1}
+  m_AnchoredPosition: {x: 107.800156, y: -53.999977}
   m_SizeDelta: {x: 236.921, y: 234.146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1866910507
@@ -7503,7 +7502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1883273788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7521,7 +7520,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 284.6, y: -50}
+  m_AnchoredPosition: {x: 283.40005, y: -59.89998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1883273789
@@ -8023,7 +8022,7 @@ MonoBehaviour:
   dashCount: 0
   playerDeathCount: 0
   restartTimeAfterPlayerDeath: 2
-  restartTimeForMenu: 5
+  quickRestartTime: 1
   isPlayerRespawnable: 1
   restartTimeForRespawn: 2
 --- !u!61 &1983881715

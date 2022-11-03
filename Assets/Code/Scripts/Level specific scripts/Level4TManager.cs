@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tutorial3Manager : MonoBehaviour
+public class Level4TManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameManager;
+    private GameManager gameManagerScript;
 
     [SerializeField] private int bouncesLevelMin;
     [SerializeField] private int bouncesLevelMax;
@@ -13,6 +14,11 @@ public class Tutorial3Manager : MonoBehaviour
     [SerializeField] private GameObject goThisWayInstruction;
     [SerializeField] private GameObject nextLevel;
 
+    void Awake()
+    {
+        gameManagerScript = gameManager.GetComponent<GameManager>();
+    }
+
     void Start()
     {
         howManyBouncesToNextLevel = Random.Range(bouncesLevelMin, bouncesLevelMax);
@@ -20,7 +26,7 @@ public class Tutorial3Manager : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.GetComponent<GameManager>().bounceCount >= howManyBouncesToNextLevel)
+        if (gameManagerScript.bounceCount >= howManyBouncesToNextLevel)
         {
             goThisWayInstruction.gameObject.SetActive(true);
             nextLevel.gameObject.SetActive(true);

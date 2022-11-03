@@ -3499,7 +3499,7 @@ MonoBehaviour:
   pauseMenuAudioClip: {fileID: 8300000, guid: d9fbaf3b212864b4188975d39c6898a6, type: 3}
   pauseMenuVolume: 0.01
   levelCompleteAudioClip: {fileID: 8300000, guid: bcf636a8ef359e34692d79640b7c11bd, type: 3}
-  levelCompleteVolume: 0
+  levelCompleteVolume: 0.4
   playerPrefab: {fileID: 3159746274027761670, guid: 06b6e9bf789faa043901c757820d6bc4, type: 3}
   playerSpawnPosition: {fileID: 1697703691}
   playerThatIsCurrentlySpawned: {fileID: 0}
@@ -3509,7 +3509,7 @@ MonoBehaviour:
   dashCount: 0
   playerDeathCount: 0
   restartTimeAfterPlayerDeath: 1.8
-  restartTimeForMenu: 0
+  quickRestartTime: 0
   isPlayerRespawnable: 1
   restartTimeForRespawn: 2.5
 --- !u!61 &750995015
