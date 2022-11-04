@@ -7899,6 +7899,7 @@ GameObject:
   - component: {fileID: 1686783949}
   - component: {fileID: 1686783947}
   - component: {fileID: 1686783946}
+  - component: {fileID: 1686783950}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -7934,9 +7935,9 @@ MonoBehaviour:
   playerVelocity: 0
   bounceCount: 0
   dashCount: 0
-  playerDeathCount: 0
+  deathCount: 0
   restartTimeAfterPlayerDeath: 2
-  restartTimeForMenu: 0
+  quickRestartTime: 0
   isPlayerRespawnable: 0
   restartTimeForRespawn: 2
 --- !u!61 &1686783947
@@ -8076,6 +8077,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1686783950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686783945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2424e360a8b3ebc45988dd65f921aa53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filename: 
 --- !u!1 &1700944003
 GameObject:
   m_ObjectHideFlags: 0

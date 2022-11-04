@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public class MenuUIHandler : MonoBehaviour
+public class MenuUIHandler : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject newGameButton;
     [SerializeField] private Button continueButton;
@@ -13,7 +13,17 @@ public class MenuUIHandler : MonoBehaviour
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
 
-    [NonSerialized] public bool isNewGameStarted = false;
+    private bool isNewGameStarted = false;
+
+    public void LoadData(GameData data)
+    {
+        
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        
+    }
 
     void Update()
     {
@@ -45,6 +55,7 @@ public class MenuUIHandler : MonoBehaviour
 
     public void StartNewGame()
     {
+        DataPersistenceManager.instance.NewGame();
         SceneManager.LoadScene("Level 1 T", LoadSceneMode.Single);
     }
 

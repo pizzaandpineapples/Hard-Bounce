@@ -8,9 +8,10 @@ using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private string currentSceneName;
+    private bool isLevelUnlocked = false;
 
     // Pause menu
     private bool isPaused = false;
@@ -69,8 +70,32 @@ public class GameManager : MonoBehaviour
         gameManagerAudioSource = GetComponent<AudioSource>();
     }
 
+    public void LoadData(GameData data)
+    { 
+        this.deathCount = data.deathCount;
+
+        //data.levelsUnlocked.TryGetValue(currentSceneName, out isLevelUnlocked);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.deathCount = this.deathCount;
+
+        if (data.levelsUnlocked.ContainsKey(currentSceneName))
+        {
+            Debug.Log("Level already unlocked");
+        }
+        else
+        {
+            data.levelsUnlocked.Add(currentSceneName, isLevelUnlocked);
+            Debug.Log("Level is unlocked");
+        }
+    }
+
     void Start()
     {
+        currentSceneName = SceneManager.GetActiveScene().name;
+        isLevelUnlocked = true;
         gameManagerAudioSource.PlayOneShot(levelCompleteAudioClip, levelCompleteVolume);
         SpawnPlayer();
     }
@@ -145,13 +170,13 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
+        DataPersistenceManager.instance.SaveGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     IEnumerator RestartGameCoroutine(float restartTime)
     {
         yield return new WaitForSeconds(restartTime);
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        RestartGame();
     }
 
     public void PauseMenuEnable()
@@ -236,7 +261,8 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        currentSceneName = SceneManager.GetActiveScene().name;
+        DataPersistenceManager.instance.SaveGame();
+
         PlayerPrefs.SetString("Current-Scene", currentSceneName);
         PlayerPrefs.Save();
 
