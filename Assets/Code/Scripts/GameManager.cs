@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject newGameButton;
     [SerializeField] private GameObject backButton;
     private GameObject currentPointerEnter;
+    [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
+    private float sfxVolumeValue;
     [SerializeField] private AudioClip pauseMenuAudioClip;
     [Range(0.0f, 1.0f)]
     [SerializeField] private float pauseMenuVolume;
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     private Rigidbody2D playerRigidbody2D;
     private BounceOffObjects playerBounceOffObjects;
     private PlayerController playerController;
+    private AudioSource playerAudioSource;
     public float playerVelocity;
     public int bounceCount;
     public int dashCount;
@@ -72,17 +75,28 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
+        // Audio Settings
         this.gameManagerAudioSource.volume = data.musicVolume;
+        this.musicVolumeSlider.value = data.musicVolumeSliderValue;
+        this.sfxVolumeValue = data.sfxVolume;
+        this.sfxVolumeSlider.value = data.sfxVolumeSliderValue;
 
+        // Level unlocks
         //data.levelsUnlocked.TryGetValue(currentSceneName, out isLevelUnlocked);
 
+        // Player stats
         this.deathCount = data.deathCount;
     }
 
     public void SaveData(ref GameData data)
     {
+        // Audio Settings
         data.musicVolume = this.gameManagerAudioSource.volume;
+        data.musicVolumeSliderValue = this.musicVolumeSlider.value;
+        data.sfxVolume = this.playerAudioSource.volume;
+        data.sfxVolumeSliderValue = this.sfxVolumeSlider.value;
 
+        // Level unlocks
         if (data.levelsUnlocked.ContainsKey(currentSceneName))
         {
             Debug.Log("Level already unlocked");
@@ -93,6 +107,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
             Debug.Log("Level is unlocked");
         }
 
+        // Player stats
         data.deathCount = this.deathCount;
     }
 
@@ -154,9 +169,12 @@ public class GameManager : MonoBehaviour, IDataPersistence
             playerRigidbody2D = playerThatIsCurrentlySpawned?.GetComponent<Rigidbody2D>();
             playerBounceOffObjects = playerThatIsCurrentlySpawned?.GetComponent<BounceOffObjects>();
             playerController = playerThatIsCurrentlySpawned?.GetComponent<PlayerController>();
+            playerAudioSource = playerThatIsCurrentlySpawned?.GetComponent<AudioSource>();
+
+            playerAudioSource.volume = sfxVolumeValue;
 
             //sfxVolumeSlider.onValueChanged.AddListener(delegate { sfxVolumeSliderChange(sfxVolumeSlider.value); }); // Can use delegates/events too.
-            sfxVolumeSlider.onValueChanged.AddListener(value => collision.GetComponent<PlayerController>().AdjustVolume(sfxVolumeSlider.value));
+            sfxVolumeSlider.onValueChanged.AddListener(value => playerController.AdjustVolume(sfxVolumeSlider.value));
         }
     }
 

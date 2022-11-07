@@ -9,6 +9,9 @@ public class GameData
 
     // Audio Settings
     public float musicVolume;
+    public float musicVolumeSliderValue;
+    public float sfxVolume;
+    public float sfxVolumeSliderValue;
 
     // Level unlocks
     public SerializableDictionary<string, bool> levelsUnlocked;
@@ -22,6 +25,9 @@ public class GameData
     public GameData()
     {
         this.musicVolume = 0.3f;
+        this.musicVolumeSliderValue = 0.3f;
+        this.sfxVolume = 0.3f;
+        this.sfxVolumeSliderValue = 0.3f;
 
         levelsUnlocked = new SerializableDictionary<string, bool>();
 

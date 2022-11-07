@@ -172,6 +172,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 1831243741}
   newGameButton: {fileID: 0}
   backButton: {fileID: 1318472529}
+  musicVolumeSlider: {fileID: 1030930399}
   sfxVolumeSlider: {fileID: 387309502}
   pauseMenuAudioClip: {fileID: 8300000, guid: 562b658e1febccb41a8cb670ae59b232, type: 3}
   pauseMenuVolume: 0.01
@@ -2087,10 +2088,10 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 32077200}
+        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
