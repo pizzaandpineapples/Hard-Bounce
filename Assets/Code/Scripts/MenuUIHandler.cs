@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,9 @@ using UnityEditor;
 
 public class MenuUIHandler : MonoBehaviour, IDataPersistence
 {
+    [SerializeField] private string firstLevelName;
+    [SerializeField] private string continueLevelName;
+
     [SerializeField] private GameObject newGameButton;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button levelSelectButton;
@@ -17,7 +21,13 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        
+        if (data.levelsUnlocked.Count > 0)
+        {
+            isNewGameStarted = true;
+            continueLevelName = data.levelsUnlocked.Keys.Last();
+        }
+        else
+            isNewGameStarted = false;
     }
 
     public void SaveData(ref GameData data)
@@ -27,15 +37,6 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
 
     void Update()
     {
-        if (PlayerPrefs.GetString("isNewGameStarted") == "true")
-        {
-            isNewGameStarted = true;
-        }
-        else if (PlayerPrefs.GetString("isNewGameStarted") == "false")
-        {
-            isNewGameStarted = false;
-        }
-
         if (isNewGameStarted)
         {
             newGameButton.gameObject.transform.localPosition = new Vector3(0, 72, 0);
@@ -56,12 +57,13 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
     public void StartNewGame()
     {
         DataPersistenceManager.instance.NewGame();
-        SceneManager.LoadScene("Level 1 T", LoadSceneMode.Single);
+        DataPersistenceManager.instance.SaveGame();
+        SceneManager.LoadScene(firstLevelName, LoadSceneMode.Single);
     }
 
     public void ContinueGame()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetString("Current-Scene"), LoadSceneMode.Single);
+        SceneManager.LoadScene(continueLevelName, LoadSceneMode.Single);
     }
 
     public void LevelSelect()

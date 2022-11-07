@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 96265775}
   m_Layer: 5
   m_Name: DividerXbox
-  m_TagString: Untagged
+  m_TagString: Slider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5875,6 +5875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c015d55595889644af2933b6043a123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstLevelName: Level 1 T
+  continueLevelName: 
   newGameButton: {fileID: 33547206}
   continueButton: {fileID: 241026352}
   levelSelectButton: {fileID: 663103152}
@@ -6350,7 +6352,7 @@ GameObject:
   - component: {fileID: 1408435220}
   m_Layer: 5
   m_Name: SFXVolume
-  m_TagString: Untagged
+  m_TagString: Slider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6493,7 +6495,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1686783946}
           m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-          m_MethodName: OnPointerEnter
+          m_MethodName: OnPointerEnterSlider
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6509,7 +6511,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1686783946}
           m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-          m_MethodName: OnPointerExit
+          m_MethodName: OnPointerExitSlider
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6913,6 +6915,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1686783950}
+        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1516799708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6964,7 +6978,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1686783946}
           m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-          m_MethodName: OnPointerEnter
+          m_MethodName: OnPointerEnterSlider
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -6980,7 +6994,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1686783946}
           m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-          m_MethodName: OnPointerExit
+          m_MethodName: OnPointerExitSlider
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -8089,7 +8103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2424e360a8b3ebc45988dd65f921aa53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filename: 
+  filename: data.game
 --- !u!1 &1700944003
 GameObject:
   m_ObjectHideFlags: 0

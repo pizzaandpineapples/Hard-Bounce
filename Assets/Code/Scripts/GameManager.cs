@@ -71,15 +71,17 @@ public class GameManager : MonoBehaviour, IDataPersistence
     }
 
     public void LoadData(GameData data)
-    { 
-        this.deathCount = data.deathCount;
+    {
+        this.gameManagerAudioSource.volume = data.musicVolume;
 
         //data.levelsUnlocked.TryGetValue(currentSceneName, out isLevelUnlocked);
+
+        this.deathCount = data.deathCount;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.deathCount = this.deathCount;
+        data.musicVolume = this.gameManagerAudioSource.volume;
 
         if (data.levelsUnlocked.ContainsKey(currentSceneName))
         {
@@ -90,6 +92,8 @@ public class GameManager : MonoBehaviour, IDataPersistence
             data.levelsUnlocked.Add(currentSceneName, isLevelUnlocked);
             Debug.Log("Level is unlocked");
         }
+
+        data.deathCount = this.deathCount;
     }
 
     void Start()
@@ -214,7 +218,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void OnSelect(BaseEventData eventData)
     {
-        //Debug.Log("Selected");
+        // Debug.Log("Selected");
         if (eventData.selectedObject.GetComponent<Slider>())
             eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         else
@@ -222,7 +226,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     }
     public void OnDeselect(BaseEventData eventData)
     {
-        //Debug.Log("Deselected");
+        // Debug.Log("Deselected");
         if (eventData.selectedObject.GetComponent<Slider>())
             eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = new Color(102f / 255f, 117f / 255f, 119f / 255f, 1f);
         else
@@ -230,31 +234,43 @@ public class GameManager : MonoBehaviour, IDataPersistence
     }
     public void OnPointerEnter(BaseEventData eventData)
     {
-        Debug.Log("pointer enter");
+        // Debug.Log("pointer enter");
         PointerEventData pointerData = eventData as PointerEventData;
 
         EventSystem.current.SetSelectedGameObject(null);
 
-        if (pointerData.pointerEnter.GetComponent<Slider>())
-        {
-            Debug.Log("Found Slider");
-            eventData.selectedObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-        }
-        else
-            pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
     }
     public void OnPointerExit(BaseEventData eventData)
     {
-        Debug.Log("pointer exit");
+        // Debug.Log("pointer exit");
         PointerEventData pointerData = eventData as PointerEventData;
         
-        //if (pointerData.pointerEnter.GetComponent<Slider>())
-        //    pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = new Color(102f / 255f, 117f / 255f, 119f / 255f, 1f);
-        //else
-            pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
 
         currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
         
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
+    }
+    public void OnPointerEnterSlider(BaseEventData eventData)
+    {
+        // Debug.Log("pointer enter slider");
+        PointerEventData pointerData = eventData as PointerEventData;
+
+        EventSystem.current.SetSelectedGameObject(null);
+
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+    }
+    public void OnPointerExitSlider(BaseEventData eventData)
+    {
+        // Debug.Log("pointer exit slider");
+        PointerEventData pointerData = eventData as PointerEventData;
+
+        pointerData.pointerEnter.GetComponentInChildren<TextMeshProUGUI>().color = new Color(102f / 255f, 117f / 255f, 119f / 255f, 1f);
+
+        currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(currentPointerEnter);
     }
@@ -262,9 +278,6 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void QuitGame()
     {
         DataPersistenceManager.instance.SaveGame();
-
-        PlayerPrefs.SetString("Current-Scene", currentSceneName);
-        PlayerPrefs.Save();
 
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);

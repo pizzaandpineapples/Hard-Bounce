@@ -21,6 +21,7 @@ TagManager:
   - Weight
   - WeightBouncy
   - DestroyablePlatform
+  - Slider
   layers:
   - Default
   - TransparentFX
