@@ -19,6 +19,14 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
 
     private bool isNewGameStarted = false;
 
+    private PlayerControls playerControls;
+
+    void Awake()
+    {
+        playerControls = new PlayerControls();
+        playerControls.Enable();
+    }
+
     public void LoadData(GameData data)
     {
         if (data.levelsUnlocked.Count > 0)
@@ -52,6 +60,13 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
             optionsButton.gameObject.transform.localPosition = new Vector3(0, -0, 0);
             quitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
         }
+
+        if (levelSelectMenu.activeInHierarchy)
+        {
+            playerControls.UI.Cancel.Enable();
+            if (playerControls.UI.Cancel.triggered)
+                levelSelectMenu.SetActive(false);
+        }
     }
 
     public void StartNewGame()
@@ -69,6 +84,7 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
     public void LevelSelect()
     {
         levelSelectMenu.SetActive(true);
+        playerControls.UI.Cancel.Enable();
     }
 
     public void QuitGame()

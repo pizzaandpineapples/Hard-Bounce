@@ -16,6 +16,7 @@ public class NextLevel : MonoBehaviour
         }
         if (keyAmountCollected >= keyAmountRequired)
         {
+            DataPersistenceManager.instance.SaveGame();
             SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
         }
     }

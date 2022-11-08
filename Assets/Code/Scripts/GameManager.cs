@@ -11,7 +11,6 @@ using TMPro;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private string currentSceneName;
-    private bool isLevelUnlocked = false;
 
     // Pause menu
     private bool isPaused = false;
@@ -93,7 +92,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
         // Audio Settings
         data.musicVolume = this.gameManagerAudioSource.volume;
         data.musicVolumeSliderValue = this.musicVolumeSlider.value;
-        data.sfxVolume = this.playerAudioSource.volume;
+        if (playerAudioSource != null) data.sfxVolume = playerAudioSource.volume;
         data.sfxVolumeSliderValue = this.sfxVolumeSlider.value;
 
         // Level unlocks
@@ -103,7 +102,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
         }
         else
         {
-            data.levelsUnlocked.Add(currentSceneName, isLevelUnlocked);
+            data.levelsUnlocked.Add(currentSceneName, true);
             Debug.Log("Level is unlocked");
         }
 
@@ -114,7 +113,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     void Start()
     {
         currentSceneName = SceneManager.GetActiveScene().name;
-        isLevelUnlocked = true;
+
         gameManagerAudioSource.PlayOneShot(levelCompleteAudioClip, levelCompleteVolume);
         SpawnPlayer();
     }
@@ -144,6 +143,8 @@ public class GameManager : MonoBehaviour, IDataPersistence
             playerBounceOffObjects.isPlayerDead = false;
         }
 
+        // BACK button/ESCAPE key to access pause menu.
+        // Exit using BACK Button/ESCAPE key and also the cancel input (B/Circle on controller or ESCAPE key on keyboard)
         if (playerControls.UI.PauseMenu.triggered || playerControls.UI.Cancel.triggered)
         {
             if (isPaused)
@@ -268,8 +269,8 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
         currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
         
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(currentPointerEnter);
+        EventSystem.current?.SetSelectedGameObject(null);
+        EventSystem.current?.SetSelectedGameObject(currentPointerEnter);
     }
     public void OnPointerEnterSlider(BaseEventData eventData)
     {
