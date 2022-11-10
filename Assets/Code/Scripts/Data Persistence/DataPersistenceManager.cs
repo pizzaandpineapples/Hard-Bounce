@@ -57,8 +57,14 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         this.gameData = new GameData();
+
+        // Push the reset loaded data to all other scripts that need it.
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.LoadData(gameData);
+        }
     }
-    
+
     public void LoadGame()
     {
         // Load a saved data from a file using the data handler.

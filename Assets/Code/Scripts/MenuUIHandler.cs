@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.EventSystems;
+using TMPro;
 
 public class MenuUIHandler : MonoBehaviour, IDataPersistence
 {
@@ -14,6 +16,7 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
     [SerializeField] private Button continueButton;
     [SerializeField] private Button levelSelectButton;
     [SerializeField] private GameObject levelSelectMenu;
+    [SerializeField] private GameObject levelSelectFirstButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
 
@@ -65,7 +68,11 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
         {
             playerControls.UI.Cancel.Enable();
             if (playerControls.UI.Cancel.triggered)
+            {
                 levelSelectMenu.SetActive(false);
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(newGameButton);
+            }
         }
     }
 
@@ -84,6 +91,8 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
     {
         levelSelectMenu.SetActive(true);
         playerControls.UI.Cancel.Enable();
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(levelSelectFirstButton);
     }
 
     public void QuitGame()

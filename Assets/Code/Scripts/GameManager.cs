@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
             playerController = playerThatIsCurrentlySpawned?.GetComponent<PlayerController>();
             playerAudioSource = playerThatIsCurrentlySpawned?.GetComponent<AudioSource>();
 
-            playerAudioSource.volume = sfxVolumeValue;
+            //playerAudioSource.volume = sfxVolumeValue;
 
             //sfxVolumeSlider.onValueChanged.AddListener(delegate { sfxVolumeSliderChange(sfxVolumeSlider.value); }); // Can use delegates/events too.
             sfxVolumeSlider.onValueChanged.AddListener(value => playerController.AdjustVolume(sfxVolumeSlider.value));
