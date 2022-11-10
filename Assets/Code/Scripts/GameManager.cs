@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public float playerVelocity;
     public int bounceCount;
     public int dashCount;
-    public int deathCount; 
+    public int deathCount = 0; 
 
     // Restart/Respawn
     [NonSerialized] public bool isPlayerDead = false;
@@ -74,27 +74,15 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        // Audio Settings
-        this.gameManagerAudioSource.volume = data.musicVolume;
-        this.musicVolumeSlider.value = data.musicVolumeSliderValue;
-        this.sfxVolumeValue = data.sfxVolume;
-        this.sfxVolumeSlider.value = data.sfxVolumeSliderValue;
-
         // Level unlocks
         //data.levelsUnlocked.TryGetValue(currentSceneName, out isLevelUnlocked);
 
         // Player stats
-        this.deathCount = data.deathCount;
+        deathCount = data.deathCount;
     }
 
     public void SaveData(ref GameData data)
     {
-        // Audio Settings
-        data.musicVolume = this.gameManagerAudioSource.volume;
-        data.musicVolumeSliderValue = this.musicVolumeSlider.value;
-        if (playerAudioSource != null) data.sfxVolume = playerAudioSource.volume;
-        data.sfxVolumeSliderValue = this.sfxVolumeSlider.value;
-
         // Level unlocks
         if (data.levelsUnlocked.ContainsKey(currentSceneName))
         {
@@ -107,7 +95,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
         }
 
         // Player stats
-        data.deathCount = this.deathCount;
+        data.deathCount = deathCount;
     }
 
     void Start()
@@ -186,6 +174,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     }
     IEnumerator RespawnCoroutine(float restartTime)
     {
+        DataPersistenceManager.instance.SaveGame();
         yield return new WaitForSeconds(restartTime);
         SpawnPlayer();
     }

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -18,24 +20,45 @@ public class DataPersistenceManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("Found more than one Data Persistence Manager in the scene.");
+            Debug.LogError("Found more than one Data Persistence Manager in the scene. Destroying the newest one.");
+            Destroy(this.gameObject);
+            return;
         }
         instance = this;
+        DontDestroyOnLoad(this.gameObject);
+
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, filename);
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, filename);
-        //Debug.Log(Application.persistentDataPath);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
+        Debug.Log("Scene Loaded is called");
+    }
+
+    public void OnSceneUnloaded(Scene scene)
+    {
+        SaveGame();
+        Debug.Log("Scene Unloaded is called");
     }
 
     public void NewGame()
     {
         this.gameData = new GameData();
     }
-
+    
     public void LoadGame()
     {
         // Load a saved data from a file using the data handler.

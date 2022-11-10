@@ -192,7 +192,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 574245468}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
         m_MethodName: SaveGame
         m_Mode: 1
@@ -1636,7 +1636,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4387559613080915226, guid: 9a5b754ca81e5f94dab6a0f29428c054, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4387559613080915226, guid: 9a5b754ca81e5f94dab6a0f29428c054, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2265,7 +2265,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &526820319
 GameObject:
@@ -2458,7 +2458,6 @@ GameObject:
   - component: {fileID: 574245471}
   - component: {fileID: 574245470}
   - component: {fileID: 574245469}
-  - component: {fileID: 574245468}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2466,19 +2465,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &574245468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574245467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2424e360a8b3ebc45988dd65f921aa53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filename: data.game
 --- !u!114 &574245469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3880,7 +3866,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &821860002
 GameObject:
@@ -4030,7 +4016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6670922360324725415, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6670922360324725415, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_LocalScale.x
@@ -4160,7 +4146,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &910758023
 GameObject:
@@ -6275,7 +6261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6670922360324725415, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6670922360324725415, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_LocalScale.x
@@ -7220,7 +7206,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 574245468}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
         m_MethodName: SaveGame
         m_Mode: 1
@@ -7883,7 +7869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6670922360324725415, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6670922360324725415, guid: a8bf302bd775eba4b952a3cbad1b38d5, type: 3}
       propertyPath: m_LocalScale.x
@@ -8324,7 +8310,7 @@ Transform:
   - {fileID: 497728347}
   - {fileID: 460094242}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1649722345
 GameObject:
@@ -8463,6 +8449,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649722345}
   m_CullTransparentMesh: 1
+--- !u!1 &1651228093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1651228095}
+  - component: {fileID: 1651228094}
+  m_Layer: 0
+  m_Name: DataPersistenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1651228094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651228093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2424e360a8b3ebc45988dd65f921aa53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filename: data.game
+--- !u!4 &1651228095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651228093}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 343.1214, y: 340.02637, z: -4.9625278}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1666510161
 GameObject:
   m_ObjectHideFlags: 0
@@ -10064,7 +10095,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4306551017031585267, guid: 6f65658082c75d64d9f10ad82054e2dd, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4306551017031585267, guid: 6f65658082c75d64d9f10ad82054e2dd, type: 3}
       propertyPath: m_LocalPosition.x

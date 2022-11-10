@@ -72,7 +72,6 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
     public void StartNewGame()
     {
         DataPersistenceManager.instance.NewGame();
-        DataPersistenceManager.instance.SaveGame();
         SceneManager.LoadScene(firstLevelName, LoadSceneMode.Single);
     }
 

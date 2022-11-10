@@ -7,14 +7,8 @@ public class GameData
 {
     // Difficulty Settings
 
-    // Audio Settings
-    public float musicVolume;
-    public float musicVolumeSliderValue;
-    public float sfxVolume;
-    public float sfxVolumeSliderValue;
-
     // Level unlocks
-    public SerializableDictionary<string, bool> levelsUnlocked;
+    public Dictionary<string, bool> levelsUnlocked;
 
     // Player stats
     public int deathCount;
@@ -24,13 +18,8 @@ public class GameData
     // the game starts with when there is no data to load or we start a new game.
     public GameData()
     {
-        this.musicVolume = 0.3f;
-        this.musicVolumeSliderValue = 0.3f;
-        this.sfxVolume = 0.3f;
-        this.sfxVolumeSliderValue = 0.3f;
+        levelsUnlocked = new Dictionary<string, bool>();
 
-        levelsUnlocked = new SerializableDictionary<string, bool>();
-
-        this.deathCount = 0;
+        deathCount = 0;
     }
 }
