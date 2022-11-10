@@ -2680,7 +2680,7 @@ MonoBehaviour:
   deathCount: 0
   restartTimeAfterPlayerDeath: 2
   quickRestartTime: 0
-  isPlayerRespawnable: 0
+  isPlayerRespawnable: 1
   restartTimeForRespawn: 2
 --- !u!61 &440589338
 BoxCollider2D:
