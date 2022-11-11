@@ -35,10 +35,10 @@ public class GameManager : MonoBehaviour, IDataPersistence
     private AudioSource gameManagerAudioSource;
 
     // Player spawn
-    [SerializeField] protected GameObject playerPrefab;
-    [SerializeField] protected Transform playerSpawnPosition;
-    [SerializeField] protected GameObject playerThatIsCurrentlySpawned;
-    [SerializeField] protected Collider2D collider;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private Transform playerSpawnPosition;
+    [SerializeField] private GameObject playerThatIsCurrentlySpawned;
+    //[SerializeField] protected Collider2D collider;
 
     // TODO: Make GameManager persistent or save these values, so that they can be utilized for scoring/challenge/achievement systems.
     // Player properties
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     void Awake()
     {
-        collider.gameObject.SetActive(true);
+        //collider.gameObject.SetActive(true);
         playerThatIsCurrentlySpawned = playerPrefab;
 
         playerControls = new PlayerControls();
