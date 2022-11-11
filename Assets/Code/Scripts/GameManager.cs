@@ -84,13 +84,13 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void SaveData(ref GameData data)
     {
         // Level unlocks
-        if (data.levelsUnlocked.ContainsKey(currentSceneName))
+        if (data.levelsUnlocked.Contains(currentSceneName))
         {
             Debug.Log("Level already unlocked");
         }
         else
         {
-            data.levelsUnlocked.Add(currentSceneName, true);
+            data.levelsUnlocked.Add(currentSceneName);
             Debug.Log("Level is unlocked");
         }
 

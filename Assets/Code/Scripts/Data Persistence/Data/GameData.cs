@@ -8,7 +8,7 @@ public class GameData
     // Difficulty Settings
 
     // Level unlocks
-    public Dictionary<string, bool> levelsUnlocked;
+    public List<string> levelsUnlocked;
 
     // Player stats
     public int deathCount;
@@ -18,7 +18,7 @@ public class GameData
     // the game starts with when there is no data to load or we start a new game.
     public GameData()
     {
-        levelsUnlocked = new Dictionary<string, bool>();
+        levelsUnlocked = new List<string>();
 
         deathCount = 0;
     }

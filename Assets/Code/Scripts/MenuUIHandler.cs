@@ -35,7 +35,7 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
         if (data.levelsUnlocked.Count > 0)
         {
             isNewGameStarted = true;
-            continueLevelName = data.levelsUnlocked.Keys.Last();
+            continueLevelName = data.levelsUnlocked.Last();
         }
         else
             isNewGameStarted = false;
@@ -64,12 +64,12 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
             quitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
         }
 
-        if (levelSelectMenu.activeInHierarchy)
+        if (levelSelectMenu.transform.localPosition == Vector3.zero)
         {
             playerControls.UI.Cancel.Enable();
             if (playerControls.UI.Cancel.triggered)
             {
-                levelSelectMenu.SetActive(false);
+                levelSelectMenu.transform.localPosition = new Vector3(1000, 0, 0);
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(newGameButton);
             }
@@ -89,7 +89,7 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
 
     public void LevelSelect()
     {
-        levelSelectMenu.SetActive(true);
+        levelSelectMenu.transform.localPosition = new Vector3(0, 0, 0);
         playerControls.UI.Cancel.Enable();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(levelSelectFirstButton);
