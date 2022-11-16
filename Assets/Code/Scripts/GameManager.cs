@@ -11,6 +11,8 @@ using TMPro;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private string currentSceneName;
+    [SerializeField] private bool hasBonusLevel;
+    [SerializeField] private string bonusSceneName;
 
     // Pause menu
     private bool isPaused = false;
@@ -62,7 +64,6 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     void Awake()
     {
-        //collider.gameObject.SetActive(true);
         playerThatIsCurrentlySpawned = playerPrefab;
 
         playerControls = new PlayerControls();
