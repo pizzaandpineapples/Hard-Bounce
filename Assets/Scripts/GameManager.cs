@@ -11,6 +11,7 @@ using TMPro;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private string currentSceneName;
+    [HideInInspector] public bool isLevelComplete;
     [SerializeField] private bool hasBonusLevel;
     [SerializeField] private string bonusSceneName;
 
@@ -93,6 +94,19 @@ public class GameManager : MonoBehaviour, IDataPersistence
         {
             data.levelsUnlocked.Add(currentSceneName);
             Debug.Log("Level is unlocked");
+        }
+
+        if (isLevelComplete && hasBonusLevel)
+        {
+            if (data.levelsUnlocked.Contains(bonusSceneName))
+            {
+                Debug.Log("Bonus level already unlocked");
+            }
+            else
+            {
+                data.levelsUnlocked.Add(bonusSceneName);
+                Debug.Log("Bonus level is unlocked");
+            }
         }
 
         // Player stats

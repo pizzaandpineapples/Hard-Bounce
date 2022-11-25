@@ -2478,6 +2478,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSceneName: 
+  isLevelComplete: 0
+  hasBonusLevel: 0
+  bonusSceneName: 
   pauseMenu: {fileID: 1878905652}
   newGameButton: {fileID: 0}
   backButton: {fileID: 2039589287}
@@ -2490,7 +2493,6 @@ MonoBehaviour:
   playerPrefab: {fileID: 3159746274027761670, guid: 06b6e9bf789faa043901c757820d6bc4, type: 3}
   playerSpawnPosition: {fileID: 777395329}
   playerThatIsCurrentlySpawned: {fileID: 0}
-  collider: {fileID: 574245470}
   playerVelocity: 0
   bounceCount: 0
   dashCount: 0
@@ -10145,6 +10147,10 @@ PrefabInstance:
       propertyPath: SceneName
       value: Level 3 T
       objectReference: {fileID: 0}
+    - target: {fileID: 4921970213064279504, guid: 6f65658082c75d64d9f10ad82054e2dd, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 574245467}
     - target: {fileID: 4921970213064279504, guid: 6f65658082c75d64d9f10ad82054e2dd, type: 3}
       propertyPath: keyAmountRequired
       value: 1

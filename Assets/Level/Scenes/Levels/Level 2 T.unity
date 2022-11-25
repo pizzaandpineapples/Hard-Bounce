@@ -155,6 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSceneName: 
+  isLevelComplete: 0
+  hasBonusLevel: 0
+  bonusSceneName: 
   pauseMenu: {fileID: 1831243741}
   newGameButton: {fileID: 0}
   backButton: {fileID: 1318472529}
@@ -167,7 +170,6 @@ MonoBehaviour:
   playerPrefab: {fileID: 3159746274027761670, guid: 06b6e9bf789faa043901c757820d6bc4, type: 3}
   playerSpawnPosition: {fileID: 2121483817}
   playerThatIsCurrentlySpawned: {fileID: 0}
-  collider: {fileID: 32077202}
   playerVelocity: 0
   bounceCount: 0
   dashCount: 0
@@ -9190,6 +9192,10 @@ PrefabInstance:
       propertyPath: SceneName
       value: Level 2
       objectReference: {fileID: 0}
+    - target: {fileID: 549614828, guid: 3ca862ee80c8f9b4698b55770931a37c, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 32077199}
     - target: {fileID: 549614828, guid: 3ca862ee80c8f9b4698b55770931a37c, type: 3}
       propertyPath: levelCompleteAudioClip
       value: 
