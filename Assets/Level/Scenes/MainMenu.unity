@@ -2059,10 +2059,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 33547208}
+    m_SelectOnDown: {fileID: 663103152}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -5115,10 +5115,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 663103152}
+    m_SelectOnDown: {fileID: 1575640000}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -5996,10 +5996,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 241026352}
+    m_SelectOnDown: {fileID: 629270624}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -11042,6 +11042,7 @@ MonoBehaviour:
   levelSelectFirstButton: {fileID: 737385921}
   optionsButton: {fileID: 629270624}
   quitButton: {fileID: 1575640000}
+  _gameManager: {fileID: 1686783945}
 --- !u!1001 &1250959911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16354,9 +16355,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec2e658b0a6862498b0ea24bbdb1bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNames: []
-  buttonPrefab: {fileID: 2674144904874063742, guid: eccde0a7e441aaf41880d04e0d2af29a, type: 3}
-  buttonParent: {fileID: 256736328}
+  _sceneNames: []
+  ButtonPrefab: {fileID: 2674144904874063742, guid: eccde0a7e441aaf41880d04e0d2af29a, type: 3}
+  ButtonParent: {fileID: 256736328}
+  LevelSelectFirstButton: {fileID: 0}
 --- !u!114 &1881392804
 MonoBehaviour:
   m_ObjectHideFlags: 0

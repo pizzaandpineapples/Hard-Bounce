@@ -23,11 +23,15 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
     private bool isNewGameStarted = false;
 
     private PlayerControls playerControls;
+    [SerializeField] private GameObject _gameManager;
+    private GameManager _gameManagerScript;
 
     void Awake()
     {
         playerControls = new PlayerControls();
         playerControls.Enable();
+        _gameManagerScript = _gameManager.GetComponent<GameManager>();
+        //levelSelectFirstButton = levelSelectMenu.GetComponent<LevelSelector>();
     }
 
     public void LoadData(GameData data)
@@ -66,9 +70,10 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
 
         if (levelSelectMenu.transform.localPosition == Vector3.zero)
         {
-            playerControls.UI.Cancel.Enable();
-            if (playerControls.UI.Cancel.triggered)
+            if (playerControls.UI.PauseMenu.triggered || playerControls.UI.Cancel.triggered)
             {
+                _gameManagerScript.PauseMenuEnable();
+                _gameManagerScript.PauseMenuDisable();
                 levelSelectMenu.transform.localPosition = new Vector3(1000, 0, 0);
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(newGameButton);
@@ -89,10 +94,9 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
 
     public void LevelSelect()
     {
-        levelSelectMenu.transform.localPosition = new Vector3(0, 0, 0);
-        playerControls.UI.Cancel.Enable();
+        levelSelectMenu.transform.localPosition = Vector3.zero;
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(levelSelectFirstButton);
+        EventSystem.current.SetSelectedGameObject(levelSelectMenu.GetComponent<LevelSelector>().LevelSelectFirstButton);
     }
 
     public void QuitGame()

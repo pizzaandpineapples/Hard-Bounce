@@ -1,20 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class LevelSelector : MonoBehaviour, IDataPersistence
 {
-    [SerializeField] private List<string> sceneNames;
+    [SerializeField] private List<string> _sceneNames;
 
-    public GameObject buttonPrefab;
-    public GameObject buttonParent;
+    public GameObject ButtonPrefab;
+    public GameObject ButtonParent;
+    public GameObject LevelSelectFirstButton;
 
     public void LoadData(GameData data)
     {
         Debug.Log("Scenes loaded");
-        sceneNames = data.levelsUnlocked;
+        _sceneNames = data.levelsUnlocked;
     }
     public void SaveData(ref GameData data)
     {
@@ -23,11 +24,23 @@ public class LevelSelector : MonoBehaviour, IDataPersistence
 
     void Start()
     {
-        for (int i = 1; i < sceneNames.Count; i++)
+        GenerateButtons();
+    }
+
+    private void GenerateButtons()
+    {
+        for (int i = 1; i < _sceneNames.Count; i++)
         {
             int level = i;
-            GameObject newButton = Instantiate(buttonPrefab, buttonParent.transform);
-            newButton.GetComponent<LevelSelectButton>().levelText.text = sceneNames[i];
+            GameObject newButton = Instantiate(ButtonPrefab, ButtonParent.transform);
+            newButton.GetComponent<LevelSelectButton>().LevelText.text = _sceneNames[i];
+            newButton.GetComponent<LevelSelectButton>().ButtonID = i.ToString();
+
+            if (newButton.GetComponent<LevelSelectButton>().ButtonID == "1")
+            {
+                LevelSelectFirstButton = newButton;
+            }
+
             newButton.GetComponent<Button>().onClick.AddListener(() => SelectLevel(level));
         }
     }
@@ -35,6 +48,6 @@ public class LevelSelector : MonoBehaviour, IDataPersistence
     private void SelectLevel(int level)
     {
         Debug.Log(level);
-        SceneManager.LoadScene(sceneNames[level], LoadSceneMode.Single);
+        SceneManager.LoadScene(_sceneNames[level], LoadSceneMode.Single);
     }
 }

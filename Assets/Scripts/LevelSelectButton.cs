@@ -6,5 +6,6 @@ using UnityEngine.UI;
 
 public class LevelSelectButton : MonoBehaviour
 {
-    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI LevelText;
+    public string ButtonID;
 }
