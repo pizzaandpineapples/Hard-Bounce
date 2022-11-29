@@ -25,14 +25,16 @@ public class LevelSelector : MonoBehaviour, IDataPersistence
     {
         for (int i = 1; i < sceneNames.Count; i++)
         {
+            int level = i;
             GameObject newButton = Instantiate(buttonPrefab, buttonParent.transform);
             newButton.GetComponent<LevelSelectButton>().levelText.text = sceneNames[i];
-            newButton.GetComponent<Button>().onClick.AddListener(() => SelectLevel(i));
+            newButton.GetComponent<Button>().onClick.AddListener(() => SelectLevel(level));
         }
     }
 
     private void SelectLevel(int level)
     {
+        Debug.Log(level);
         SceneManager.LoadScene(sceneNames[level], LoadSceneMode.Single);
     }
 }

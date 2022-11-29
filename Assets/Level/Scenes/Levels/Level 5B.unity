@@ -4533,7 +4533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921970213064279504, guid: 6f65658082c75d64d9f10ad82054e2dd, type: 3}
       propertyPath: SceneName
-      value: Level 15
+      value: Level 6
       objectReference: {fileID: 0}
     - target: {fileID: 4921970213064279504, guid: 6f65658082c75d64d9f10ad82054e2dd, type: 3}
       propertyPath: gameManager
