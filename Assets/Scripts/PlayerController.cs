@@ -148,20 +148,20 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        #region Brake [Only for testing]
-        // Only used to get proper key presses and releases.
+        //#region Brake [Only for testing]
+        //// Only used to get proper key presses and releases.
 
-        if (playerControls.Player.Hardbrake.IsPressed())
-        {
-            Debug.Log("Circle is pressed");
-            isMovementActive = false;
-        }
-        if (playerControls.Player.Hardbrake.WasReleasedThisFrame())
-        {
-            Debug.Log("Circle was released");
-            isMovementActive = true;
-        }
-        #endregion
+        //if (playerControls.Player.Hardbrake.IsPressed())
+        //{
+        //    Debug.Log("Circle is pressed");
+        //    isMovementActive = false;
+        //}
+        //if (playerControls.Player.Hardbrake.WasReleasedThisFrame())
+        //{
+        //    Debug.Log("Circle was released");
+        //    isMovementActive = true;
+        //}
+        //#endregion
 
         #region Control Enable/Disable
         if (!isPlayerControlEnabled)
