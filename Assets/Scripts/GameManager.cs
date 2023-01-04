@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
         currentPointerEnter = pointerData.pointerEnter.transform.parent.gameObject;
         
-        EventSystem.current?.SetSelectedGameObject(null);
+        //EventSystem.current?.SetSelectedGameObject(null);
         EventSystem.current?.SetSelectedGameObject(currentPointerEnter);
     }
     public void OnPointerEnterSlider(BaseEventData eventData)
