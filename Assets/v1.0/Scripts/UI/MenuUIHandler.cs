@@ -34,6 +34,11 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
         //levelSelectFirstButton = levelSelectMenu.GetComponent<LevelSelector>();
     }
 
+    private void Start()
+    {
+        continueButton.gameObject.SetActive(isNewGameStarted);
+        levelSelectButton.gameObject.SetActive(isNewGameStarted);
+    }
     public void LoadData(GameData data)
     {
         if (data.levelsUnlocked.Count > 0)
@@ -52,33 +57,33 @@ public class MenuUIHandler : MonoBehaviour, IDataPersistence
 
     void Update()
     {
-        if (isNewGameStarted)
-        {
-            newGameButton.gameObject.transform.localPosition = new Vector3(0, 72, 0);
-            continueButton.gameObject.SetActive(true);
-            levelSelectButton.gameObject.SetActive(true);
-            optionsButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
-            quitButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
-        }
-        else
-        {
-            continueButton.gameObject.SetActive(false);
-            levelSelectButton.gameObject.SetActive(false);
-            optionsButton.gameObject.transform.localPosition = new Vector3(0, -0, 0);
-            quitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
-        }
+        //if (isNewGameStarted)
+        //{
+        //    newGameButton.gameObject.transform.localPosition = new Vector3(0, 72, 0);
+        //    continueButton.gameObject.SetActive(true);
+        //    levelSelectButton.gameObject.SetActive(true);
+        //    optionsButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
+        //    quitButton.gameObject.transform.localPosition = new Vector3(0, -72, 0);
+        //}
+        //else
+        //{
+        //    continueButton.gameObject.SetActive(false);
+        //    levelSelectButton.gameObject.SetActive(false);
+        //    optionsButton.gameObject.transform.localPosition = new Vector3(0, -0, 0);
+        //    quitButton.gameObject.transform.localPosition = new Vector3(0, -36, 0);
+        //}
 
-        if (levelSelectMenu.transform.localPosition == Vector3.zero)
-        {
-            if (playerControls.UI.PauseMenu.triggered || playerControls.UI.Cancel.triggered)
-            {
-                _gameManagerScript.PauseMenuEnable();
-                _gameManagerScript.PauseMenuDisable();
-                levelSelectMenu.transform.localPosition = new Vector3(1000, 0, 0);
-                EventSystem.current.SetSelectedGameObject(null);
-                EventSystem.current.SetSelectedGameObject(newGameButton);
-            }
-        }
+        //if (levelSelectMenu.transform.localPosition == Vector3.zero)
+        //{
+        //    if (playerControls.UI.PauseMenu.triggered || playerControls.UI.Cancel.triggered)
+        //    {
+        //        _gameManagerScript.PauseMenuEnable();
+        //        _gameManagerScript.PauseMenuDisable();
+        //        levelSelectMenu.transform.localPosition = new Vector3(1000, 0, 0);
+        //        EventSystem.current.SetSelectedGameObject(null);
+        //        EventSystem.current.SetSelectedGameObject(newGameButton);
+        //    }
+        //}
     }
 
     public void StartNewGame()
