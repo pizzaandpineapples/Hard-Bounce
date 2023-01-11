@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: BrainStation23
+  companyName: Brain Station 23
   productName: Hard Bounce
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
